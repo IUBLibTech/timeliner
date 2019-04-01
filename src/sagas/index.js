@@ -294,6 +294,7 @@ function saveResource(url, content) {
         if (200 <= http.status && http.status <= 299) {
           // reload parent widow to location of newly created timeline
           if (document.referrer!=http.getResponseHeader('location')){
+            top.window.onbeforeunload = () => {}
             top.window.location = http.getResponseHeader('location')
             return;
           }
