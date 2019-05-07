@@ -8,7 +8,7 @@ import {
   take,
   takeLatest,
 } from 'redux-saga/effects';
-import { DELETE_RANGE, DESELECT_RANGE, SELECT_RANGE } from '../constants/range';
+import { DELETE_RANGE } from '../constants/range';
 import { loadProjectState, parseMarkers } from '../utils/iiifLoader';
 import { actions as undoActions } from 'redux-undo-redo';
 import {
@@ -93,7 +93,7 @@ function* importDocument({ manifest, source }) {
   }
 }
 
-export function* showConfirmation(message, doCancel=true) {
+export function* showConfirmation(message, doCancel = true) {
   yield put(openVerifyDialog(message, doCancel));
 
   const { yes } = yield race({
@@ -179,11 +179,10 @@ function* updateSettings({ payload }) {
 }
 
 function* zoomSideEffects() {
-  const zoom = yield select(state => state.viewState.zoom);
+  const zoomA = yield select(state => state.viewState.zoom);
   const duration = yield select(getDuration);
-  const x = yield select(state => state.viewState.x);
   // Nothing to do if we are zoom 1.
-  if (zoom === 1) {
+  if (zoomA === 1) {
     return;
   }
 
@@ -193,6 +192,11 @@ function* zoomSideEffects() {
       payload: { currentTime },
     } = yield take(SET_CURRENT_TIME);
     const viewportWidth = yield select(getViewerWidth);
+    const zoom = yield select(state => state.viewState.zoom);
+    const x = yield select(state => state.viewState.x);
+    if (zoom === 1) {
+      return;
+    }
 
     const sliderWidth = viewportWidth * zoom;
     const percentThrough = currentTime / duration;
@@ -268,6 +272,39 @@ function* zoomToSelection(action) {
   yield put(panToPosition(targetPixelStart));
 }
 
+function* zoomTowards(targetZoom) {
+  const selectedRangeIds = yield select(getSelectedRanges);
+  // Only applies when selecting multiple bubbles.
+  if (selectedRangeIds.length <= 1) {
+    return false;
+  }
+
+  const selectedRanges = yield select(getRangesByIds(selectedRangeIds));
+  const zoomIncr = yield select(
+    state => state.project[PROJECT.ZOOM_TO_SECTION_INCREMENTALLY]
+  );
+
+  const duration = yield select(getDuration);
+  const viewerWidth = yield select(getViewerWidth);
+  const startTime = Math.min(...selectedRanges.map(range => range.startTime));
+  const endTime = Math.max(...selectedRanges.map(range => range.endTime));
+
+  const percentStart = startTime / duration;
+  const percentVisible = (endTime - startTime) / duration;
+  const maxZoom = 1 / percentVisible;
+  const zoom = zoomIncr
+    ? targetZoom < maxZoom
+      ? targetZoom
+      : maxZoom
+    : maxZoom;
+  const targetPixelStart = percentStart * (viewerWidth * zoom);
+
+  yield put(zoomTo(maxZoom));
+  yield put(panToPosition(targetPixelStart));
+
+  return true;
+}
+
 const getZoom = state => state.viewState.zoom;
 
 function* zoomInOut(action) {
@@ -280,8 +317,15 @@ function* zoomInOut(action) {
   const targetViewerWidth = viewerWidth * zoom * ZOOM_AMOUNT;
   const viewerOffsetLeft = (targetViewerWidth - viewerWidth) * ZOOM_ORIGIN;
 
-  yield put(zoomTo(zoom * ZOOM_AMOUNT));
-  yield put(panToPosition(viewerOffsetLeft));
+  const didZoom =
+    action.type === ZOOM_IN
+      ? yield call(zoomTowards, zoom * ZOOM_AMOUNT)
+      : false;
+
+  if (!didZoom) {
+    yield put(zoomTo(zoom * ZOOM_AMOUNT));
+    yield put(panToPosition(viewerOffsetLeft));
+  }
 }
 
 function saveResource(url, content) {
@@ -293,13 +337,15 @@ function saveResource(url, content) {
       if (http.readyState === http.DONE) {
         if (200 <= http.status && http.status <= 299) {
           // reload parent widow to location of newly created timeline
-          if (document.referrer!=http.getResponseHeader('location')){
-            reject({redirect_location: http.getResponseHeader('location')})
+          if (document.referrer !== http.getResponseHeader('location')) {
+            reject({ redirect_location: http.getResponseHeader('location') });
             return;
           }
           resolve();
         } else {
-          reject(new Error("Save Failed: "+http.status+", "+http.statusText));
+          reject(
+            new Error('Save Failed: ' + http.status + ', ' + http.statusText)
+          );
         }
       }
     };
@@ -322,15 +368,14 @@ function* saveProject() {
   const outputJSON = exporter(state);
 
   try {
-    yield call(saveResource, callback, outputJSON)
-    yield showConfirmation('Saved Successfully.', false)
-  }
-  catch (result) {
+    yield call(saveResource, callback, outputJSON);
+    yield showConfirmation('Saved Successfully.', false);
+  } catch (result) {
     if (result.hasOwnProperty('redirect_location')) {
       top.window.location = result.redirect_location;
       return;
     }
-    yield showConfirmation(result.message, false)
+    yield showConfirmation(result.message, false);
   }
 }
 

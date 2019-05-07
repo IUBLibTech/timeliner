@@ -102,6 +102,7 @@ class BubbleDisplay extends Component {
       colour: point.colour || colours[(point.depth - 1) % colours.length],
       height: point.depth * bubbleHeight,
       label: point.label,
+      summary: point.summary,
       dX: this.getDx(point, pts, projectionFactor),
       point,
       isSelected: point.isSelected,
@@ -129,7 +130,7 @@ class BubbleDisplay extends Component {
       >
         <g
           key="bubble_display_main"
-          transform={`translate(${Math.floor(-x)},${height}) scale(1, -1)`}
+          transform={`translate(${Math.round(-x)},${height}) scale(1, -1)`}
         >
           <rect
             className="bubble-display__rect"
