@@ -182,7 +182,7 @@ export default class SettingsPopup extends React.Component {
                             'checkbox',
                             'Start playing when bubble or marker is clicked.',
                           ],
-                          [
+/**                          [
                             PROJECT.STOP_PLAYING_END_OF_SECTION,
                             'checkbox',
                             'Stop Playing at the end of the section.',
@@ -192,6 +192,7 @@ export default class SettingsPopup extends React.Component {
                             'checkbox',
                             'Loop playback at the end of the section.',
                           ],
+*/
                         ].map(([key, type, label]) => (
                           <FormControlLabel
                             key={key}
