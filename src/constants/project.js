@@ -26,6 +26,7 @@ const LANGUAGE = 'language';
 const BACKGROUND_COLOUR = 'backgroundColour';
 const SHOW_MARKERS = 'showMarkers';
 const COLOUR_PALETTE = 'colourPalette';
+const LAST_ACTION_BEFORE_SAVE = 'lastActionBeforeSave';
 
 export const PROJECT = {
   DESCRIPTION,
@@ -88,6 +89,7 @@ export const DEFAULT_PROJECT_STATE = {
   [TITLE]: DEFAULT_TITLE,
   [DESCRIPTION]: '',
   [LOADED_JSON]: {},
+  [LAST_ACTION_BEFORE_SAVE]: 'nothing',
 };
 
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
@@ -102,3 +104,4 @@ export const IMPORT_ERROR = 'IMPORT_ERROR';
 export const SAVE_PROJECT = 'SAVE_PROJECT';
 export const SET_COLOUR_PALETTE = 'SET_COLOUR_PALETTE';
 export const CLEAR_CUSTOM_COLORS = 'CLEAR_CUSTOM_COLORS';
+export const SET_LAST_ACTION_BEFORE_SAVE = 'SET_LAST_ACTION_BEFORE_SAVE';

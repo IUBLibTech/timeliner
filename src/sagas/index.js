@@ -25,6 +25,7 @@ import {
   setTitle,
   setDescription,
   importError,
+  setLastActionBeforeSave,
 } from '../actions/project';
 import { loadCanvas, unloadAudio } from '../actions/canvas';
 import { createRange, rangeMutations, importRanges } from '../actions/range';
@@ -369,6 +370,7 @@ function* saveProject() {
 
   try {
     yield call(saveResource, callback, outputJSON);
+    yield put(setLastActionBeforeSave(state.undoHistory.undoQueue[0]));
     yield showConfirmation('Saved Successfully.', false);
   } catch (result) {
     if (result.hasOwnProperty('redirect_location')) {

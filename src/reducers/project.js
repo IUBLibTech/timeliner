@@ -12,6 +12,7 @@ import {
   IMPORT_ERROR,
   SAVE_PROJECT,
   SET_COLOUR_PALETTE,
+  SET_LAST_ACTION_BEFORE_SAVE,
 } from '../constants/project';
 
 const project = (state = DEFAULT_PROJECT_STATE, action) => {
@@ -60,6 +61,13 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
     case SET_COLOUR_PALETTE:
       return update(state, {
         [PROJECT.COLOUR_PALETTE]: action.payload.pallet,
+      });
+
+    case SET_LAST_ACTION_BEFORE_SAVE:
+      return update(state, {
+        [PROJECT.LAST_ACTION_BEFORE_SAVE]: {
+          $set: action.payload.action,
+        },
       });
 
     case EXPORT_DOCUMENT:

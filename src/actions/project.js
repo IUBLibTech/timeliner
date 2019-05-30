@@ -11,6 +11,7 @@ import {
   SAVE_PROJECT,
   SET_COLOUR_PALETTE,
   CLEAR_CUSTOM_COLORS,
+  SET_LAST_ACTION_BEFORE_SAVE,
 } from '../constants/project';
 
 export const updateSettings = form => ({
@@ -74,4 +75,11 @@ export const setcolourPalette = pallet => ({
 
 export const clearCustomColors = () => ({
   type: CLEAR_CUSTOM_COLORS,
+});
+
+export const setLastActionBeforeSave = action => ({
+  type: SET_LAST_ACTION_BEFORE_SAVE,
+  payload: {
+    action,
+  },
 });

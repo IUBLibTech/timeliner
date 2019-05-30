@@ -47,7 +47,8 @@ export default function configureStore(wAudio, fresh = false, callback) {
   }
 
   window.addEventListener('beforeunload', e => {
-    if (store.getState().undoHistory.undoQueue.length) {
+    const last_action = store.getState().project[LAST_ACTION_BEFORE_SAVE];
+    if (store.getState().undoHistory.undoQueue.indexOf(last_action) !== 0) {
       const warning =
         'You have unsaved changes, that will be lost if you close the window.';
       (e || window.event).returnValue = warning;
