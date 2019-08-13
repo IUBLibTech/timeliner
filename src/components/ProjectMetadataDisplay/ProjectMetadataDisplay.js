@@ -43,7 +43,7 @@ const ProjectMetadataDisplay = props => (
           Source
         </Typography>
         <Typography variant="body1" component="p">
-          <a href={props.url}>{props.url}</a>
+          <a href={props.url} target="_top">{props.url}</a>
         </Typography>
       </div>
     )}
