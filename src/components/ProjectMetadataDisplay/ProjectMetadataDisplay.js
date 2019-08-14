@@ -30,7 +30,7 @@ const ProjectMetadataDisplay = props => (
           marginTop: 14,
         }}
       >
-        <a href={props.homepage}>{props.homepageLabel}</a>
+        <a href={props.homepage} target="_top">{props.homepageLabel}</a>
       </Typography>
     )}
     {!props.noSourceLink && (!props.homepage || !props.homepageLabel) && (
