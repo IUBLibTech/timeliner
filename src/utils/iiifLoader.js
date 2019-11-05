@@ -128,7 +128,7 @@ const getAudioAnnotations = canvas => {
       annotation =>
         (annotation.motivation === 'painting' &&
           annotation.body &&
-          annotation.body.type === 'Audio') ||
+          (annotation.body.type === 'Audio' || annotation.body.type === 'Sound' || annotation.body.type === 'Video')) ||
         (annotation.body && annotation.body.type === 'Choice')
     )
     .map(annotation => {
