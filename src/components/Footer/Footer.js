@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -30,9 +30,9 @@ function Footer() {
         }}
       >
         <Typography variant="body1">
-          <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+          <Link href="#" onClick={handleClickOpen}>
             About Timeliner
-          </Button>
+          </Link>
           <Dialog onClose={handleClose} aria-labelledby="about-timeliner" open={open}>
             <MuiDialogTitle id="about-timeliner" onClose={handleClose}>
               About Timeliner
