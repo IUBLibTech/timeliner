@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import formatDate from 'date-fns/format';
+import { format } from 'date-fns';
 import './CurrentTimeIndicator.scss';
 import bem from '@fesk/bem-js';
 
@@ -35,7 +35,7 @@ class CurrentTimeIndicator extends Component {
   validateProps(props) {
     if (props.currentTime > props.runtime) {
       return this.setState({
-        currentFormattedTime: formatDate(new Date(0), 'hh:mm:ss'),
+        currentFormattedTime: format(new Date('0'), 'HH:mm:ss'),
       });
     }
 
@@ -57,32 +57,37 @@ class CurrentTimeIndicator extends Component {
   updateRuntimeFormat(runtime) {
     const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
     const date = new Date(runtime + timezoneOffset);
+
     if (date.toString() === 'Invalid Date') {
       return this.setState({
         error: 'Invalid runtime',
       });
     }
 
-    const format = runtime >= 3600000 ? 'hh:mm:ss' : 'mm:ss';
+    const timeFormat = runtime >= 3600000 ? 'HH:mm:ss' : 'mm:ss';
     this.setState({
-      currentFormattedRuntime: formatDate(date, format),
+      currentFormattedRuntime: format(date, timeFormat),
     });
   }
 
   updateTimeFormat(time, runtime) {
-    const date = new Date(time);
+    const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
+    const date = new Date(time + timezoneOffset);
+
     if (date.toString() === 'Invalid Date') {
       return this.setState({
-        currentFormattedTime: formatDate(new Date(0), 'hh:mm:ss'),
+        currentFormattedTime: format(new Date('0'), 'HH:mm:ss'),
       });
     }
 
     if (runtime >= 3600000) {
       return this.setState({
-        currentFormattedTime: formatDate(date, 'hh:mm:ss'),
+        currentFormattedTime: format(date, 'HH:mm:ss'),
       });
     }
-    return this.setState({ currentFormattedTime: formatDate(date, 'mm:ss') });
+    return this.setState({
+      currentFormattedTime: format(date, 'mm:ss'),
+    });
   }
 
   render() {
