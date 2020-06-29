@@ -32,15 +32,17 @@ const { store, persistor } = configureStore(
   callback
 );
 
-render(
-  <Root
-    store={store}
-    persistor={persistor}
-    callback={callback}
-    hasResource={!!resource}
-    noFooter={noFooter === 'true'}
-    noHeader={noHeader === 'true'}
-    noSourceLink={noSourceLink === 'true'}
-  />,
-  document.getElementById('app')
-);
+if (document.getElementById('app')) {
+  render(
+    <Root
+      store={store}
+      persistor={persistor}
+      callback={callback}
+      hasResource={!!resource}
+      noFooter={noFooter === 'true'}
+      noHeader={noHeader === 'true'}
+      noSourceLink={noSourceLink === 'true'}
+    />,
+    document.getElementById('app')
+  );
+}
