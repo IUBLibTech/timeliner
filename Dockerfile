@@ -1,3 +1,3 @@
 FROM nginx
-COPY dist /usr/share/nginx/html
+COPY --chmod=755 dist /usr/share/nginx/html
 
