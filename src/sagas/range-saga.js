@@ -50,11 +50,18 @@ import {
   updateRangeTime,
   unsetRangeColor,
 } from '../actions/range';
+import {
+  setProjectStatus,
+} from '../actions/project';
 import { PROJECT, CLEAR_CUSTOM_COLORS } from '../constants/project';
 import invariant from '../utils/invariant';
 import { showConfirmation } from './index';
 
 export const STICKY_BUBBLE_MS = 500;
+
+function* setIsSavedStatus() {
+  yield put(setProjectStatus(false));
+}
 
 function* previousBubble() {
   const previousBubbleTime = yield select(getPreviousBubbleStartTime);
@@ -434,6 +441,8 @@ function* saveRangeSaga({ payload }) {
   yield put(rangeMutations(mutations));
   // UI doesn't need to be grouped for undo.
   yield put(editMetadata(null));
+  // Update project status
+  yield call(setIsSavedStatus);
 }
 
 function* movePointSaga({ payload: { originalX, x: newX } }) {
@@ -678,6 +687,8 @@ function* splitRangeSaga({ payload: { time } }) {
       updateRangeTime(itemToSplit.id, { endTime: time }),
     ])
   );
+  // Update project status
+  yield call(setIsSavedStatus)
 }
 
 function* deleteRangeRequest(toRemoveId) {
@@ -827,6 +838,8 @@ function* deleteRangeRequest(toRemoveId) {
 
 function* singleDelete({ payload: { id } }) {
   yield call(deleteRangeRequest, id);
+  // Update project status
+  yield call(setIsSavedStatus);
 }
 
 function* multiDelete({ payload: { ranges } }) {
@@ -845,6 +858,8 @@ function* multiDelete({ payload: { ranges } }) {
   for (let range of ranges) {
     yield call(deleteRangeRequest, range);
   }
+  // Update project status
+  yield call(setIsSavedStatus);
 }
 
 function* clearCustomColorsSaga() {
@@ -854,6 +869,8 @@ function* clearCustomColorsSaga() {
   for (let rangeId of rangeIds) {
     yield put(unsetRangeColor(rangeId));
   }
+  // Update project status
+  yield call(setIsSavedStatus);
 }
 
 export default function* rangeSaga() {

@@ -12,6 +12,7 @@ import {
   IMPORT_ERROR,
   SAVE_PROJECT,
   SET_COLOUR_PALETTE,
+  SET_IS_SAVED,
 } from '../constants/project';
 
 const project = (state = DEFAULT_PROJECT_STATE, action) => {
@@ -25,11 +26,17 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
         [PROJECT.LANGUAGE]: {
           $set: action.payload.language,
         },
+        [PROJECT.IS_SAVED]: {
+          $set: false,
+        },
       });
     case SET_TITLE:
       return update(state, {
         [PROJECT.TITLE]: {
           $set: action.payload.title,
+        },
+        [PROJECT.IS_SAVED]: {
+          $set: false,
         },
       });
 
@@ -37,6 +44,9 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
       return update(state, {
         [PROJECT.DESCRIPTION]: {
           $set: action.payload.description,
+        },
+        [PROJECT.IS_SAVED]: {
+          $set: false,
         },
       });
     case IMPORT_ERROR:
@@ -60,10 +70,24 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
     case SET_COLOUR_PALETTE:
       return update(state, {
         [PROJECT.COLOUR_PALETTE]: action.payload.pallet,
+        [PROJECT.IS_SAVED]: {
+          $set: false,
+        },
       });
 
     case EXPORT_DOCUMENT:
     case SAVE_PROJECT:
+      return update(state, {
+        [PROJECT.IS_SAVED]: {
+          $set: true,
+        },
+      });
+    case SET_IS_SAVED:
+      return update(state, {
+        [PROJECT.IS_SAVED]: {
+          $set: action.payload.isSaved,
+        }
+      })
     default:
       return state;
   }

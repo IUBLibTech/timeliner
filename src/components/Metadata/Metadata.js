@@ -108,7 +108,11 @@ const Metadata = props => {
                   key={marker.id}
                   highlight={false}
                   marker={marker}
-                  onDeleteMarker={() => props.deleteMarker(marker.id)}
+                  onDeleteMarker={() => { 
+                      props.deleteMarker(marker.id);
+                      props.updateProjectStatus(false);
+                    }
+                  }
                   onSaveMarker={data => props.updateMarker(marker.id, data)}
                   onGoToMarker={() => props.setCurrentTime(marker.time)}
                 />
