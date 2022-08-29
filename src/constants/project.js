@@ -26,6 +26,7 @@ const LANGUAGE = 'language';
 const BACKGROUND_COLOUR = 'backgroundColour';
 const SHOW_MARKERS = 'showMarkers';
 const COLOUR_PALETTE = 'colourPalette';
+const IS_CHANGED = 'isChanged';
 
 export const PROJECT = {
   DESCRIPTION,
@@ -46,6 +47,7 @@ export const PROJECT = {
   LANGUAGE,
   BACKGROUND_COLOUR,
   COLOUR_PALETTE,
+  IS_CHANGED,
 };
 
 export const RDF_NAMESPACE = 'tl';
@@ -88,6 +90,7 @@ export const DEFAULT_PROJECT_STATE = {
   [TITLE]: DEFAULT_TITLE,
   [DESCRIPTION]: '',
   [LOADED_JSON]: {},
+  [IS_CHANGED]: true,
 };
 
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
@@ -102,3 +105,4 @@ export const IMPORT_ERROR = 'IMPORT_ERROR';
 export const SAVE_PROJECT = 'SAVE_PROJECT';
 export const SET_COLOUR_PALETTE = 'SET_COLOUR_PALETTE';
 export const CLEAR_CUSTOM_COLORS = 'CLEAR_CUSTOM_COLORS';
+export const PROJECT_CHANGED = 'PROJECT_CHANGED';

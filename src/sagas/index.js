@@ -64,10 +64,17 @@ import {
   importMarkers,
   showMarkers,
 } from '../actions/markers';
+import {
+  setProjectChanged,
+} from '../actions/project';
 
 const getDuration = state => state.viewState.runTime;
 
 const getCurrentTime = state => state.viewState.currentTime;
+
+function* setIsSavedStatus() {
+  yield put(setProjectChanged(false));
+}
 
 function* importDocument({ manifest, source }) {
   const { viewState } = yield select();
@@ -150,6 +157,8 @@ function* saveProjectMetadata({ metadata }) {
     yield put(setDescription(manifestSummary));
   }
   yield put(cancelProjectMetadataEdits());
+  // Update project status
+  yield call(setIsSavedStatus);
 }
 
 function* selectMarker({ payload: { id } }) {
@@ -168,6 +177,8 @@ function* updateMarkerTime({ payload: { id, time } }) {
   if (time) {
     yield put(setCurrentTime(time));
   }
+  // Update project status
+  yield call(setIsSavedStatus);
 }
 
 function* updateSettings({ payload }) {
@@ -176,6 +187,8 @@ function* updateSettings({ payload }) {
   } else {
     yield put(hideMarkers());
   }
+  // Update project status
+  yield call(setIsSavedStatus);
 }
 
 function* zoomSideEffects() {
@@ -392,6 +405,8 @@ function* undoAll() {
   for (let i = 0; i < undoStack.length; i++) {
     yield put(undoActions.undo());
   }
+  // Update project status
+  yield call(setIsSavedStatus);
 }
 
 export default function* root() {
