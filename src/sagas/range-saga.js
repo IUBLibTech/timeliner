@@ -51,7 +51,7 @@ import {
   unsetRangeColor,
 } from '../actions/range';
 import {
-  setProjectStatus,
+  setProjectChanged,
 } from '../actions/project';
 import { PROJECT, CLEAR_CUSTOM_COLORS } from '../constants/project';
 import invariant from '../utils/invariant';
@@ -60,7 +60,7 @@ import { showConfirmation } from './index';
 export const STICKY_BUBBLE_MS = 500;
 
 function* setIsSavedStatus() {
-  yield put(setProjectStatus(false));
+  yield put(setProjectChanged(false));
 }
 
 function* previousBubble() {

@@ -11,7 +11,7 @@ import {
   SAVE_PROJECT,
   SET_COLOUR_PALETTE,
   CLEAR_CUSTOM_COLORS,
-  SET_IS_SAVED,
+  PROJECT_CHANGED,
 } from '../constants/project';
 
 export const updateSettings = form => ({
@@ -77,7 +77,7 @@ export const clearCustomColors = () => ({
   type: CLEAR_CUSTOM_COLORS,
 });
 
-export const setProjectStatus = isSaved => ({
-  type: SET_IS_SAVED,
+export const setProjectChanged = isSaved => ({
+  type: PROJECT_CHANGED,
   payload: { isSaved }
 })

@@ -293,7 +293,7 @@ const manifestToProject = manifest => ({
   [PROJECT.HOMEPAGE]: getHomepage(manifest),
   [PROJECT.HOMEPAGE_LABEL]: getHomepageLabel(manifest),
   [PROJECT.LOADED_JSON]: manifest,
-  [PROJECT.IS_SAVED]: true,
+  [PROJECT.IS_CHANGED]: true,
   ...mapSettings(manifest[`${RDF_NAMESPACE}:settings`]),
 });
 

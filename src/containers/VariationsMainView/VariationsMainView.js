@@ -31,7 +31,7 @@ import {
   resetDocument,
   exportDocument,
   saveProject,
-  setProjectStatus,
+  setProjectChanged,
 } from '../../actions/project';
 import {
   showImportModal,
@@ -170,7 +170,7 @@ class VariationsMainView extends React.Component {
 
   addMarker = () => {
     this.props.addMarkerAtTime(this.props.currentTime);
-    this.props.setProjectStatus(false);
+    this.props.setProjectChanged(false);
   };
 
   getAuthService = () => {
@@ -313,7 +313,7 @@ class VariationsMainView extends React.Component {
                 markers={this.props.markers}
                 updateMarker={this.props.updateMarker}
                 deleteMarker={this.props.deleteMarker}
-                updateProjectStatus={this.props.setProjectStatus}
+                updateProjectStatus={this.props.setProjectChanged}
                 setCurrentTime={this.props.setCurrentTime}
                 undoAll={this.props.canUndo ? this.props.undoAll : null}
                 swatch={this.props.colourPalette.colours}
@@ -436,7 +436,7 @@ const mapDispatchToProps = {
   cancelProjectMetadataEdits,
   saveProjectMetadata,
   clearCustomColors,
-  setProjectStatus,
+  setProjectChanged,
   //view state actions
   showImportModal,
   showSettingsModal,

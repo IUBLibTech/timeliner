@@ -12,7 +12,7 @@ import {
   IMPORT_ERROR,
   SAVE_PROJECT,
   SET_COLOUR_PALETTE,
-  SET_IS_SAVED,
+  PROJECT_CHANGED,
 } from '../constants/project';
 
 const project = (state = DEFAULT_PROJECT_STATE, action) => {
@@ -26,7 +26,7 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
         [PROJECT.LANGUAGE]: {
           $set: action.payload.language,
         },
-        [PROJECT.IS_SAVED]: {
+        [PROJECT.IS_CHANGED]: {
           $set: false,
         },
       });
@@ -35,7 +35,7 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
         [PROJECT.TITLE]: {
           $set: action.payload.title,
         },
-        [PROJECT.IS_SAVED]: {
+        [PROJECT.IS_CHANGED]: {
           $set: false,
         },
       });
@@ -45,7 +45,7 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
         [PROJECT.DESCRIPTION]: {
           $set: action.payload.description,
         },
-        [PROJECT.IS_SAVED]: {
+        [PROJECT.IS_CHANGED]: {
           $set: false,
         },
       });
@@ -70,7 +70,7 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
     case SET_COLOUR_PALETTE:
       return update(state, {
         [PROJECT.COLOUR_PALETTE]: action.payload.pallet,
-        [PROJECT.IS_SAVED]: {
+        [PROJECT.IS_CHANGED]: {
           $set: false,
         },
       });
@@ -78,13 +78,13 @@ const project = (state = DEFAULT_PROJECT_STATE, action) => {
     case EXPORT_DOCUMENT:
     case SAVE_PROJECT:
       return update(state, {
-        [PROJECT.IS_SAVED]: {
+        [PROJECT.IS_CHANGED]: {
           $set: true,
         },
       });
-    case SET_IS_SAVED:
+    case PROJECT_CHANGED:
       return update(state, {
-        [PROJECT.IS_SAVED]: {
+        [PROJECT.IS_CHANGED]: {
           $set: action.payload.isSaved,
         }
       })

@@ -65,7 +65,7 @@ import {
   showMarkers,
 } from '../actions/markers';
 import {
-  setProjectStatus,
+  setProjectChanged,
 } from '../actions/project';
 
 const getDuration = state => state.viewState.runTime;
@@ -73,7 +73,7 @@ const getDuration = state => state.viewState.runTime;
 const getCurrentTime = state => state.viewState.currentTime;
 
 function* setIsSavedStatus() {
-  yield put(setProjectStatus(false));
+  yield put(setProjectChanged(false));
 }
 
 function* importDocument({ manifest, source }) {
