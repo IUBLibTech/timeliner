@@ -5,6 +5,9 @@ export const CANVAS = {
   IS_LOADED: 'isLoaded',
   PERCENT_LOADED: 'loadingPercent',
   ERROR: 'error',
+  IS_VIDEO: 'isVideo',
+  FORMAT: 'format',
+  POSTER: 'poster',
 };
 
 export const DEFAULT_CANVAS_STATE = {
@@ -15,6 +18,9 @@ export const DEFAULT_CANVAS_STATE = {
     code: null,
     description: '',
   },
+  [CANVAS.IS_VIDEO]: false,
+  [CANVAS.FORMAT]: '',
+  [CANVAS.POSTER]: '',
 };
 
 export const AUDIO_LOADED = 'AUDIO_LOADED';
@@ -22,6 +28,7 @@ export const AUDIO_LOADING = 'AUDIO_LOADING';
 export const AUDIO_ERROR = 'AUDIO_ERROR';
 export const SET_CURRENT_TIME = 'SET_CURRENT_TIME';
 export const LOAD_CANVAS = 'LOAD_CANVAS';
+export const LOAD_POSTER = 'LOAD_POSTER';
 export const UNLOAD_AUDIO = 'UNLOAD_AUDIO';
 export const ERROR_CODES = {
   MEDIA_ERR_ABORTED: 'Download aborted',

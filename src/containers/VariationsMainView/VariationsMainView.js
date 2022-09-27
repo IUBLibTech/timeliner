@@ -317,6 +317,8 @@ class VariationsMainView extends React.Component {
                 setCurrentTime={this.props.setCurrentTime}
                 undoAll={this.props.canUndo ? this.props.undoAll : null}
                 swatch={this.props.colourPalette.colours}
+                isVideo={this.props.isVideo}
+                poster={this.props.poster}
               />
               {!noFooter && <Footer />}
             </div>
@@ -395,6 +397,8 @@ const mapStateProps = state => ({
   authService: state.canvas.service,
   annotationPages: state.canvas.items,
   url: state.canvas.url,
+  isVideo: state.canvas.isVideo,
+  poster: state.canvas.poster,
   runTime: state.viewState.runTime,
   manifestLabel: state.project.title,
   importError: state.project.error,
