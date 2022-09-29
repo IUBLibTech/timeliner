@@ -15,6 +15,7 @@ export const VIEWSTATE = {
   CALLBACK: 'callback',
   START_TIME: 'startTime',
   RESOURCE: 'resource',
+  IS_SEEKED: 'isSeeked',
 };
 
 export const DEFAULT_VIEWSTATE_STATE = {
@@ -38,10 +39,12 @@ export const DEFAULT_VIEWSTATE_STATE = {
   [VIEWSTATE.CALLBACK]: null,
   [VIEWSTATE.RESOURCE]: null,
   [VIEWSTATE.START_TIME]: 0,
+  [VIEWSTATE.IS_SEEKED]: false,
 };
 
 export const PLAY_AUDIO = 'PLAY_AUDIO';
 export const STOP_AUDIO = 'STOP_AUDIO';
+export const SEEK_AUDIO = 'SEEK_AUDIO';
 export const ZOOM_IN = 'ZOOM_IN';
 export const ZOOM_OUT = 'ZOOM_OUT';
 export const ZOOM_TO = 'ZOOM_TO';

@@ -3,6 +3,7 @@ import {
   DEFAULT_VIEWSTATE_STATE,
   PLAY_AUDIO,
   STOP_AUDIO,
+  SEEK_AUDIO,
   RESET_ZOOM,
   PAN_TO_POSITION,
   SHOW_IMPORT_MODAL,
@@ -213,6 +214,12 @@ const viewState = (state = DEFAULT_VIEWSTATE_STATE, action) => {
           $set: action.payload.resource,
         },
       });
+    case SEEK_AUDIO:
+      return update(state, {
+        [VIEWSTATE.IS_SEEKED]: {
+          $set: action.payload.flag,
+        }
+      })
     case SAVE_PROJECT_METADATA:
     case CONFIRM_YES:
     case CONFIRM_NO:

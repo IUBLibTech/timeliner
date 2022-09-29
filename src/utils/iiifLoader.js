@@ -285,11 +285,9 @@ const processStructures = manifest => {
 };
 
 const processPoster = manifest => {
-  const thumbnail = manifest.thumbnail;
-  if(thumbnail.length > 0) {
-    return thumbnail[0].id;
-  }
-  return '';
+  return manifest.thumbnail
+    ? manifest.thumbnail[0].id
+    : '';
 }
 
 const mapSettings = iiifSettings =>
