@@ -6,7 +6,6 @@ export const CANVAS = {
   PERCENT_LOADED: 'loadingPercent',
   ERROR: 'error',
   IS_VIDEO: 'isVideo',
-  FORMAT: 'format',
   POSTER: 'poster',
 };
 
@@ -19,7 +18,6 @@ export const DEFAULT_CANVAS_STATE = {
     description: '',
   },
   [CANVAS.IS_VIDEO]: false,
-  [CANVAS.FORMAT]: '',
   [CANVAS.POSTER]: '',
 };
 

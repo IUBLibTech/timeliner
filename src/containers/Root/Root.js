@@ -11,6 +11,7 @@ const Root = ({
   hasResource,
   noFooter,
   noHeader,
+  noVideo,
   noSourceLink,
 }) => {
   try {
@@ -22,6 +23,7 @@ const Root = ({
             hasResource={hasResource}
             noFooter={noFooter}
             noHeader={noHeader}
+            noVideo={noVideo}
             noSourceLink={noSourceLink}
           />
         </PersistGate>

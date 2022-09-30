@@ -47,7 +47,7 @@ export const pause = () => ({
 export const seekAudio = flag => ({
   type: SEEK_AUDIO,
   payload: { flag }
-})
+});
 
 export const zoomIn = () => ({
   type: ZOOM_IN,

@@ -122,20 +122,20 @@ const Metadata = props => {
           </div>
         </div>
       </div>
-      <div className="metadata__video-playback">
-        <div className="metadata__video-playback-content">
-          <Typography
-            variant="subtitle1"
-            color="textSecondary"
-            style={{ marginBottom: 10 }}
-          >
-            Video Playback
-          </Typography>
-          {props.isVideo && (
-            <Video key={'video--' + props.url } />
-          )} 
+      {props.isVideo && (
+        <div className="metadata__video-playback">
+          <div className="metadata__video-playback-content">
+            <Typography
+              variant="subtitle1"
+              color="textSecondary"
+              style={{ marginBottom: 10 }}
+            >
+              Video Playback
+            </Typography>
+              <Video key={'video--' + props.url } />
+          </div>
         </div>
-      </div>
+      )} 
       <div className="metadata__project">
         <div className="metadata__project-content">
           <Typography

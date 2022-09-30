@@ -11,6 +11,7 @@ const {
   callback,
   noFooter,
   noHeader,
+  noVideo,  // To enable Video playback in timeliner set this to false
   noSourceLink,
   ...hash
 } = qs.parse(location.hash);
@@ -41,6 +42,7 @@ if (document.getElementById('app')) {
       hasResource={!!resource}
       noFooter={noFooter === 'true'}
       noHeader={noHeader === 'true'}
+      noVideo={noVideo === 'true'}
       noSourceLink={noSourceLink === 'true'}
     />,
     document.getElementById('app')

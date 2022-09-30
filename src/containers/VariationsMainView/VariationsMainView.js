@@ -217,6 +217,7 @@ class VariationsMainView extends React.Component {
       colourPalette,
       noFooter,
       noHeader,
+      noVideo,
       noSourceLink,
       zoom,
     } = this.props;
@@ -317,7 +318,8 @@ class VariationsMainView extends React.Component {
                 setCurrentTime={this.props.setCurrentTime}
                 undoAll={this.props.canUndo ? this.props.undoAll : null}
                 swatch={this.props.colourPalette.colours}
-                isVideo={this.props.isVideo}
+                // Enable Video playback in the timeliner
+                isVideo={!noVideo && this.props.isVideo}
                 poster={this.props.poster}
               />
               {!noFooter && <Footer />}

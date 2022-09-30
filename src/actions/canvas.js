@@ -50,7 +50,7 @@ export const loadPoster = (poster) => ({
   payload: {
     poster,
   }
-})
+});
 
 export const unloadAudio = () => ({
   type: UNLOAD_AUDIO,

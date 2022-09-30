@@ -140,7 +140,6 @@ const getAudioAnnotations = canvas => {
       const body = resolveAvResource(annotation);
       audioDescriptor.url = body.id || body['@id'];
       audioDescriptor.isVideo = body.type === 'Video' ? true : false;
-      audioDescriptor.format = body.format;
       if (body && body.service) {
         audioDescriptor.service = body.service;
       }
@@ -163,7 +162,6 @@ const processCanvas = canvas => {
     ? {
         [CANVAS.URL]: audioAnnotations[0].url,
         [CANVAS.IS_VIDEO]: audioAnnotations[0].isVideo,
-        [CANVAS.FORMAT]: audioAnnotations[0].format,
         service: audioAnnotations[0].service,
       }
     : {
@@ -288,7 +286,7 @@ const processPoster = manifest => {
   return manifest.thumbnail
     ? manifest.thumbnail[0].id
     : '';
-}
+};
 
 const mapSettings = iiifSettings =>
   Object.entries(iiifSettings || {}).reduce((settings, [rdfKey, value]) => {

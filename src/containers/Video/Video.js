@@ -15,7 +15,9 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   const sources = [{ src: url }];
   const lastTime = useRef(() => startTime - 1);
 
-  const videoStyle = { objectFit: 'cover', background: 'black' };
+  // Set background color to black for manifests without poster image
+  const videoStyle = { objectFit: 'cover', background: 'black', boxShadow: 'gray 2px 2px 4px' };
+  const videoDivStyle = {margin: '0 auto', padding: '5px' };
 
   // Bootstrap the element.
   useLayoutEffect(() => {
@@ -65,9 +67,12 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   }
 
   return (
-    <video height={270} width={480} ref={video} poster={poster} style={videoStyle}>
-      Your browser does not support the video tag.
-    </video>
+    <div style={videoDivStyle}>
+      <video height={270} width={480} ref={video} poster={poster} style={videoStyle}>
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    
   );
 }
 

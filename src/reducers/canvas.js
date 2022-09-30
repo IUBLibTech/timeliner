@@ -59,7 +59,7 @@ const canvas = (state = DEFAULT_CANVAS_STATE, action) => {
         [CANVAS.POSTER]: {
           $set: action.payload.poster
         }
-      })
+      });
     default:
       return state;
   }
