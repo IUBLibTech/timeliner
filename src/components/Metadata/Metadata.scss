@@ -8,30 +8,13 @@
   min-height: 0px;
 
   &__annotations {
-    flex: 1;
+    flex: 2;
     padding-right: 8px;
     display: flex;
     flex-direction: column;
   }
 
   &__annotations-content {
-    background: white;
-    padding: 8px 16px;
-    flex: 1 1 0px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  &__video-playback {
-    flex: 1;
-    padding-right: 8px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__video-playback-content {
     background: white;
     padding: 8px 16px;
     flex: 1 1 0px;
