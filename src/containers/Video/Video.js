@@ -21,8 +21,8 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
 
   // Styling for video and PIP button
   const videoStyle = { objectFit: 'cover', background: 'black', boxShadow: 'gray 2px 2px 4px' };
-  const videoDivStyle = {margin: '0 auto', padding: '5px' };
-  const pipButtonStyles = { display: 'none', alignItems: 'center', flexWrap: 'wrap', marginTop: '20px'}
+  const videoDivStyle = { margin: '0 auto', padding: '5px' };
+  const pipButtonStyles = { display: 'none', alignItems: 'center', flexWrap: 'wrap', marginTop: '20px' };
 
   useLayoutEffect(() => {
     const element = new MediaElement(
