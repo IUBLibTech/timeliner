@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { seekAudio, play, pause, setVolume } from '../../actions/viewState';
 import Button from '@material-ui/core/Button';
-import { PictureInPicture } from '@material-ui/icons';
+import PictureInPicture from '@material-ui/icons/PictureInPicture';
 
 // Media Element
 import 'mediaelement/standalone';
@@ -62,14 +62,12 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
               .catch(error => {
                 console.error('Error -> exitPictureInPicture() -> ', error);
               });
-            setInPip(false);
           } else {
             video.current
             .requestPictureInPicture()
             .catch(error => {
               console.error('Error -> requestPictureInPicture() -> ', error);
             });
-            setInPip(true);
           }
         });
       }
@@ -157,14 +155,12 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
 
   // Handle current time when seeked.
   useLayoutEffect(() => {
-    if(isSeeked) {
-      if (player.current && currentTime !== lastTime.current) {
-        lastTime.current = currentTime;
-        player.current.setCurrentTime(currentTime / 1000);
-        // Reset isSeeked state variable
-        props.seekAudio(false);
-      }
+    if (player.current) {
+      lastTime.current = currentTime;
+      player.current.setCurrentTime(currentTime / 1000);
     }
+    // Reset isSeeked state variable
+    props.seekAudio(false);
   }, [isSeeked, url]);
 
   if (!url) {
