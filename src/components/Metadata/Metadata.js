@@ -6,6 +6,7 @@ import MetadataDisplay from '../MetadataDisplay/MetadataDisplay';
 import MetadataEditor from '../MetadataEditor/MetadataEditor';
 import ProjectMetadataDisplay from '../ProjectMetadataDisplay/ProjectMetadataDisplay';
 import ProjectMetadataEditor from '../ProjectMetadataEditor/ProjectMetadataEditor';
+import Video from '../../containers/Video/Video';
 
 import './Metadata.scss';
 import MarkerMetadata from '../MarkerMetadata/MarkerMetadata';
@@ -121,6 +122,20 @@ const Metadata = props => {
           </div>
         </div>
       </div>
+      {props.isVideo && (
+        <div className="metadata__video-playback">
+          <div className="metadata__video-playback-content">
+            <Typography
+              variant="subtitle1"
+              color="textSecondary"
+              style={{ marginBottom: 10 }}
+            >
+              Video Playback
+            </Typography>
+              <Video />
+          </div>
+        </div>
+      )} 
       <div className="metadata__project">
         <div className="metadata__project-content">
           <Typography
