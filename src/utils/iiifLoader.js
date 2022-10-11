@@ -139,6 +139,7 @@ const getAudioAnnotations = canvas => {
       }
       const body = resolveAvResource(annotation);
       audioDescriptor.url = body.id || body['@id'];
+      audioDescriptor.isVideo = body.type === 'Video' ? true : false;
       if (body && body.service) {
         audioDescriptor.service = body.service;
       }
@@ -160,6 +161,7 @@ const processCanvas = canvas => {
   return audioAnnotations.length > 0
     ? {
         [CANVAS.URL]: audioAnnotations[0].url,
+        [CANVAS.IS_VIDEO]: audioAnnotations[0].isVideo,
         service: audioAnnotations[0].service,
       }
     : {
@@ -280,6 +282,12 @@ const processStructures = manifest => {
   }, {});
 };
 
+const processPoster = manifest => {
+  return manifest.thumbnail
+    ? manifest.thumbnail[0].id
+    : '';
+};
+
 const mapSettings = iiifSettings =>
   Object.entries(iiifSettings || {}).reduce((settings, [rdfKey, value]) => {
     const key = rdfKey.split(':')[1];
@@ -366,6 +374,7 @@ const manifestToViewState = manifest => {
 export const loadProjectState = (manifest, source) => ({
   project: manifestToProject(manifest),
   canvas: processCanvas(manifest.items ? manifest.items[0] : null),
+  poster: processPoster(manifest),
   range: processStructures(manifest),
   viewState: manifestToViewState(manifest),
   source,

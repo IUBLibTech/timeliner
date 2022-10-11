@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { audioLoading, audioLoaded, audioError } from '../../actions/canvas';
 
-import { setCurrentTime, finishedPlaying } from '../../actions/viewState';
+import { setCurrentTime, finishedPlaying, seekAudio } from '../../actions/viewState';
 
 // Media Element
 import 'mediaelement/standalone';
@@ -97,8 +97,11 @@ function Audio({ url, volume, currentTime, startTime, isPlaying, ...props }) {
   // Handle user-changed current time.
   useLayoutEffect(() => {
     if (player.current && currentTime !== lastTime.current) {
+      // Toggle isSeeked flag in the state
+      props.seekAudio(!props.isSeeked);
       lastTime.current = currentTime;
       player.current.setCurrentTime(currentTime / 1000);
+      props.setCurrentTime(currentTime);
     }
   }, [currentTime, url]);
 
@@ -119,6 +122,7 @@ function Audio({ url, volume, currentTime, startTime, isPlaying, ...props }) {
 
 const mapStateProps = state => ({
   url: state.canvas.url,
+  isSeeked: state.viewState.isSeeked,
   isPlaying: state.viewState.isPlaying,
   currentTime: state.viewState.currentTime + state.viewState.startTime,
   volume: state.viewState.volume,
@@ -132,6 +136,7 @@ const mapDispatchToProps = {
   audioError,
   setCurrentTime,
   finishedPlaying,
+  seekAudio,
 };
 
 export default connect(

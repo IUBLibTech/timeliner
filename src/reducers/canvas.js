@@ -7,6 +7,7 @@ import {
   LOAD_CANVAS,
   UNLOAD_AUDIO,
   CANVAS,
+  LOAD_POSTER,
 } from '../constants/canvas';
 
 const canvas = (state = DEFAULT_CANVAS_STATE, action) => {
@@ -52,6 +53,12 @@ const canvas = (state = DEFAULT_CANVAS_STATE, action) => {
     case LOAD_CANVAS:
       return update(DEFAULT_CANVAS_STATE, {
         $merge: action.state,
+      });
+    case LOAD_POSTER:
+      return update(state, {
+        [CANVAS.POSTER]: {
+          $set: action.payload.poster
+        }
       });
     default:
       return state;

@@ -1,0 +1,22 @@
+---
+title: Video 
+menu: Containers
+---
+# Video 
+
+Represents the video playback component.
+
+import { Playground, Props } from 'docz';
+import { Provider } from 'react-redux';
+import configureStore from '../../store/main';
+import VideoDemo from './Video.Demo';
+import Video from './Video';
+
+<Props of={Video.WrappedComponent} />
+
+<Playground>
+  <Provider store={configureStore("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")}>
+    <VideoDemo />
+  </Provider>
+</Playground>
+

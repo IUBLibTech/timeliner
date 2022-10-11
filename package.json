@@ -56,9 +56,9 @@
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.0",
     "redux-undo-redo": "^2.0.0",
+    "snyk": "^1.189.0",
     "voca": "^1.4.0",
-    "webpack-config": "^7.5.0",
-    "snyk": "^1.189.0"
+    "webpack-config": "^7.5.0"
   },
   "jest": {
     "transform": {

@@ -3,6 +3,7 @@ import {
   AUDIO_LOADED,
   AUDIO_ERROR,
   LOAD_CANVAS,
+  LOAD_POSTER,
   UNLOAD_AUDIO,
 } from '../constants/canvas';
 import invariant from '../utils/invariant';
@@ -42,6 +43,13 @@ export const audioError = (code, description = 'Unknown error') => ({
 export const loadCanvas = state => ({
   type: LOAD_CANVAS,
   state,
+});
+
+export const loadPoster = (poster) => ({
+  type: LOAD_POSTER,
+  payload: {
+    poster,
+  }
 });
 
 export const unloadAudio = () => ({

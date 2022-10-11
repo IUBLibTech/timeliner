@@ -26,7 +26,7 @@ import {
   setDescription,
   importError,
 } from '../actions/project';
-import { loadCanvas, unloadAudio } from '../actions/canvas';
+import { loadCanvas, unloadAudio, loadPoster } from '../actions/canvas';
 import { createRange, rangeMutations, importRanges } from '../actions/range';
 import {
   loadViewState,
@@ -91,6 +91,7 @@ function* importDocument({ manifest, source }) {
     yield put(loadProject(loadedState.project));
     yield put(loadViewState(loadedState.viewState));
     yield put(loadCanvas(loadedState.canvas));
+    yield put(loadPoster(loadedState.poster));
     yield put(importRanges(loadedState.range));
     yield put(clearMarkers());
     yield put(importMarkers(parseMarkers(manifest)));

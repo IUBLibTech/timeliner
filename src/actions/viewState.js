@@ -1,6 +1,7 @@
 import {
   PLAY_AUDIO,
   STOP_AUDIO,
+  SEEK_AUDIO,
   ZOOM_IN,
   ZOOM_OUT,
   RESET_ZOOM,
@@ -41,6 +42,11 @@ export const play = () => ({
 
 export const pause = () => ({
   type: STOP_AUDIO,
+});
+
+export const seekAudio = flag => ({
+  type: SEEK_AUDIO,
+  payload: { flag }
 });
 
 export const zoomIn = () => ({

@@ -217,6 +217,7 @@ class VariationsMainView extends React.Component {
       colourPalette,
       noFooter,
       noHeader,
+      noVideo,
       noSourceLink,
       zoom,
     } = this.props;
