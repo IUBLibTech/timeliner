@@ -1,9 +1,9 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { audioLoading, audioLoaded, audioError } from '../../actions/canvas';
+import { mediaLoading, mediaLoaded, mediaError } from '../../actions/canvas';
 
-import { setCurrentTime, finishedPlaying, seekAudio } from '../../actions/viewState';
+import { setCurrentTime, finishedPlaying, seek } from '../../actions/viewState';
 
 // Media Element
 import 'mediaelement/standalone';
@@ -41,7 +41,7 @@ function Audio({ url, volume, currentTime, startTime, isPlaying, ...props }) {
   useEventListener(player, 'error', event => {
     if (event && event.type === 'error') {
       // This will need to be refined.
-      props.audioError('error', ERROR_CODES.MEDIA_ERR_NETWORK);
+      props.mediaError('error', ERROR_CODES.MEDIA_ERR_NETWORK);
     }
   });
 
@@ -57,12 +57,12 @@ function Audio({ url, volume, currentTime, startTime, isPlaying, ...props }) {
 
       if (player.current.readyState && loaded === false) {
         setDuration(props.runTime || player.current.duration * 1000);
-        props.audioLoading(
+        props.mediaLoading(
           1,
           1,
           props.runTime || player.current.duration * 1000
         );
-        props.audioLoaded(true);
+        props.mediaLoaded(true);
         setLoaded(true);
       }
 
@@ -98,7 +98,7 @@ function Audio({ url, volume, currentTime, startTime, isPlaying, ...props }) {
   useLayoutEffect(() => {
     if (player.current && currentTime !== lastTime.current) {
       // Toggle isSeeked flag in the state
-      props.seekAudio(!props.isSeeked);
+      props.seek(!props.isSeeked);
       lastTime.current = currentTime;
       player.current.setCurrentTime(currentTime / 1000);
       props.setCurrentTime(currentTime);
@@ -131,12 +131,12 @@ const mapStateProps = state => ({
 });
 
 const mapDispatchToProps = {
-  audioLoading,
-  audioLoaded,
-  audioError,
+  mediaLoading,
+  mediaLoaded,
+  mediaError,
   setCurrentTime,
   finishedPlaying,
-  seekAudio,
+  seek,
 };
 
 export default connect(

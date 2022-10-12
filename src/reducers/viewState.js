@@ -1,9 +1,9 @@
 import update from 'immutability-helper';
 import {
   DEFAULT_VIEWSTATE_STATE,
-  PLAY_AUDIO,
-  STOP_AUDIO,
-  SEEK_AUDIO,
+  PLAY_MEDIA,
+  STOP_MEDIA,
+  SEEK_MEDIA,
   RESET_ZOOM,
   PAN_TO_POSITION,
   SHOW_IMPORT_MODAL,
@@ -35,7 +35,7 @@ import {
   SET_START_TIME,
 } from '../constants/viewState';
 
-import { AUDIO_LOADING } from '../constants/canvas';
+import { MEDIA_LOADING } from '../constants/canvas';
 
 const viewState = (state = DEFAULT_VIEWSTATE_STATE, action) => {
   switch (action.type) {
@@ -43,7 +43,7 @@ const viewState = (state = DEFAULT_VIEWSTATE_STATE, action) => {
       return update(state, {
         [VIEWSTATE.START_TIME]: { $set: action.payload.startTime },
       });
-    case AUDIO_LOADING:
+    case MEDIA_LOADING:
       if (state[VIEWSTATE.RUNTIME]) {
         return state;
       }
@@ -53,19 +53,19 @@ const viewState = (state = DEFAULT_VIEWSTATE_STATE, action) => {
           $set: action.payload.duration,
         },
       });
-    case PLAY_AUDIO:
+    case PLAY_MEDIA:
       return update(state, {
         [VIEWSTATE.IS_PLAYING]: {
           $set: true,
         },
       });
-    case STOP_AUDIO:
+    case STOP_MEDIA:
       return update(state, {
         [VIEWSTATE.IS_PLAYING]: {
           $set: false,
         },
       });
-    case SEEK_AUDIO:
+    case SEEK_MEDIA:
       return update(state, {
         [VIEWSTATE.IS_SEEKED]: {
           $set: action.payload.flag,
@@ -157,6 +157,7 @@ const viewState = (state = DEFAULT_VIEWSTATE_STATE, action) => {
         $merge: action.state,
       });
     case LOAD_SOURCE:
+      console.log('LOAD_SOURCE')
       return update(state, {
         [VIEWSTATE.SOURCE]: {
           $set: action.payload.source,

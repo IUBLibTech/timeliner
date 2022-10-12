@@ -1,14 +1,14 @@
 import {
-  AUDIO_LOADING,
-  AUDIO_LOADED,
-  AUDIO_ERROR,
+  MEDIA_LOADING,
+  MEDIA_LOADED,
+  MEDIA_ERROR,
   LOAD_CANVAS,
   LOAD_POSTER,
-  UNLOAD_AUDIO,
+  UNLOAD_MEDIA,
 } from '../constants/canvas';
 import invariant from '../utils/invariant';
 
-export const audioLoading = (bytesLoaded, bytesTotal, duration) => {
+export const mediaLoading = (bytesLoaded, bytesTotal, duration) => {
   invariant(
     () => bytesLoaded <= bytesTotal,
     'Bytes loaded cannot be more than the total'
@@ -17,7 +17,7 @@ export const audioLoading = (bytesLoaded, bytesTotal, duration) => {
   const percentLoaded = Number.isNaN(percent) ? 100 : percent;
 
   return {
-    type: AUDIO_LOADING,
+    type: MEDIA_LOADING,
     payload: {
       percentLoaded,
       duration,
@@ -25,15 +25,15 @@ export const audioLoading = (bytesLoaded, bytesTotal, duration) => {
   };
 };
 
-export const audioLoaded = isLoaded => ({
-  type: AUDIO_LOADED,
+export const mediaLoaded = isLoaded => ({
+  type: MEDIA_LOADED,
   payload: {
     isLoaded,
   },
 });
 
-export const audioError = (code, description = 'Unknown error') => ({
-  type: AUDIO_ERROR,
+export const mediaError = (code, description = 'Unknown error') => ({
+  type: MEDIA_ERROR,
   payload: {
     code,
     description,
@@ -52,6 +52,6 @@ export const loadPoster = (poster) => ({
   }
 });
 
-export const unloadAudio = () => ({
-  type: UNLOAD_AUDIO,
+export const unloadMedia = () => ({
+  type: UNLOAD_MEDIA,
 });

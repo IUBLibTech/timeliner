@@ -1,24 +1,24 @@
 import update from 'immutability-helper';
 import {
   DEFAULT_CANVAS_STATE,
-  AUDIO_LOADING,
-  AUDIO_LOADED,
-  AUDIO_ERROR,
+  MEDIA_LOADING,
+  MEDIA_LOADED,
+  MEDIA_ERROR,
   LOAD_CANVAS,
-  UNLOAD_AUDIO,
+  UNLOAD_MEDIA,
   CANVAS,
   LOAD_POSTER,
 } from '../constants/canvas';
 
 const canvas = (state = DEFAULT_CANVAS_STATE, action) => {
   switch (action.type) {
-    case AUDIO_LOADING:
+    case MEDIA_LOADING:
       return update(state, {
         [CANVAS.PERCENT_LOADED]: {
           $set: action.payload.percentLoaded,
         },
       });
-    case AUDIO_LOADED:
+    case MEDIA_LOADED:
       return update(state, {
         [CANVAS.IS_LOADED]: {
           $set: action.payload.isLoaded,
@@ -27,7 +27,7 @@ const canvas = (state = DEFAULT_CANVAS_STATE, action) => {
           $set: 100,
         },
       });
-    case AUDIO_ERROR:
+    case MEDIA_ERROR:
       return update(state, {
         [CANVAS.ERROR]: {
           code: {
@@ -38,7 +38,7 @@ const canvas = (state = DEFAULT_CANVAS_STATE, action) => {
           },
         },
       });
-    case UNLOAD_AUDIO:
+    case UNLOAD_MEDIA:
       return update(state, {
         [CANVAS.URL]: {
           $set: null,

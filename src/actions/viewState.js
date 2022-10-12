@@ -1,7 +1,7 @@
 import {
-  PLAY_AUDIO,
-  STOP_AUDIO,
-  SEEK_AUDIO,
+  PLAY_MEDIA,
+  STOP_MEDIA,
+  SEEK_MEDIA,
   ZOOM_IN,
   ZOOM_OUT,
   RESET_ZOOM,
@@ -37,15 +37,15 @@ import {
 import invariant from '../utils/invariant';
 
 export const play = () => ({
-  type: PLAY_AUDIO,
+  type: PLAY_MEDIA,
 });
 
 export const pause = () => ({
-  type: STOP_AUDIO,
+  type: STOP_MEDIA,
 });
 
-export const seekAudio = flag => ({
-  type: SEEK_AUDIO,
+export const seek = flag => ({
+  type: SEEK_MEDIA,
   payload: { flag }
 });
 

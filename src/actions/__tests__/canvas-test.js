@@ -10,49 +10,49 @@ describe('actions/canvas', () => {
     });
   });
 
-  test('audioLoading', () => {
-    expect(canvas.audioLoading(0, 10000, 50)).toEqual({
+  test('mediaLoading', () => {
+    expect(canvas.mediaLoading(0, 10000, 50)).toEqual({
       payload: { duration: 50, percentLoaded: 0 },
-      type: 'AUDIO_LOADING',
+      type: 'MEDIA_LOADING',
     });
 
-    expect(canvas.audioLoading(2500, 10000, 50)).toEqual({
+    expect(canvas.mediaLoading(2500, 10000, 50)).toEqual({
       payload: { duration: 50, percentLoaded: 25 },
-      type: 'AUDIO_LOADING',
+      type: 'MEDIA_LOADING',
     });
   });
 
-  test('audioLoading - failing', () => {
-    expect(() => canvas.audioLoading(11000, 10000, 50)).toThrowError(
+  test('mediaLoading - failing', () => {
+    expect(() => canvas.mediaLoading(11000, 10000, 50)).toThrowError(
       'Bytes loaded cannot be more than the total'
     );
   });
 
-  test('audioLoaded', () => {
-    expect(canvas.audioLoaded(true)).toEqual({
+  test('mediaLoaded', () => {
+    expect(canvas.mediaLoaded(true)).toEqual({
       payload: { isLoaded: true },
-      type: 'AUDIO_LOADED',
+      type: 'MEDIA_LOADED',
     });
 
-    expect(canvas.audioLoaded(false)).toEqual({
+    expect(canvas.mediaLoaded(false)).toEqual({
       payload: { isLoaded: false },
-      type: 'AUDIO_LOADED',
+      type: 'MEDIA_LOADED',
     });
   });
 
-  test('audioError', () => {
-    expect(canvas.audioError(100, 'Some error')).toEqual({
+  test('mediaError', () => {
+    expect(canvas.mediaError(100, 'Some error')).toEqual({
       payload: { code: 100, description: 'Some error' },
-      type: 'AUDIO_ERROR',
+      type: 'MEDIA_ERROR',
     });
-    expect(canvas.audioError(101)).toEqual({
+    expect(canvas.mediaError(101)).toEqual({
       payload: { code: 101, description: 'Unknown error' },
-      type: 'AUDIO_ERROR',
+      type: 'MEDIA_ERROR',
     });
 
-    expect(canvas.audioError()).toEqual({
+    expect(canvas.mediaError()).toEqual({
       payload: { code: undefined, description: 'Unknown error' },
-      type: 'AUDIO_ERROR',
+      type: 'MEDIA_ERROR',
     });
   });
 });

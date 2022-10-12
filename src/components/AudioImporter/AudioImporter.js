@@ -95,7 +95,7 @@ class AudioImporter extends Component {
 
     return (
       <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-        <DialogTitle>Open audio file</DialogTitle>
+        <DialogTitle>Open media file</DialogTitle>
         <div style={{ padding: '0 20px' }}>
           <Tabs
             variant="fullWidth"
@@ -115,7 +115,7 @@ class AudioImporter extends Component {
               </DialogContentText>
             ) : (
               <DialogContentText style={{ marginBottom: 10 }}>
-                Open an audio file (.mp3, .json) from the web
+                Open an audio/video file (.mp3, .mp4, .json) from the web
               </DialogContentText>
             )}
             {localFile ? (
@@ -127,7 +127,7 @@ class AudioImporter extends Component {
                 margin="dense"
                 id="manifestUrl"
                 name="manifestUrl"
-                label="Audio or Manifest url"
+                label="Audio/Video or Manifest url"
                 type="url"
                 onKeyPress={this.onKeyPress}
                 fullWidth
