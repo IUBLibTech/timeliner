@@ -40,12 +40,13 @@ const importResource = url => {
           validateManifest(manifestJSON);
           resolve(manifestJSON);
         } else {
-          const audio = new Audio();
-          const audioURL = url;
-          audio.addEventListener('loadedmetadata', () => {
-            resolve(createNewManifest(MANIFEST_DOMAIN, audioURL, audio.duration));
+          const isVideo = contentType.includes('audio/') ? false : true;
+          const player = new Audio();
+          const mediaURL = url;
+          player.addEventListener('loadedmetadata', () => {
+            resolve(createNewManifest(MANIFEST_DOMAIN, mediaURL, isVideo, player.duration));
           });
-          audio.addEventListener('error', () => {
+          player.addEventListener('error', () => {
             switch (audio.error.code) {
               case 1:
                 throw 'fetching process aborted by user';
@@ -57,7 +58,7 @@ const importResource = url => {
                 throw 'Unknown error with resource.';
             }
           })
-          audio.src = audioURL;
+          player.src = mediaURL;
         }
       })
       .catch(err => {
