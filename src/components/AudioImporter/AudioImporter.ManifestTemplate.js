@@ -1,7 +1,7 @@
 import { DEFAULT_SETTINGS, RDF_NAMESPACE } from '../../constants/project';
 import { getProjectSettings } from '../../utils/iiifSaver';
 
-const createNewManifest = (manifestDomain, audioUri, duration) => ({
+const createNewManifest = (manifestDomain, uri, isVideo, duration) => ({
   label: {
     en: [''],
   },
@@ -29,8 +29,8 @@ const createNewManifest = (manifestDomain, audioUri, duration) => ({
                 en: ['Untitled audio'],
               },
               body: {
-                id: audioUri,
-                type: 'Audio',
+                id: uri,
+                type: isVideo ? 'Video' : 'Audio',
                 duration: duration,
               },
               target: `${manifestDomain}/canvas/c`,
