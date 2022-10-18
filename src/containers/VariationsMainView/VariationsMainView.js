@@ -199,7 +199,7 @@ class VariationsMainView extends React.Component {
       isPlaying,
       volume,
       currentTime,
-      url,
+      audioUrl,
       runTime,
       manifestLabel,
       manifestSummary,
@@ -326,7 +326,7 @@ class VariationsMainView extends React.Component {
             </div>
             {(mediaError.code || !isLoaded) && (
               <ContentOverlay
-                {...{ loadingPercent, isLoaded, url }}
+                {...{ loadingPercent, isLoaded, audioUrl }}
                 error={mediaError}
               />
             )}
@@ -411,6 +411,7 @@ const mapStateProps = state => ({
   selectedRanges: getSelectedRanges(state),
   isImportOpen: state.viewState.isImportOpen,
   isSettingsOpen: state.viewState.isSettingsOpen,
+  audioUrl: state.canvas.url,
   mediaError: state.canvas.error,
   loadingPercent: state.canvas.loadingPercent,
   isLoaded: state.canvas.isLoaded,

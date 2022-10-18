@@ -157,7 +157,6 @@ const viewState = (state = DEFAULT_VIEWSTATE_STATE, action) => {
         $merge: action.state,
       });
     case LOAD_SOURCE:
-      console.log('LOAD_SOURCE')
       return update(state, {
         [VIEWSTATE.SOURCE]: {
           $set: action.payload.source,

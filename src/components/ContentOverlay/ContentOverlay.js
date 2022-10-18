@@ -25,8 +25,8 @@ const ContentOverlay = props => {
               {props.error.description}
             </DialogContentText>
             <DialogContentText>
-              <a href={props.url} target="_blank">
-                {props.url}
+              <a href={props.audioUrl} target="_blank">
+                {props.audioUrl}
               </a>
             </DialogContentText>
             <DialogContentText>
@@ -61,7 +61,7 @@ const ContentOverlay = props => {
 ContentOverlay.propTypes = {
   loadingPercent: PropTypes.number.isRequired,
   error: PropTypes.object,
-  url: PropTypes.string,
+  audioUrl: PropTypes.string,
   isLoaded: PropTypes.bool,
   onContinue: PropTypes.func,
 };
