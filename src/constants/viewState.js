@@ -42,9 +42,9 @@ export const DEFAULT_VIEWSTATE_STATE = {
   [VIEWSTATE.IS_SEEKED]: false,
 };
 
-export const PLAY_AUDIO = 'PLAY_AUDIO';
-export const STOP_AUDIO = 'STOP_AUDIO';
-export const SEEK_AUDIO = 'SEEK_AUDIO';
+export const PLAY_MEDIA = 'PLAY_MEDIA';
+export const STOP_MEDIA = 'STOP_MEDIA';
+export const SEEK_MEDIA = 'SEEK_MEDIA';
 export const ZOOM_IN = 'ZOOM_IN';
 export const ZOOM_OUT = 'ZOOM_OUT';
 export const ZOOM_TO = 'ZOOM_TO';

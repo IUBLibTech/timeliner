@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { seekAudio, play, pause, setVolume } from '../../actions/viewState';
+import { seek, play, pause, setVolume } from '../../actions/viewState';
 import Button from '@material-ui/core/Button';
 import PictureInPicture from '@material-ui/icons/PictureInPicture';
 
@@ -160,7 +160,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
       player.current.setCurrentTime(currentTime / 1000);
     }
     // Reset isSeeked state variable
-    props.seekAudio(false);
+    props.seek(false);
   }, [isSeeked, url]);
 
   if (!url) {
@@ -200,7 +200,7 @@ const mapStateProps = state => ({
 });
 
 const mapDispatchToProps = {
-  seekAudio,
+  seek,
   play,
   pause,
   setVolume,

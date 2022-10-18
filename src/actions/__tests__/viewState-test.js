@@ -2,11 +2,11 @@ import * as viewState from '../viewState';
 
 describe('actions/viewState', () => {
   test('play', () => {
-    expect(viewState.play()).toEqual({ type: 'PLAY_AUDIO' });
+    expect(viewState.play()).toEqual({ type: 'PLAY_MEDIA' });
   });
 
   test('pause', () => {
-    expect(viewState.pause()).toEqual({ type: 'STOP_AUDIO' });
+    expect(viewState.pause()).toEqual({ type: 'STOP_MEDIA' });
   });
 
   test('zoomIn', () => {

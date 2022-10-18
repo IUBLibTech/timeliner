@@ -223,7 +223,7 @@ Metadata.propTypes = {
   onSaveButtonClicked: PropTypes.func,
   onEraseButtonClicked: PropTypes.func,
   deleteMarker: PropTypes.func,
-  /** Audio url */
+  /** Media url */
   url: PropTypes.string,
 };
 

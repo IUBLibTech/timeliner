@@ -26,7 +26,7 @@ import {
   setDescription,
   importError,
 } from '../actions/project';
-import { loadCanvas, unloadAudio, loadPoster } from '../actions/canvas';
+import { loadCanvas, unloadMedia, loadPoster } from '../actions/canvas';
 import { createRange, rangeMutations, importRanges } from '../actions/range';
 import {
   loadViewState,
@@ -42,7 +42,7 @@ import {
   CONFIRM_NO,
   CONFIRM_YES,
   PAN_TO_POSITION,
-  PLAY_AUDIO,
+  PLAY_MEDIA,
   SAVE_PROJECT_METADATA,
   SET_CURRENT_TIME,
   UNDO_ALL,
@@ -87,7 +87,7 @@ function* importDocument({ manifest, source }) {
 
   try {
     const loadedState = loadProjectState(manifest);
-    yield put(unloadAudio());
+    yield put(unloadMedia());
     yield put(loadProject(loadedState.project));
     yield put(loadViewState(loadedState.viewState));
     yield put(loadCanvas(loadedState.canvas));
@@ -421,7 +421,7 @@ export default function* root() {
     takeEvery(UPDATE_MARKER, updateMarkerTime),
     takeEvery(UPDATE_SETTINGS, updateSettings),
     takeLatest(
-      [ZOOM_IN, ZOOM_OUT, PAN_TO_POSITION, PLAY_AUDIO],
+      [ZOOM_IN, ZOOM_OUT, PAN_TO_POSITION, PLAY_MEDIA],
       zoomSideEffects
     ),
     takeEvery([ZOOM_IN, ZOOM_OUT], zoomInOut),

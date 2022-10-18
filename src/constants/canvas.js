@@ -1,4 +1,4 @@
-const DEFAULT_AUDIO = ''; //'https://webaudioapi.com/samples/audio-tag/chrono.mp3';
+const DEFAULT_URI = ''; //'https://webaudioapi.com/samples/audio-tag/chrono.mp3';
 
 export const CANVAS = {
   URL: 'url',
@@ -10,7 +10,7 @@ export const CANVAS = {
 };
 
 export const DEFAULT_CANVAS_STATE = {
-  [CANVAS.URL]: DEFAULT_AUDIO,
+  [CANVAS.URL]: DEFAULT_URI,
   [CANVAS.IS_LOADED]: false,
   [CANVAS.PERCENT_LOADED]: 0,
   [CANVAS.ERROR]: {
@@ -21,13 +21,13 @@ export const DEFAULT_CANVAS_STATE = {
   [CANVAS.POSTER]: '',
 };
 
-export const AUDIO_LOADED = 'AUDIO_LOADED';
-export const AUDIO_LOADING = 'AUDIO_LOADING';
-export const AUDIO_ERROR = 'AUDIO_ERROR';
+export const MEDIA_LOADED = 'MEDIA_LOADED';
+export const MEDIA_LOADING = 'MEDIA_LOADING';
+export const MEDIA_ERROR = 'MEDIA_ERROR';
 export const SET_CURRENT_TIME = 'SET_CURRENT_TIME';
 export const LOAD_CANVAS = 'LOAD_CANVAS';
 export const LOAD_POSTER = 'LOAD_POSTER';
-export const UNLOAD_AUDIO = 'UNLOAD_AUDIO';
+export const UNLOAD_MEDIA = 'UNLOAD_MEDIA';
 export const ERROR_CODES = {
   MEDIA_ERR_ABORTED: 'Download aborted',
   MEDIA_ERR_NETWORK: 'A network error occurred',

@@ -106,9 +106,9 @@ export const parseMarkers = manifest => {
 
 /**
  * @param {Object} canvas - IIIFCanvas javascript object
- * @returns array all audio annotations url, start and end time
+ * @returns array all resource annotations url, start and end time
  */
-const getAudioAnnotations = canvas => {
+const getResourceAnnotations = canvas => {
   if (!canvas) {
     return [];
   }
@@ -133,41 +133,41 @@ const getAudioAnnotations = canvas => {
     )
     .map(annotation => {
       const hashParams = hashParamsToObj(annotation.target);
-      const audioDescriptor = {};
+      const mediaDescriptor = {};
       if (hashParams.t) {
-        Object.assign(audioDescriptor, parseTimeRange(hashParams.t));
+        Object.assign(mediaDescriptor, parseTimeRange(hashParams.t));
       }
       const body = resolveAvResource(annotation);
-      audioDescriptor.url = body.id || body['@id'];
-      audioDescriptor.isVideo = body.type === 'Video' ? true : false;
+      mediaDescriptor.url = body.id || body['@id'];
+      mediaDescriptor.isVideo = body.type === 'Video' ? true : false;
       if (body && body.service) {
-        audioDescriptor.service = body.service;
+        mediaDescriptor.service = body.service;
       }
 
-      return audioDescriptor;
+      return mediaDescriptor;
     });
 };
 
 /**
  * Simplified version of the canvas processor:
- * - does not deal with multiple audio annotation on a canvas;
- * - does not handle choices with for different audio file formats;
+ * - does not deal with multiple resource annotation on a canvas;
+ * - does not handle choices with for different audio/video file formats;
  * - does not load av service documents;
  * @param {Object} canvas -
  */
 const processCanvas = canvas => {
-  const audioAnnotations = getAudioAnnotations(canvas);
+  const resourceAnnotations = getResourceAnnotations(canvas);
 
-  return audioAnnotations.length > 0
+  return resourceAnnotations.length > 0
     ? {
-        [CANVAS.URL]: audioAnnotations[0].url,
-        [CANVAS.IS_VIDEO]: audioAnnotations[0].isVideo,
-        service: audioAnnotations[0].service,
+        [CANVAS.URL]: resourceAnnotations[0].url,
+        [CANVAS.IS_VIDEO]: resourceAnnotations[0].isVideo,
+        service: resourceAnnotations[0].service,
       }
     : {
         [CANVAS.ERROR]: {
           code: 6,
-          description: 'Manifest does not contain audio annotations',
+          description: 'Manifest does not contain audio/video annotations',
         },
       };
 };

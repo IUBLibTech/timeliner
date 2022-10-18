@@ -207,7 +207,7 @@ class VariationsMainView extends React.Component {
       homepageLabel,
       isImportOpen,
       isSettingsOpen,
-      audioError,
+      mediaError,
       loadingPercent,
       isLoaded,
       rangeToEdit,
@@ -324,10 +324,10 @@ class VariationsMainView extends React.Component {
               />
               {!noFooter && <Footer />}
             </div>
-            {(audioError.code || !isLoaded) && (
+            {(mediaError.code || !isLoaded) && (
               <ContentOverlay
                 {...{ loadingPercent, isLoaded, audioUrl }}
-                error={audioError}
+                error={mediaError}
               />
             )}
           </div>
@@ -412,7 +412,7 @@ const mapStateProps = state => ({
   isImportOpen: state.viewState.isImportOpen,
   isSettingsOpen: state.viewState.isSettingsOpen,
   audioUrl: state.canvas.url,
-  audioError: state.canvas.error,
+  mediaError: state.canvas.error,
   loadingPercent: state.canvas.loadingPercent,
   isLoaded: state.canvas.isLoaded,
   rangeToEdit: state.viewState.metadataToEdit,

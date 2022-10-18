@@ -24,7 +24,7 @@ import {
 } from '../reducers/range';
 import {
   NEXT_BUBBLE,
-  PLAY_AUDIO,
+  PLAY_MEDIA,
   PREVIOUS_BUBBLE,
   SET_CURRENT_TIME,
 } from '../constants/viewState';
@@ -487,7 +487,7 @@ export function* currentTimeSaga({ type } = {}) {
   const endTime = selectedRanges[selectedRanges.length - 1].endTime;
   const time = yield select(getCurrentTime);
 
-  if ((type === PLAY_AUDIO && time <= startTime) || time >= endTime) {
+  if ((type === PLAY_MEDIA && time <= startTime) || time >= endTime) {
     return;
   }
 
