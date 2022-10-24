@@ -20,7 +20,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   const [pipButtonText, setPipButtonText] = useState('Enter Picture-in-Picture mode');
 
   // Styling for video and PIP button
-  const videoStyle = { objectFit: 'cover', background: 'black', boxShadow: 'gray 2px 2px 4px' };
+  const videoStyle = { background: 'black', boxShadow: 'gray 2px 2px 4px' };
   const videoDivStyle = { margin: '0 auto', padding: '5px' };
   const pipButtonStyles = { display: 'none', alignItems: 'center', flexWrap: 'wrap', marginTop: '20px' };
 
@@ -36,9 +36,6 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
     // Set volume to zero, use audio player's volume
     player.current.setVolume(0);
 
-    // Initialize Picture-in-Picture mode using PIP Web API
-    initPIP();
-
     return () => {
       element.remove();
     };
@@ -50,37 +47,35 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   // Reference: https://css-tricks.com/an-introduction-to-the-picture-in-picture-web-api/
   const initPIP = () => {
     const pipButton = document.getElementById('timeliner-pip-button');
-    video.current.onloadedmetadata = function() {
-      if ('pictureInPictureEnabled' in document) {
-        pipButton.style.display = 'flex';
-        pipButton.disabled = false;
-        
-        pipButton.addEventListener('click', () => {
-          if (document.pictureInPictureElement) {
-            document
-              .exitPictureInPicture()
-              .catch(error => {
-                console.error('Error -> exitPictureInPicture() -> ', error);
-              });
-          } else {
-            video.current
-            .requestPictureInPicture()
+    const videoElement = document.getElementsByTagName('video')[0];
+    if ('pictureInPictureEnabled' in document && videoElement) {
+      pipButton.style.display = 'flex';
+
+      pipButton.addEventListener('click', () => {
+        if (document.pictureInPictureElement) {
+          document
+            .exitPictureInPicture()
             .catch(error => {
-              console.error('Error -> requestPictureInPicture() -> ', error);
+              console.error('Error -> exitPictureInPicture() -> ', error);
             });
-          }
-        });
-      }
-
-      // Change button text
-      video.current.addEventListener('enterpictureinpicture', () => {
-        setPipButtonText('Exit Picture-in-Picture mode');
-      });
-
-      video.current.addEventListener('leavepictureinpicture', () => {
-        setPipButtonText('Enter Picture-in-Picture mode');
+        } else {
+          videoElement
+          .requestPictureInPicture()
+          .catch(error => {
+            console.error('Error -> requestPictureInPicture() -> ', error);
+          });
+        }
       });
     }
+
+    // Change button text
+    videoElement.addEventListener('enterpictureinpicture', () => {
+      setPipButtonText('Exit Picture-in-Picture mode');
+    });
+
+    videoElement.addEventListener('leavepictureinpicture', () => {
+      setPipButtonText('Enter Picture-in-Picture mode');
+    });
   }
 
   // Re-create player instance with media swap
@@ -90,7 +85,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   // -> swap media file with 'Open audio file' in toolbar ->
   // play media -> observe currentTime diff in the audio and video players
   useLayoutEffect(() => {
-    if(url != null) {
+    if(url != null && player.current == null) {
       player.current = new MediaElement(
         video.current,
         {
@@ -100,7 +95,6 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
       );
       player.current.setVolume(0);
       player.current.setCurrentTime(currentTime / 1000);
-      initPIP();
     };
   }, [url]);
 
@@ -126,7 +120,10 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
     } else {
       props.setVolume(lastVolume.current);
     }
-  }, [volume, url])
+  }, [volume, url]);
+  useEventListener(player, 'loadedmetadata', () => {
+    initPIP();
+  })
 
   // Handle play/pause events from the audio player
   useLayoutEffect(() => {
@@ -170,9 +167,6 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   return (
     <div style={videoDivStyle}>
       <video height={270} width={480} ref={video} poster={poster} style={videoStyle}>
-        {sources.map((source, key) => (
-          <source key={key} src={source.src} />
-        ))}
       </video>
       <Button
         variant="text"

@@ -47,7 +47,7 @@ const importResource = url => {
             resolve(createNewManifest(MANIFEST_DOMAIN, mediaURL, isVideo, player.duration));
           });
           player.addEventListener('error', () => {
-            switch (audio.error.code) {
+            switch (player.error.code) {
               case 1:
                 throw 'fetching process aborted by user';
               case 2:
