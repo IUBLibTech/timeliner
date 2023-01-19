@@ -101,7 +101,6 @@ function Audio({ url, volume, currentTime, startTime, isPlaying, ...props }) {
       props.seek(!props.isSeeked);
       lastTime.current = currentTime;
       player.current.setCurrentTime(currentTime / 1000);
-      props.setCurrentTime(currentTime);
     }
   }, [currentTime, url]);
 
