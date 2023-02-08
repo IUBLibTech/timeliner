@@ -187,6 +187,9 @@ const range = (state = NEW_DEFAULT_RANGES_STATE, action) => {
     case DELETE_RANGE:
       return update(state, {
         list: { $unset: [action.payload.id] },
+        selected: {
+          $apply: selected => selected.filter(id => id !== action.payload.id),
+        },
       });
 
     case IMPORT_RANGES:

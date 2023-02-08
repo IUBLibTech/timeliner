@@ -555,7 +555,8 @@ function* deselectAllRangesSaga({ payload }) {
   const startTime = selectedRanges[0].startTime;
   const state = yield select(s => s);
 
-  if (payload.currentTime === startTime && !state.viewState.isPlaying) return;
+  const timeDiff = Math.abs(payload.currentTime - startTime)
+  if (timeDiff < 0.1 && !state.viewState.isPlaying) return;
   yield call(deselectOtherRanges, null);
 }
 
