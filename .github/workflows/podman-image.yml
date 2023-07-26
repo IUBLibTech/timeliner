@@ -21,7 +21,8 @@ jobs:
       with:
         node-version: 14
     - name: Yarn build
-      run: yarn install && yarn build
+      # Explicitly set CI to false to avoid elevating warnings to errors
+      run: yarn install && CI=false yarn build
     - name: Build Image
       id: build-image
       uses: redhat-actions/buildah-build@v2
