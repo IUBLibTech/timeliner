@@ -27,7 +27,7 @@ jobs:
       id: build_image
       uses: redhat-actions/buildah-build@v2
       with:
-        image: iublibtech/timeliner
+        image: timeliner
         tags: develop ${{ github.sha }}
         containerfiles: ./Dockerfile
         oci: true
