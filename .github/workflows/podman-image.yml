@@ -24,13 +24,13 @@ jobs:
       # Explicitly set CI to false to avoid elevating warnings to errors
       run: yarn install && CI=false yarn build
     - name: Build Image
-      id: build-image
+      id: build_image
       uses: redhat-actions/buildah-build@v2
       with:
         image: iublibtech/timeliner
         tags: develop ${{ github.sha }}
-        containerfiles: |
-          ./Dockerfile
+        containerfiles: ./Dockerfile
+        oci: true
     - name: Push To GHCR
       uses: redhat-actions/push-to-registry@v2
       with:
