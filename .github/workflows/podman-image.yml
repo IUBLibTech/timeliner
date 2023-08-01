@@ -22,9 +22,11 @@ jobs:
       with:
         node-version: 14
         cache: 'yarn'
+    - name: Yarn install
+      run: yarn install --frozen-lockfile # optional, --immutable
     - name: Yarn build
       # Explicitly set CI to false to avoid elevating warnings to errors
-      run: yarn install && CI=false yarn build
+      run: CI=false yarn build
     - name: Build Image
       id: build_image
       uses: redhat-actions/buildah-build@v2
