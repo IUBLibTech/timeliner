@@ -8,8 +8,8 @@ env:
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ github.token }}
   IMAGE_REGISTRY: ghcr.io/iublibtech
-  IMAGE_TAG: fromJSON('{"refs/heads/main":"develop","refs/heads/demo":"production"}')[github.ref]
-  
+  IMAGE_TAG: ${{ fromJSON('{"refs/heads/main":"develop","refs/heads/demo":"production"}')[github.ref] }}
+
 jobs:
 
   build:
