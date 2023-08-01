@@ -2,12 +2,13 @@ name: Podman Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "demo" ]
 
 env:
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ github.token }}
   IMAGE_REGISTRY: ghcr.io/iublibtech
+  IMAGE_TAG: fromJSON('{"refs/heads/main":"develop","refs/heads/demo":"production"}')[github.ref]
   
 jobs:
 
@@ -28,7 +29,7 @@ jobs:
       uses: redhat-actions/buildah-build@v2
       with:
         image: timeliner
-        tags: develop ${{ github.sha }}
+        tags: ${{ env.IMAGE_TAG }} ${{ github.sha }}
         containerfiles: ./Dockerfile
         oci: true
     - name: Push To GHCR
