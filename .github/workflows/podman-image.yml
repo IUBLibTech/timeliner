@@ -1,3 +1,4 @@
+# Builds image and stores in ghcr.io then sends webhook to deploy new image to timeliner.dlib.indiana.edu
 name: Podman Image CI
 
 on:
