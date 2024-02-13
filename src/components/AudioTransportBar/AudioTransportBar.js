@@ -116,11 +116,11 @@ class AudioTransportBar extends Component {
                 root: 'audio-transport-bar__button-text',
                 label: 'audio-transport-bar__button-text',
               }}
+              aria-label="Split the current bubble at the current time"
             >
               <Tooltip
                 classes={{ tooltip: 'audio-transport-bar__tooltip' }}
                 title="Split the current bubble at the current time"
-                aria-label="Split the current bubble at the current time"
               >
                 <Add />
               </Tooltip>
@@ -134,11 +134,11 @@ class AudioTransportBar extends Component {
                 root: 'audio-transport-bar__button-text',
                 label: 'audio-transport-bar__button-text',
               }}
+              aria-label="Add new marker at current time"
             >
               <Tooltip
                 classes={{ tooltip: 'audio-transport-bar__tooltip' }}
                 title="Add new marker at current time"
-                aria-label="Add new marker at current time"
               >
                 <ArrowDropUp />
               </Tooltip>
@@ -153,11 +153,11 @@ class AudioTransportBar extends Component {
                 root: 'audio-transport-bar__button-text',
                 label: 'audio-transport-bar__button-text',
               }}
+              aria-label="Group bubbles together"
             >
               <Tooltip
                 classes={{ tooltip: 'audio-transport-bar__tooltip' }}
                 title="Group bubbles together"
-                aria-label="Group bubbles together"
               >
                 <GroupWork />
               </Tooltip>
@@ -171,11 +171,11 @@ class AudioTransportBar extends Component {
                 root: 'audio-transport-bar__button-text',
                 label: 'audio-transport-bar__button-text',
               }}
+              aria-label="Delete bubbles"
             >
               <Tooltip
                 classes={{ tooltip: 'audio-transport-bar__tooltip' }}
                 title="Delete bubbles"
-                aria-label="Delete bubbles"
               >
                 <Delete />
               </Tooltip>

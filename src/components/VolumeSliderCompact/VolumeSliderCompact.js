@@ -61,6 +61,7 @@ class VolumeSliderCompact extends Component {
           max={100}
           value={volume}
           onChange={this.onVolumeInputChange}
+          aria-label="Volume"
         />
         <div className={$style.element('muter')} onClick={this.onToggle}>
           {volume === 0 ? (
