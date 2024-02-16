@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "fesk-start",
-    "build": "fesk-build && docz build",
+    "build": "fesk-build && docz build && cp -R overrides/dist/* dist/",
     "test": "jest --coverage",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
