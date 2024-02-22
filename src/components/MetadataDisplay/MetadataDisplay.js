@@ -29,7 +29,7 @@ const MetadataDisplay = props => (
           </Typography>
         </Grid>
         <Grid>
-          <IconButton onClick={props.onEditClick} style={{ padding: 5 }}>
+          <IconButton onClick={props.onEditClick} aria-label="Edit annotation" style={{ padding: 5 }}>
             <Edit fontSize="small" />
           </IconButton>
         </Grid>
