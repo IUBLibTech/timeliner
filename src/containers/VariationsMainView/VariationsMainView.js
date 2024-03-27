@@ -236,6 +236,7 @@ class VariationsMainView extends React.Component {
             onTitleChange={() => {}}
             hasResource={this.props.hasResource}
             noHeader={this.props.noHeader}
+	    isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
           />
           <div className="variations-app__content">
             <AuthCookieService1
@@ -245,7 +246,10 @@ class VariationsMainView extends React.Component {
                 this.props.authService ? this.props.authService[0] : null
               }
             >
-              <BubbleEditor key={'bubble--' + this.props.url} />
+              <BubbleEditor
+	        key={'bubble--' + this.props.url}
+	        isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
+	      />
               {this.props.url ? (
                 <Audio key={'audio--' + this.props.url} />
               ) : null}
@@ -282,6 +286,7 @@ class VariationsMainView extends React.Component {
                 zoomIn={this.props.zoomIn}
                 zoomOut={this.props.zoomOut}
                 resetZoom={this.props.resetZoom}
+	        isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
               />
             </AuthCookieService1>
             <div className="variations-app__metadata-editor">
@@ -321,6 +326,7 @@ class VariationsMainView extends React.Component {
                 // Enable Video playback in the timeliner
                 isVideo={!noVideo && this.props.isVideo}
                 poster={this.props.poster}
+	        isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
               />
               {!noFooter && <Footer />}
             </div>

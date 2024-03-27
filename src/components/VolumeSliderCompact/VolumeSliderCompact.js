@@ -24,6 +24,7 @@ class VolumeSliderCompact extends Component {
     onVolumeChanged: PropTypes.func.isRequired,
     /** Flip the order of the slider and icon */
     flipped: PropTypes.bool,
+    disabled: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -62,6 +63,7 @@ class VolumeSliderCompact extends Component {
           value={volume}
           onChange={this.onVolumeInputChange}
           aria-label="Volume"
+	  disabled={this.props.disabled}
         />
         <div className={$style.element('muter')} onClick={this.onToggle}>
           {volume === 0 ? (
