@@ -168,6 +168,7 @@ const Metadata = props => {
                 canErase={props.canErase}
                 undoAll={props.undoAll}
                 hasResource={props.hasResource}
+		isModalOpen={props.isModalOpen}
               />
             )}
           </div>
@@ -225,6 +226,8 @@ Metadata.propTypes = {
   deleteMarker: PropTypes.func,
   /** Media url */
   url: PropTypes.string,
+  /** Boolean value used for disabling components when modal is open */
+  isModalOpen: PropTypes.bool.isRequired,
 };
 
 Metadata.defaultProps = {
