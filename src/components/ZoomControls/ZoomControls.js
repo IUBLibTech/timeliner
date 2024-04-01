@@ -10,21 +10,21 @@ const ZoomControls = props => (
   <div className="zoom-controls">
     <IconButton
       onClick={props.onZoomIn}
-      disabled={!props.onZoomIn}
+      disabled={!props.onZoomIn || props.disabled}
       title="Zoom In"
     >
       <ZoomIn />
     </IconButton>
     <IconButton
       onClick={props.onResetView}
-      disabled={!props.onResetView}
+      disabled={!props.onResetView || props.disabled}
       title="Reset View"
     >
       <YoutubeSearchedFor />
     </IconButton>
     <IconButton
       onClick={props.onZoomOut}
-      disabled={!props.onZoomOut}
+      disabled={!props.onZoomOut || props.disabled}
       title="Zoom Out"
     >
       <ZoomOut />
@@ -39,12 +39,14 @@ ZoomControls.propTypes = {
   onZoomOut: PropTypes.func,
   /** Handler for resetting view */
   onResetView: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 ZoomControls.defaultProps = {
   onZoomIn: null,
   onZoomOut: null,
   onResetView: null,
+  disabled: false,
 };
 
 export default ZoomControls;

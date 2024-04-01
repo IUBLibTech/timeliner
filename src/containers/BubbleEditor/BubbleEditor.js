@@ -148,6 +148,7 @@ class BubbleEditor extends React.Component {
       selectedPoints,
       colourPalette,
       startTime,
+      isModalOpen,
     } = this.props;
 
     const timePoints = this.getTimePoints();
@@ -218,6 +219,7 @@ class BubbleEditor extends React.Component {
                   isPlayheadUpdating={playhead.isUpdating}
                   playheadX={playhead.x}
                   markers={this.props.markers}
+		  isModalOpen={this.props.isModalOpen}
                 />
               </div>
             )}

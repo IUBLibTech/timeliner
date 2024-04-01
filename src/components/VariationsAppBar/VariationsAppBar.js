@@ -47,6 +47,7 @@ const VariationsAppBar = props => (
             color="inherit"
             onClick={props.onImportButtonClicked}
             title="Open media file"
+            disabled={props.isModalOpen}
           >
             <AddCircle />
           </IconButton>
@@ -56,6 +57,7 @@ const VariationsAppBar = props => (
             color="inherit"
             onClick={props.onSave}
             title={props.onSave ? 'Save timeline' : 'No backend set up to save'}
+	    disabled={props.isModalOpen}
           >
             <Save />
           </IconButton>
@@ -63,7 +65,7 @@ const VariationsAppBar = props => (
         <IconButton
           color="inherit"
           onClick={props.onUndo}
-          disabled={(props.canUndo || false) === false}
+          disabled={((props.canUndo || false) === false) || props.isModalOpen}
           title="Undo"
         >
           <Undo />
@@ -71,7 +73,7 @@ const VariationsAppBar = props => (
         <IconButton
           color="inherit"
           onClick={props.onRedo}
-          disabled={(props.canRedo || false) === false}
+          disabled={((props.canRedo || false) === false) || props.isModalOpen}
           title="Redo"
         >
           <Redo />
@@ -80,6 +82,7 @@ const VariationsAppBar = props => (
           color="inherit"
           onClick={props.onSettingsButtonClicked}
           title="Settings"
+	  disabled={props.isModalOpen}
         >
           <Settings />
         </IconButton>
@@ -100,6 +103,8 @@ VariationsAppBar.propTypes = {
   /** Opens the project settings modal */
   onSettingsButtonClicked: PropTypes.func.isRequired,
   noHeader: PropTypes.bool,
+  /** Boolean value used for disabling components when modal is open */
+  isModalOpen: PropTypes.bool.isRequired,
 };
 
 export default VariationsAppBar;
