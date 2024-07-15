@@ -116,6 +116,7 @@ const Metadata = props => {
                   }
                   onSaveMarker={data => props.updateMarker(marker.id, data)}
                   onGoToMarker={() => props.setCurrentTime(marker.time)}
+		  runTime={props.runTime}
                 />
               );
             })}
