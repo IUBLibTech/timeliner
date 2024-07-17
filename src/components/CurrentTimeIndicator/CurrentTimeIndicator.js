@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
+import { timeToHHmmss } from '../../utils/timeMethods';
 import './CurrentTimeIndicator.scss';
 import bem from '@fesk/bem-js';
 
@@ -21,8 +21,8 @@ class CurrentTimeIndicator extends Component {
   };
 
   state = {
-    currentFormattedTime: '00:00',
-    currentFormattedRuntime: '00:00',
+    currentFormattedTime: '00:00:00',
+    currentFormattedRuntime: '00:00:00',
     error: '',
   };
 
@@ -35,7 +35,7 @@ class CurrentTimeIndicator extends Component {
   validateProps(props) {
     if (props.currentTime > props.runtime) {
       return this.setState({
-        currentFormattedTime: format(new Date('0'), 'HH:mm:ss'),
+        currentFormattedTime: timeToHHmmss(0),
       });
     }
 
@@ -55,38 +55,14 @@ class CurrentTimeIndicator extends Component {
   }
 
   updateRuntimeFormat(runtime) {
-    const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
-    const date = new Date(runtime + timezoneOffset);
-
-    if (date.toString() === 'Invalid Date') {
-      return this.setState({
-        error: 'Invalid runtime',
-      });
-    }
-
-    const timeFormat = runtime >= 3600000 ? 'HH:mm:ss' : 'mm:ss';
-    this.setState({
-      currentFormattedRuntime: format(date, timeFormat),
+    return this.setState({
+      currentFormattedRuntime: timeToHHmmss(runtime / 1000.0, runtime >= 3600000),
     });
   }
 
   updateTimeFormat(time, runtime) {
-    const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
-    const date = new Date(time + timezoneOffset);
-
-    if (date.toString() === 'Invalid Date') {
-      return this.setState({
-        currentFormattedTime: format(new Date('0'), 'HH:mm:ss'),
-      });
-    }
-
-    if (runtime >= 3600000) {
-      return this.setState({
-        currentFormattedTime: format(date, 'HH:mm:ss'),
-      });
-    }
     return this.setState({
-      currentFormattedTime: format(date, 'mm:ss'),
+      currentFormattedTime: timeToHHmmss(time / 1000.0, runtime >= 3600000),
     });
   }
 
