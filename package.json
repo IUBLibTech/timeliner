@@ -6,9 +6,9 @@
   "author": "Stephen Fraser <stephen.fraser@digirati.com>",
   "license": "MIT",
   "scripts": {
-    "start": "fesk-start",
-    "build": "fesk-build && docz build && cp -R overrides/dist/* dist/",
-    "test": "jest --coverage",
+    "start": "vite",
+    "build": "vite build",
+    "test": "vitest --coverage",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "watch": "fesk-watch",
@@ -16,20 +16,15 @@
     "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "@fesk/scripts": "^1.1.1",
-    "@fesk/webpack-config": "^1.1.1",
     "@reach/component-component": "^0.1.1",
     "@snyk/protect": "^1.1044",
-    "@types/jest": "^23.3.2",
-    "babel-core": "^7.0.0-bridge",
-    "babel-jest": "^23.6.0",
-    "docz": "1.0.3",
-    "jest": "^23.6.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/coverage-v8": "^2.0.5",
     "js-yaml": "3.13.1",
-    "redux-saga-test-plan": "^3.7.0"
+    "redux-saga-test-plan": "^3.7.0",
+    "sass-embedded": "^1.77.8",
+    "vite": "^5.4.2",
+    "vitest": "^2.0.5"
   },
   "dependencies": {
     "@fesk/bem-js": "^1.0.1",
@@ -56,20 +51,7 @@
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.0",
     "redux-undo-redo": "^2.0.0",
-    "voca": "^1.4.0",
-    "webpack-config": "^7.5.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "<rootDir>/jest.transform.js"
-    },
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/coverage/",
-      "(.test)\\.(ts|tsx|js)$",
-      "jest.transform.js",
-      ".json"
-    ]
+    "voca": "^1.4.0"
   },
   "resolutions": {
     "get-pkg-repo": "4.1.1",

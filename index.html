@@ -1,0 +1,46 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,viewport-fit=cover, initial-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link rel="preload" href="/collections.json" as="fetch" />
+    <title>Timeliner</title>
+    <script type="module" src="./src/homepage.js"></script>
+  </head>
+  <body>
+    <div class="homepage container">
+      <h1>IIIF Timeliner</h1>
+      <div class="panel">
+        <p>
+          Timeliner is a reimplementation of Variations Audio Timeliner as a web
+          application, using the IIIF Presentation API 3.0. As with the original
+          version, developed as a part of the Variations Digital Music Library
+          System, it is an audio annotation and analysis tool for creating and
+          labeling bubble diagrams. These diagrams can be used to navigate music
+          or other audio for detailed study.
+        </p>
+        <p>
+          In addition to its use as a standalone application, the Timeliner is
+          available as integrated feature within the successor to Variations,
+          Avalon Media System. Avalon users can create new bubble diagrams
+          directly from item pages within their Avalon instance and edit, share
+          and copy timelines across all items in the repository.
+        </p>
+        <p>
+          Please note that due to standard browser security, audio resources
+          used with Timeliner must be set up for Cross-origin resource sharing
+          (CORS). This is not necessarily the case for many resources on the
+          web, and not all URLs for media files may work.
+        </p>
+      </div>
+      <a href="/app/index.html" class="button">Go to Timeliner</a>
+    </div>
+  </body>
+</html>

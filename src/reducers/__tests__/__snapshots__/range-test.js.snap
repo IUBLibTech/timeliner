@@ -1,73 +1,73 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`reducers/range importing ranges 1`] = `
-Object {
-  "list": Object {
-    "test-1": Object {
+exports[`reducers/range > importing ranges 1`] = `
+{
+  "list": {
+    "test-1": {
       "depth": 2,
       "endTime": 1000,
       "id": "test-1",
       "startTime": 0,
     },
-    "test-2": Object {
+    "test-2": {
       "depth": 1,
       "endTime": 500,
       "id": "test-2",
       "startTime": 0,
     },
-    "test-3": Object {
+    "test-3": {
       "depth": 1,
       "endTime": 1000,
       "id": "test-3",
       "startTime": 500,
     },
-    "test-4": Object {
+    "test-4": {
       "depth": 1,
       "endTime": 1500,
       "id": "test-4",
       "startTime": 100,
     },
   },
-  "selected": Array [],
+  "selected": [],
 }
 `;
 
-exports[`reducers/range importing ranges as array 1`] = `
-Object {
-  "list": Object {
-    "test-1": Object {
+exports[`reducers/range > importing ranges as array 1`] = `
+{
+  "list": {
+    "test-1": {
       "depth": 2,
       "endTime": 1000,
       "id": "test-1",
       "startTime": 0,
     },
-    "test-2": Object {
+    "test-2": {
       "depth": 1,
       "endTime": 500,
       "id": "test-2",
       "startTime": 0,
     },
-    "test-3": Object {
+    "test-3": {
       "depth": 1,
       "endTime": 1000,
       "id": "test-3",
       "startTime": 500,
     },
-    "test-4": Object {
+    "test-4": {
       "depth": 1,
       "endTime": 1500,
       "id": "test-4",
       "startTime": 100,
     },
   },
-  "selected": Array [],
+  "selected": [],
 }
 `;
 
-exports[`reducers/range removing a range 1`] = `
-Object {
-  "list": Object {
-    "test-1": Object {
+exports[`reducers/range > removing a range 1`] = `
+{
+  "list": {
+    "test-1": {
       "colour": null,
       "depth": 1,
       "endTime": 1000,
@@ -78,7 +78,7 @@ Object {
       "summary": "",
       "whiteText": false,
     },
-    "test-3": Object {
+    "test-3": {
       "colour": null,
       "depth": 1,
       "endTime": 1000,
@@ -90,14 +90,14 @@ Object {
       "whiteText": false,
     },
   },
-  "selected": Array [],
+  "selected": [],
 }
 `;
 
-exports[`reducers/range simple mutation list 1`] = `
-Object {
-  "list": Object {
-    "test-1": Object {
+exports[`reducers/range > simple mutation list 1`] = `
+{
+  "list": {
+    "test-1": {
       "colour": null,
       "depth": 2,
       "endTime": 0,
@@ -109,6 +109,6 @@ Object {
       "whiteText": false,
     },
   },
-  "selected": Array [],
+  "selected": [],
 }
 `;
