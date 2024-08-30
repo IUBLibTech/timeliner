@@ -1,7 +1,8 @@
 .single-bubble {
   cursor: pointer;
+  paint-order: stroke;
+
   &:active {
     cursor: grabbing;
   }
-  paint-order: stroke;
 }

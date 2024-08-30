@@ -1,4 +1,117 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`reducers/range > importing ranges 1`] = `
+{
+  "list": {
+    "test-1": {
+      "depth": 2,
+      "endTime": 1000,
+      "id": "test-1",
+      "startTime": 0,
+    },
+    "test-2": {
+      "depth": 1,
+      "endTime": 500,
+      "id": "test-2",
+      "startTime": 0,
+    },
+    "test-3": {
+      "depth": 1,
+      "endTime": 1000,
+      "id": "test-3",
+      "startTime": 500,
+    },
+    "test-4": {
+      "depth": 1,
+      "endTime": 1500,
+      "id": "test-4",
+      "startTime": 100,
+    },
+  },
+  "selected": [],
+}
+`;
+
+exports[`reducers/range > importing ranges as array 1`] = `
+{
+  "list": {
+    "test-1": {
+      "depth": 2,
+      "endTime": 1000,
+      "id": "test-1",
+      "startTime": 0,
+    },
+    "test-2": {
+      "depth": 1,
+      "endTime": 500,
+      "id": "test-2",
+      "startTime": 0,
+    },
+    "test-3": {
+      "depth": 1,
+      "endTime": 1000,
+      "id": "test-3",
+      "startTime": 500,
+    },
+    "test-4": {
+      "depth": 1,
+      "endTime": 1500,
+      "id": "test-4",
+      "startTime": 100,
+    },
+  },
+  "selected": [],
+}
+`;
+
+exports[`reducers/range > removing a range 1`] = `
+{
+  "list": {
+    "test-1": {
+      "colour": null,
+      "depth": 1,
+      "endTime": 1000,
+      "id": "test-1",
+      "isSelected": false,
+      "label": "",
+      "startTime": 0,
+      "summary": "",
+      "whiteText": false,
+    },
+    "test-3": {
+      "colour": null,
+      "depth": 1,
+      "endTime": 1000,
+      "id": "test-3",
+      "isSelected": false,
+      "label": "",
+      "startTime": 500,
+      "summary": "",
+      "whiteText": false,
+    },
+  },
+  "selected": [],
+}
+`;
+
+exports[`reducers/range > simple mutation list 1`] = `
+{
+  "list": {
+    "test-1": {
+      "colour": null,
+      "depth": 2,
+      "endTime": 0,
+      "id": "test-1",
+      "isSelected": false,
+      "label": "",
+      "startTime": 1000,
+      "summary": "",
+      "whiteText": false,
+    },
+  },
+  "selected": [],
+}
+`;
 
 exports[`reducers/range importing ranges 1`] = `
 Object {

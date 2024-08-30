@@ -11,7 +11,7 @@ const {
   callback,
   noFooter,
   noHeader,
-  noVideo,  // To enable Video playback in timeliner set this to false
+  noVideo, // To enable Video playback in timeliner set this to false
   noSourceLink,
   ...hash
 } = qs.parse(location.hash);
