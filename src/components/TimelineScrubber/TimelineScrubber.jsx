@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/core/styles';
 import { timeToHHmmss } from '../../utils/timeMethods';
-import BEM from '@fesk/bem-js';
 import TimelineMarker from '../TimelineMarker/TimelineMarker';
 import PlayHead from '../Playhead/Playhead';
 
 import './TimelineScrubber.scss';
-
-const $style = BEM.block('timeline-scrubber');
 
 function getPalletXPosition(palletW, clientX, windowW, offset = 15) {
   const halfPalletW = palletW / 2;
@@ -158,7 +155,7 @@ class TimelineScrubber extends Component {
     return (
       <div
         ref={ref => (this.container = ref)}
-        className={$style}
+        className='timeline-scrubber'
         onDoubleClick={this.handleAddPoint}
         tabIndex={this.props.isModalOpen ? -1 : 0}
         onMouseEnter={this.onMouseEnter}
@@ -232,7 +229,7 @@ class TimelineScrubber extends Component {
           isUpdating={isPlayheadUpdating}
         />
         <div
-          className={$style.element('tooltip')}
+          className='timeline-scrubber__tooltip'
           ref={ref => (this.tooltip = ref)}
           style={{ opacity: isHovering ? 1 : 0 }}
         >

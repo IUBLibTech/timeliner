@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { timeToHHmmss } from '../../utils/timeMethods';
 import './CurrentTimeIndicator.scss';
-import bem from '@fesk/bem-js';
-
-const style = bem.block('current-time-indicator');
 
 class CurrentTimeIndicator extends Component {
   static propTypes = {
@@ -72,17 +69,17 @@ class CurrentTimeIndicator extends Component {
 
     if (this.state.error) {
       return (
-        <span className={style.modifier('error')}>{this.state.error}</span>
+        <span className='current-time-indicator--error'>{this.state.error}</span>
       );
     }
 
     return (
-      <span className={style}>
-        <span className={style.element('current-time')}>
+      <span className='current-time-indicator'>
+        <span className='current-time-indicator__current-time'>
           {currentFormattedTime}
         </span>
-        <span className={style.element('separator')}>{separator}</span>
-        <span className={style.element('runtime')}>
+        <span className='current-time-indicator__separator'>{separator}</span>
+        <span className='current-time-indicator__runtime'>
           {currentFormattedRuntime}
         </span>
       </span>

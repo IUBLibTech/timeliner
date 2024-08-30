@@ -11,7 +11,7 @@
     "test": "vitest --coverage",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
-    "watch": "fesk-watch",
+    "watch": "vit build --watch",
     "snyk-protect": "snyk-protect",
     "prepublish": "npm run snyk-protect"
   },
@@ -27,7 +27,6 @@
     "vitest": "^2.0.5"
   },
   "dependencies": {
-    "@fesk/bem-js": "^1.0.1",
     "@material-ui/core": "^3.0.2",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.14",

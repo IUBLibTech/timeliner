@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import BEM from '@fesk/bem-js';
 import './VolumeSliderCompact.scss';
 import PropTypes from 'prop-types';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import VolumeDown from '@material-ui/icons/VolumeDown';
 import VolumeOff from '@material-ui/icons/VolumeOff';
 import Slider from '@material-ui/lab/Slider';
-
-const $style = BEM.block('volume-slider-compact');
 
 const SPEAKER_ICON_SIZE = {
   width: 20,
@@ -56,7 +53,7 @@ class VolumeSliderCompact extends Component {
     const { volume, flipped } = this.props;
 
     return (
-      <div className={$style.modifiers({ flipped })}>
+      <div className={flipped ? 'volume-slider-compact--flipped' : 'volume-slider-compact'}>
         <Slider
           min={0}
           max={100}
@@ -65,7 +62,7 @@ class VolumeSliderCompact extends Component {
           aria-label="Volume"
 	  disabled={this.props.disabled}
         />
-        <div className={$style.element('muter')} onClick={this.onToggle}>
+        <div className='volume-slider-compact__muter' onClick={this.onToggle}>
           {volume === 0 ? (
             <VolumeOff
               style={{ ...SPEAKER_ICON_SIZE, transform: 'translateX(1px)' }}

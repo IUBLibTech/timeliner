@@ -8,14 +8,11 @@ import Save from '@material-ui/icons/Save';
 import Undo from '@material-ui/icons/Undo';
 import Redo from '@material-ui/icons/Redo';
 import Settings from '@material-ui/icons/Settings';
-import bem from '@fesk/bem-js';
 import './VariationsAppBar.scss';
-
-const $block = bem.block('variations-app-bar');
 
 const VariationsAppBar = props => (
   <div
-    className={props.noHeader ? $block + '-no-header' : $block}
+    className={props.noHeader ? 'variations-app-bar-no-header' : 'variations-app-bar'}
     style={{ position: 'static' }}
   >
     <Toolbar>
