@@ -34,5 +34,6 @@ export default defineConfig({
   test: {
     include: ['**/*[.-]{test,spec}.?(c|m)[jt]s?(x)'],
     globals: true,
+    watch: false,
   },
 });

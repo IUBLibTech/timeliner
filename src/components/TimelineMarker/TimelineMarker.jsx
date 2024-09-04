@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './TimelineMarker.scss';
-import BEM from '@fesk/bem-js';
-
-const $style = BEM.block('timeline-marker');
 
 class TimelineMarker extends Component {
   static propTypes = {
@@ -40,12 +37,12 @@ class TimelineMarker extends Component {
 
     return (
       <div
-        className={$style.modifiers({ bookmark, marker: !bookmark })}
+        className={bookmark ? 'timeline-marker--bookmark' : 'timeline-marker--marker'}
         style={{ left: `${x}%` }}
         onMouseDown={onMouseDown}
       >
         {showTooltip ? (
-          <span className={$style.element('tooltip')} style={tooltipStyle}>
+          <span className='timeline-marker__tooltip' style={tooltipStyle}>
             {tooltip}
           </span>
         ) : null}
