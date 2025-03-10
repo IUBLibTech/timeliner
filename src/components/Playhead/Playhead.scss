@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .playhead {
   position: absolute;
   background: #FF4081;
@@ -51,7 +53,7 @@
   //  border-right: 5px solid transparent;
   //}
   .playhead:before {
-    background: mix(#FF4081, #000, 70%);
+    background: color.mix(#FF4081, #000, 70%);
     transform: scale(1);
   }
 }

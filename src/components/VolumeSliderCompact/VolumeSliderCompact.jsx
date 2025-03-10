@@ -53,7 +53,7 @@ class VolumeSliderCompact extends Component {
     const { volume, flipped } = this.props;
 
     return (
-      <div className={flipped ? 'volume-slider-compact--flipped' : 'volume-slider-compact'}>
+      <div className={flipped ? 'volume-slider-compact volume-slider-compact--flipped' : 'volume-slider-compact'}>
         <Slider
           min={0}
           max={100}
