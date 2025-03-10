@@ -37,7 +37,7 @@ class TimelineMarker extends Component {
 
     return (
       <div
-        className={bookmark ? 'timeline-marker--bookmark' : 'timeline-marker--marker'}
+        className={`timeline-marker ${bookmark ? 'timeline-marker--bookmark' : 'timeline-marker--marker'}`}
         style={{ left: `${x}%` }}
         onMouseDown={onMouseDown}
       >

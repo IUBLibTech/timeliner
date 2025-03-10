@@ -111,7 +111,7 @@ class MetadataEditor extends Component {
       whiteText,
     } = this.state;
     return (
-      <form className='metadata-editor'onKeyDown={this.handleKeyDown}>
+      <form className='metadata-editor' onKeyDown={this.handleKeyDown}>
         <TextField
           id="label"
           autoFocus={true}
