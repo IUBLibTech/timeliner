@@ -7,13 +7,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import bem from '@fesk/bem-js';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
 import ColourSwatchPicker from '../ColourSwatchPicker/ColourSwatchPicker';
 import TimePicker from '../TimePicker/TimePicker';
 import './MetadataEditor.scss';
-
-const metadataEditor = bem.block('metadata-editor');
 
 class MetadataEditor extends Component {
   static propTypes = {
@@ -114,7 +111,7 @@ class MetadataEditor extends Component {
       whiteText,
     } = this.state;
     return (
-      <form className={metadataEditor} onKeyDown={this.handleKeyDown}>
+      <form className='metadata-editor' onKeyDown={this.handleKeyDown}>
         <TextField
           id="label"
           autoFocus={true}

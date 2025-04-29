@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import BEM from '@fesk/bem-js';
 import './FileUpload.scss';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
 
-const $style = BEM.block('file-upload');
 class FileUpload extends Component {
   static propTypes = {
     onChange: PropTypes.func,
@@ -48,8 +46,8 @@ class FileUpload extends Component {
     }
     if (json) {
       return (
-        <div className={$style}>
-          <span className={$style.element('label')}>
+        <div className='file-upload'>
+          <span className='file-upload__label'>
             {json.label && json.label.en && json.label.en.join('')
               ? json.label.en.join(' ')
               : 'Untitled manifest'}{' '}
@@ -59,7 +57,7 @@ class FileUpload extends Component {
       );
     }
     return (
-      <div className={$style}>
+      <div className='file-upload'>
         <input
           ref={ref => (this.fileInput = ref)}
           type="file"

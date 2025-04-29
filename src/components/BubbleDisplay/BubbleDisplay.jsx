@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './BubbleDisplay.scss';
-import BEM from '@fesk/bem-js';
 
 import { RANGE } from '../../constants/range';
 
-const $style = BEM.block('bubble-display');
 class BubbleDisplay extends Component {
   static propTypes = {
     /** Map of points @todo custom validator */
@@ -122,7 +120,7 @@ class BubbleDisplay extends Component {
         width={computedWidth}
         height={height}
         viewBox={viewBox}
-        className={$style.modifiers({ mouseDown })}
+        className={mouseDown ? 'bubble-display--mouseDown' : 'bubble-display'}
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         onMouseDown={this.onMouseDown}

@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from '@material-ui/core/styles';
-import formatDate from 'date-fns/format';
-import BEM from '@fesk/bem-js';
+import { timeToHHmmss } from '../../utils/timeMethods';
 import TimelineMarker from '../TimelineMarker/TimelineMarker';
 import PlayHead from '../Playhead/Playhead';
 
 import './TimelineScrubber.scss';
-
-const $style = BEM.block('timeline-scrubber');
 
 function getPalletXPosition(palletW, clientX, windowW, offset = 15) {
   const halfPalletW = palletW / 2;
@@ -96,14 +93,7 @@ class TimelineScrubber extends Component {
     if (time < 0) {
       return this.timeToLabel(0);
     }
-    const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
-    const date = new Date(time + timezoneOffset);
-    if (date.toString() === 'Invalid Date') {
-      return 'Invalid time';
-    }
-
-    const format = time >= 3600000 ? 'hh:mm:ss.SS' : 'mm:ss.SS';
-    return formatDate(date, format);
+    return timeToHHmmss(time / 1000.0, this.props.runTime >= 3600000);
   };
 
   getClickedTime = ev => {
@@ -165,7 +155,7 @@ class TimelineScrubber extends Component {
     return (
       <div
         ref={ref => (this.container = ref)}
-        className={$style}
+        className='timeline-scrubber'
         onDoubleClick={this.handleAddPoint}
         tabIndex={this.props.isModalOpen ? -1 : 0}
         onMouseEnter={this.onMouseEnter}
@@ -239,7 +229,7 @@ class TimelineScrubber extends Component {
           isUpdating={isPlayheadUpdating}
         />
         <div
-          className={$style.element('tooltip')}
+          className='timeline-scrubber__tooltip'
           ref={ref => (this.tooltip = ref)}
           style={{ opacity: isHovering ? 1 : 0 }}
         >

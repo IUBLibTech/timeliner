@@ -9,10 +9,10 @@ import ArrowForward from '@material-ui/icons/ArrowForward';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
-import formatDate from 'date-fns/format';
+import { timeToHHmmss } from '../../utils/timeMethods';
 
 function DisplayMarker(props) {
-  const { onGoToMarker } = props;
+  const { onGoToMarker, runTime } = props;
   const { label, summary, time } = props.marker;
 
   const onDelete = e => {
@@ -25,14 +25,7 @@ function DisplayMarker(props) {
     if (timeOffset < 0) {
       return this.timeToLabel(0);
     }
-    const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
-    const date = new Date(timeOffset + timezoneOffset);
-    if (date.toString() === 'Invalid Date') {
-      return 'Invalid time';
-    }
-
-    const format = timeOffset >= 3600000 ? 'hh:mm:ss.SS' : 'mm:ss.SS';
-    return formatDate(date, format);
+    return timeToHHmmss(timeOffset / 1000.0, runTime >= 3600000);
   };
 
   return (
@@ -181,6 +174,7 @@ export default function MarkerMetadata(props) {
     onDeleteMarker,
     highlight,
     onGoToMarker,
+    runTime
   } = props;
 
   return (
@@ -209,6 +203,7 @@ export default function MarkerMetadata(props) {
           onDelete={onDeleteMarker}
           onEdit={() => setIsEditing(true)}
           onGoToMarker={onGoToMarker}
+          runTime={runTime}
         />
       )}
     </Card>
