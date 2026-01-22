@@ -14,7 +14,7 @@ const { MediaElement } = window;
 function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeked, ...props }) {
   const video = useRef();
   const player = useRef();
-  const sources = [{ src: url}];
+  const sources = [{ src: url }];
   const lastTime = useRef(() => startTime - 1);
   const lastVolume = useRef();
   const [pipButtonText, setPipButtonText] = useState('Enter Picture-in-Picture mode');
@@ -60,10 +60,10 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
             });
         } else {
           videoElement
-          .requestPictureInPicture()
-          .catch(error => {
-            console.error('Error -> requestPictureInPicture() -> ', error);
-          });
+            .requestPictureInPicture()
+            .catch(error => {
+              console.error('Error -> requestPictureInPicture() -> ', error);
+            });
         }
       });
     }
@@ -76,7 +76,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
     videoElement.addEventListener('leavepictureinpicture', () => {
       setPipButtonText('Enter Picture-in-Picture mode');
     });
-  }
+  };
 
   // Re-create player instance with media swap
   // TODO:: There's a slight time difference in the video and audio
@@ -85,7 +85,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   // -> swap media file with 'Open audio file' in toolbar ->
   // play media -> observe currentTime diff in the audio and video players
   useLayoutEffect(() => {
-    if(url != null && player.current == null) {
+    if (url != null && player.current == null) {
       player.current = new MediaElement(
         video.current,
         {
@@ -101,10 +101,10 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   // Store last non-zero volume to restore it 
   // when using PiP controls
   useLayoutEffect(() => {
-    if(volume > 0) {
+    if (volume > 0) {
       lastVolume.current = volume;
     }
-  }, [volume])
+  }, [volume]);
 
   // Propagate play/pause and mute/unmute events from the picture-in-picture
   // player window to audio player
@@ -115,7 +115,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
     props.pause();
   }, [url]);
   useEventListener(player, 'volumechange', () => {
-    if(player.current.muted) {
+    if (player.current.muted) {
       props.setVolume(0);
     } else {
       props.setVolume(lastVolume.current);
@@ -123,7 +123,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   }, [volume, url]);
   useEventListener(player, 'loadedmetadata', () => {
     initPIP();
-  })
+  });
 
   // Handle play/pause events from the audio player
   useLayoutEffect(() => {
@@ -166,13 +166,17 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
 
   return (
     <div style={videoDivStyle}>
-      <video height={270} width={480} ref={video} poster={poster} style={videoStyle}>
+      <video height={270} width={480} ref={video} poster={poster} style={videoStyle}
+        aria-label="Timeliner video player"
+        tabIndex={0}
+      >
       </video>
       <Button
         variant="text"
         id="timeliner-pip-button"
         color="primary"
         title="Picture-in-Picture mode"
+        aria-label={pipButtonText}
         style={pipButtonStyles}
       >
         <PictureInPicture nativeColor="#FF4081" style={{ marginRight: 20 }} />
