@@ -41,9 +41,16 @@ export default class SettingsPopup extends React.Component {
     open: false,
   };
 
-  state = {
-    ...DEFAULT_SETTINGS,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ...DEFAULT_SETTINGS,
+    };
+
+    // Ref for focus management
+    this.previousFocusRef = null;
+  }
 
   handleChange = (name, type) => event => {
     this.setState({
@@ -99,8 +106,28 @@ export default class SettingsPopup extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.open && !prevProps.open) {
+      // Store current focused Settings button before modal opens
+      this.previousFocusRef = document.activeElement;
+
+      // Setup focus trap inside the modal
+      document.addEventListener('keydown', (e) => handleFocusTrap(e, this.props.open));
+    }
+
+    // Cleanup refs and focus trap
+    if (!this.props.open && prevProps.open) {
+      this.cleanupFocusTrap();
+      if (this.previousFocusRef && this.previousFocusRef.focus) {
+        this.previousFocusRef.focus();
+      }
+      this.previousFocusRef = null;
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.keyboardListener);
+    this.cleanupFocusTrap();
   }
 
   render() {
@@ -109,6 +136,7 @@ export default class SettingsPopup extends React.Component {
         open={this.props.open}
         onClose={this.props.onClose}
         aria-labelledby="settings-dialog-title"
+        aria-modal="true"
         fullWidth={true}
         maxWidth={'md'}
       >

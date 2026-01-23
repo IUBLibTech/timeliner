@@ -8,10 +8,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import importResource, {mapImportErrorMessage} from './AudioImporter.Utils';
+import importResource, { mapImportErrorMessage } from './AudioImporter.Utils';
 import FileUpload from '../FileUpload/FileUpload';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+import { handleFocusTrap } from '../../utils/keyboardFocusTrap';
 
 class AudioImporter extends Component {
   static propTypes = {
@@ -30,10 +32,17 @@ class AudioImporter extends Component {
     error: '',
   };
 
-  state = {
-    localFile: false,
-    error: '',
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      localFile: false,
+      error: '',
+    };
+
+    // Ref for focus management
+    this.previousFocusRef = null;
+  }
 
   importUrlField = React.createRef();
 
@@ -87,6 +96,34 @@ class AudioImporter extends Component {
   handleChange = (e, currentTab) => {
     this.setState({ localFile: currentTab === 1 });
   };
+
+  // Cleanup keydown event handler with focus trap function
+  cleanupFocusTrap = () => {
+    document.removeEventListener('keydown', (e) => handleFocusTrap(e, this.props.open));
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.open) {
+      // Store current focused audio importer button before modal opens
+      this.previousFocusRef = document.activeElement;
+
+      // Setup focus trap inside the modal
+      document.addEventListener('keydown', (e) => handleFocusTrap(e, this.props.open));
+    }
+
+    // Cleanup refs and focus trap
+    if (!this.props.open && prevProps.open) {
+      this.cleanupFocusTrap();
+      if (this.previousFocusRef && this.previousFocusRef.focus) {
+        this.previousFocusRef.focus();
+      }
+      this.previousFocusRef = null;
+    }
+  }
+
+  componentWillUnmount() {
+    this.cleanupFocusTrap();
+  }
 
   render() {
     const { open, onClose } = this.props;
