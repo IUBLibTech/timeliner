@@ -1,5 +1,5 @@
 import voca from 'voca';
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -22,50 +22,7 @@ import {
   BUBBLE_STYLES,
 } from '../../constants/project';
 import ColourSwatchPicker from '../ColourSwatchPicker/ColourSwatchPicker';
-import { colourPalettes } from '../../config';
-
-const ColourPaletteSwitcher = ({ currentKey, onChange }) => {
-  const [isOpen, setOpen] = useState(false);
-
-  return (
-    <div
-      onClick={() => setOpen(!isOpen)}
-      style={{ position: 'relative', marginTop: 16 }}
-    >
-      {Object.keys(colourPalettes).map(key => {
-        const pallet = colourPalettes[key];
-        return (
-          <div
-            key={key}
-            onClick={() => onChange(key)}
-            style={{
-              border: key === currentKey ? '1px solid blue' : '1px solid #ddd',
-              marginBottom: 8,
-              padding: 5,
-              borderRadius: 5,
-            }}
-          >
-            <div style={{ fontSize: 14, marginBottom: 8 }}>{pallet.name}</div>
-            {pallet.colours.map(colour => {
-              return (
-                <div
-                  key={colour}
-                  style={{
-                    display: 'inline-block',
-                    margin: 4,
-                    background: colour,
-                    height: 10,
-                    width: 10,
-                  }}
-                />
-              );
-            })}
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+import ColorPaletteSwitcher from '../ColorPaletteSwitcher/ColorPaletteSwitcher';
 
 export default class SettingsPopup extends React.Component {
   static propTypes = {
@@ -119,14 +76,27 @@ export default class SettingsPopup extends React.Component {
   }
 
   keyboardListener = e => {
-    if (e.keyCode === 13) {
+    // Make sure keydown events are captured only when modal is open
+    if (this.props.open && e.keyCode === 13) {
+      if (e.target.tagName === 'BUTTON') {
+        return;
+      }
       e.preventDefault();
       this.onSaveClicked();
     }
   };
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.keyboardListener);
+  /**
+   * Add/Remove 'keydown' event listener when modal opens/closes
+   * @param {Object} prevProps 
+   */
+  componentDidUpdate(prevProps) {
+    if (!prevProps.open && this.props.open) {
+      document.addEventListener('keydown', this.keyboardListener);
+    }
+    if (prevProps.open && !this.props.open) {
+      document.removeEventListener('keydown', this.keyboardListener);
+    }
   }
 
   componentWillUnmount() {
@@ -138,38 +108,26 @@ export default class SettingsPopup extends React.Component {
       <Dialog
         open={this.props.open}
         onClose={this.props.onClose}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby="settings-dialog-title"
         fullWidth={true}
         maxWidth={'md'}
       >
-        <DialogTitle>Settings</DialogTitle>
-        <DialogContent
-          style={{
-            maxWidth: 'none',
-          }}
-        >
-          <div
-            style={{
-              paddingTop: 16,
-              paddingLeft: 8,
-            }}
-          >
+        <DialogTitle id="settings-dialog-title">Settings</DialogTitle>
+        <DialogContent style={{ padding: '12px 20px', maxWidth: 'none' }}>
+          <div style={{ padding: 0 }}>
             <Grid
               container
               direction="row"
               justify="space-between"
               alignItems="stretch"
-              spacing={16}
-              // style={{
-              //   width: 700,
-              // }}
+              spacing={8}
             >
               <Grid item md={6} sm={12}>
                 <Grid
                   container
                   direction="column"
                   justify="flex-start"
-                  spacing={16}
+                  spacing={8}
                 >
                   <Grid item>
                     <FormControl component="fieldset">
@@ -181,17 +139,18 @@ export default class SettingsPopup extends React.Component {
                             'checkbox',
                             'Start playing when bubble or marker is clicked.',
                           ],
-/**                          [
-                            PROJECT.STOP_PLAYING_END_OF_SECTION,
-                            'checkbox',
-                            'Stop Playing at the end of the section.',
-                          ],
-                          [
-                            PROJECT.START_PLAYING_END_OF_SECTION,
-                            'checkbox',
-                            'Loop playback at the end of the section.',
-                          ],
-*/
+                          /** 
+                            [
+                              PROJECT.STOP_PLAYING_END_OF_SECTION,
+                              'checkbox',
+                              'Stop Playing at the end of the section.',
+                            ],
+                            [
+                              PROJECT.START_PLAYING_END_OF_SECTION,
+                              'checkbox',
+                              'Loop playback at the end of the section.',
+                            ],
+                            */
                         ].map(([key, type, label]) => (
                           <FormControlLabel
                             key={key}
@@ -340,20 +299,25 @@ export default class SettingsPopup extends React.Component {
                   container
                   direction="column"
                   justify="flex-start"
-                  spacing={16}
+                  spacing={8}
                 >
                   <Grid item>
-                    <FormLabel component="legend">Color palette</FormLabel>
-                    <ColourPaletteSwitcher
+                    <ColorPaletteSwitcher
                       currentKey={this.state[PROJECT.COLOUR_PALETTE]}
                       onChange={key =>
                         this.setState({ [PROJECT.COLOUR_PALETTE]: key })
                       }
                     />
                   </Grid>
-                  <Button onClick={this.props.clearCustomColors}>
-                    Clear all custom bubble colors
-                  </Button>
+                  <Grid item style={{ marginTop: 6 }}>
+                    <Button
+                      onClick={this.props.clearCustomColors}
+                      variant={'outlined'}
+                      fullWidth
+                    >
+                      Clear all custom bubble colors
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
