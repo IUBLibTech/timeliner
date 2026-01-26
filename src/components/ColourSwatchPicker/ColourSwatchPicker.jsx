@@ -83,24 +83,46 @@ class ColourSwatchPicker extends Component {
       '#BED3F3',
       '#D4C4FB',
     ],
-    onSelectColour: () => {},
+    onSelectColour: () => { },
   };
 
-  state = {
-    colour: {
-      r: '241',
-      g: '112',
-      b: '19',
-      a: '1',
-    },
-    displayColourPicker: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      colour: {
+        r: '241',
+        g: '112',
+        b: '19',
+        a: '1',
+      },
+      displayColourPicker: false,
+    };
+    // Ref for focus management
+    this.buttonRef = React.createRef;
+  }
 
   handleClick = () => {
     if (this.state.displayColourPicker) {
       return this.closePicker();
     }
     return this.openPicker();
+  };
+
+  // Close color picker on 'Escape' keydown event when it is open
+  handleKeyDown = (e) => {
+    if (e.key === 'Escape' && this.state.displayColourPicker) {
+      e.preventDefault();
+      // Stop event propagation
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      this.closePicker();
+      // Return focus to the button after color picker is closed
+      if (this.buttonRef.current) {
+        this.buttonRef.current.focus();
+      }
+    }
   };
 
   handleChange = colour => {
@@ -131,12 +153,21 @@ class ColourSwatchPicker extends Component {
   closePicker = () => {
     this.setState({ displayColourPicker: false });
     document.removeEventListener('click', this.closeEvent);
+    document.removeEventListener('keydown', this.handleKeyDown, true);
   };
 
   openPicker = () => {
     this.setState({ displayColourPicker: true });
     document.addEventListener('click', this.closeEvent);
+    // Use capture phase to ensure this listener fires before the Settings modal's listener
+    document.addEventListener('keydown', this.handleKeyDown, true);
   };
+
+  componentWillUnmount() {
+    // Cleanup any remaining event listeners
+    document.removeEventListener('click', this.closeEvent);
+    document.removeEventListener('keydown', this.handleKeyDown, true);
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (
@@ -186,6 +217,7 @@ class ColourSwatchPicker extends Component {
           size="small"
           color="primary"
           onClick={this.handleClick}
+          buttonRef={this.buttonRef}
         >
           <div
             className="colour-swatch-picker__option"
