@@ -91,6 +91,8 @@ export default class SettingsPopup extends React.Component {
       e.preventDefault();
       this.onSaveClicked();
     }
+    // Setup focus trap inside the modal
+    handleFocusTrap(e, this.props.open);
   };
 
   /**
@@ -98,26 +100,15 @@ export default class SettingsPopup extends React.Component {
    * @param {Object} prevProps 
    */
   componentDidUpdate(prevProps) {
-    if (!prevProps.open && this.props.open) {
-      document.addEventListener('keydown', this.keyboardListener);
-    }
-    if (prevProps.open && !this.props.open) {
-      document.removeEventListener('keydown', this.keyboardListener);
-    }
-  }
-
-  componentDidUpdate(prevProps) {
     if (this.props.open && !prevProps.open) {
       // Store current focused Settings button before modal opens
       this.previousFocusRef = document.activeElement;
-
-      // Setup focus trap inside the modal
-      document.addEventListener('keydown', (e) => handleFocusTrap(e, this.props.open));
+      document.addEventListener('keydown', this.keyboardListener);
     }
 
-    // Cleanup refs and focus trap
+    // Cleanup refs and keydown event listener
     if (!this.props.open && prevProps.open) {
-      this.cleanupFocusTrap();
+      document.removeEventListener('keydown', this.keyboardListener);
       if (this.previousFocusRef && this.previousFocusRef.focus) {
         this.previousFocusRef.focus();
       }
@@ -125,9 +116,9 @@ export default class SettingsPopup extends React.Component {
     }
   }
 
+  // Cleanup keydown event handler on unmount
   componentWillUnmount() {
     document.removeEventListener('keydown', this.keyboardListener);
-    this.cleanupFocusTrap();
   }
 
   render() {
