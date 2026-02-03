@@ -10,7 +10,7 @@ const Footer = () => (
       <Typography variant="body1">
         <Link href="https://www.iu.edu/copyright/index.html" underline="default" color="textPrimary">Copyright </Link>
         &copy; 2025 The Trustees of
-        <Link href="https://www.indiana.edu" underline="default" color="textPrimary"> Indiana University</Link>
+        <Link href="https://www.iu.edu" underline="default" color="textPrimary"> Indiana University</Link>
       </Typography>
     </Grid>
     <Grid
