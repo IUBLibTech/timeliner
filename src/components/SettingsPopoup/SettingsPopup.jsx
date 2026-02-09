@@ -24,6 +24,8 @@ import {
 import ColourSwatchPicker from '../ColourSwatchPicker/ColourSwatchPicker';
 import ColorPaletteSwitcher from '../ColorPaletteSwitcher/ColorPaletteSwitcher';
 
+import { handleFocusTrap } from '../../utils/keyboardFocusTrap';
+
 export default class SettingsPopup extends React.Component {
   static propTypes = {
     /** Callback for when settings saved */
