@@ -8,9 +8,9 @@ const Footer = () => (
   <Grid container className="footer">
     <Grid item xs={6}>
       <Typography variant="body1">
-        <Link href="https://www.iu.edu/copyright/index.html" underline="default" color="textPrimary">Copyright </Link>
+        <Link href="https://www.iu.edu/copyright/index.html" underline="always" color="textPrimary">Copyright </Link>
         &copy; 2026 The Trustees of
-        <Link href="https://www.iu.edu" underline="default" color="textPrimary"> Indiana University</Link>
+        <Link href="https://www.iu.edu" underline="always" color="textPrimary"> Indiana University</Link>
       </Typography>
     </Grid>
     <Grid
@@ -21,7 +21,7 @@ const Footer = () => (
       }}
     >
       <Typography variant="body1">
-        <Link href="https://github.com/IUBLibTech/timeliner" underline="default" color="textPrimary">Timeliner at GitHub</Link>
+        <Link href="https://github.com/IUBLibTech/timeliner" underline="always" color="textPrimary">Timeliner at GitHub</Link>
       </Typography>
     </Grid>
   </Grid>
