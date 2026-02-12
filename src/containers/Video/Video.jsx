@@ -169,6 +169,8 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
       <video height={270} width={480} ref={video} poster={poster} style={videoStyle}
         aria-label="Timeliner video player"
         tabIndex={0}
+        playsInline
+        preload="auto"
       >
       </video>
       <Button
