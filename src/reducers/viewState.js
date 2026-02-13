@@ -207,6 +207,10 @@ const viewState = (state = DEFAULT_VIEWSTATE_STATE, action) => {
         [VIEWSTATE.IS_PLAYING]: {
           $set: false,
         },
+        // Reset current time to 0 when media finishes playing.
+        [VIEWSTATE.CURRENT_TIME]: {
+          $set: 0,
+        },
       });
     case SET_CALLBACK:
       return update(state, {

@@ -1,50 +1,31 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { seek, play, pause, setVolume } from '../../actions/viewState';
+import { mediaLoading, mediaLoaded, mediaError } from '../../actions/canvas';
+import { setCurrentTime, finishedPlaying, seek, play, pause, setVolume } from '../../actions/viewState';
 import Button from '@material-ui/core/Button';
 import PictureInPicture from '@material-ui/icons/PictureInPicture';
 
-// Media Element
-import 'mediaelement/standalone';
 import useEventListener from '../../hooks/useEventListener';
+import useMediaPlayer from '../../hooks/useMediaPlayer';
 
-const { MediaElement } = window;
-
-function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeked, ...props }) {
+function Video({ url, volume, poster, ...props }) {
   const video = useRef();
-  const player = useRef();
-  const sources = [{ src: url }];
-  const lastTime = useRef(() => startTime - 1);
   const lastVolume = useRef();
   const [pipButtonText, setPipButtonText] = useState('Enter Picture-in-Picture mode');
+
+  const player = useMediaPlayer(video, { url, volume, ...props });
 
   // Styling for video and PIP button
   const videoStyle = { background: 'black', boxShadow: 'gray 2px 2px 4px' };
   const videoDivStyle = { margin: '0 auto', padding: '5px' };
   const pipButtonStyles = { display: 'none', alignItems: 'center', flexWrap: 'wrap', marginTop: '20px' };
 
-  useLayoutEffect(() => {
-    const element = new MediaElement(
-      video.current,
-      {
-        currentTime: currentTime / 1000,
-      },
-      sources
-    );
-    player.current = element;
-    // Set volume to zero, use audio player's volume
-    player.current.setVolume(0);
-
-    return () => {
-      element.remove();
-    };
-  }, []);
-
-  // When Picture-in-Picture is not an in-built feature of the browser,
-  // use an external button to use the Picture-in-Picture Web API
-  // to enable the feature
-  // Reference: https://css-tricks.com/an-introduction-to-the-picture-in-picture-web-api/
+  /**
+   * When Picture-in-Picture is not an in-built feature of the browser,
+   * create an external button to provide the Picture-in-Picture feature via Web API.
+   * Reference: https://css-tricks.com/an-introduction-to-the-picture-in-picture-web-api/
+   */
   const initPIP = () => {
     const pipButton = document.getElementById('timeliner-pip-button');
     const videoElement = document.getElementsByTagName('video')[0];
@@ -78,28 +59,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
     });
   };
 
-  // Re-create player instance with media swap
-  // TODO:: There's a slight time difference in the video and audio
-  // players when media file gets swapped.
-  // To reproduce: load a manifest -> play media -> pause media
-  // -> swap media file with 'Open audio file' in toolbar ->
-  // play media -> observe currentTime diff in the audio and video players
-  useLayoutEffect(() => {
-    if (url != null && player.current == null) {
-      player.current = new MediaElement(
-        video.current,
-        {
-          currentTime: currentTime / 1000,
-        },
-        [{ src: url }]
-      );
-      player.current.setVolume(0);
-      player.current.setCurrentTime(currentTime / 1000);
-    };
-  }, [url]);
-
-  // Store last non-zero volume to restore it 
-  // when using PiP controls
+  // Store last non-zero volume to restore it when using PiP controls
   useLayoutEffect(() => {
     if (volume > 0) {
       lastVolume.current = volume;
@@ -107,7 +67,7 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
   }, [volume]);
 
   // Propagate play/pause and mute/unmute events from the picture-in-picture
-  // player window to audio player
+  // player window to the Redux state
   useEventListener(player, 'play', () => {
     props.play();
   }, [url]);
@@ -125,41 +85,6 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
     initPIP();
   });
 
-  // Handle play/pause events from the audio player
-  useLayoutEffect(() => {
-    if (player.current) {
-      if (isPlaying) {
-        player.current.setCurrentTime(currentTime / 1000);
-        player.current.play();
-        lastTime.current = player.current.currentTime;
-      } else {
-        if (player.current.readyState) {
-          player.current.pause();
-        }
-      }
-    }
-  }, [isPlaying, url]);
-
-  // While the video player is always on mute, sync mute/unmute
-  // in the picture-in-picture window for visual purposes
-  useLayoutEffect(() => {
-    if (player.current && volume == 0) {
-      player.current.setMuted(true);
-    } else {
-      player.current.setMuted(false);
-    }
-  }, [volume, url]);
-
-  // Handle current time when seeked.
-  useLayoutEffect(() => {
-    if (player.current) {
-      lastTime.current = currentTime;
-      player.current.setCurrentTime(currentTime / 1000);
-    }
-    // Reset isSeeked state variable
-    props.seek(false);
-  }, [isSeeked, url]);
-
   if (!url) {
     return null;
   }
@@ -169,7 +94,10 @@ function Video({ url, volume, currentTime, startTime, isPlaying, poster, isSeeke
       <video height={270} width={480} ref={video} poster={poster} style={videoStyle}
         aria-label="Timeliner video player"
         tabIndex={0}
+        playsInline
+        preload="auto"
       >
+        <source src={url} />
       </video>
       <Button
         variant="text"
@@ -202,6 +130,11 @@ const mapDispatchToProps = {
   play,
   pause,
   setVolume,
+  mediaLoading,
+  mediaLoaded,
+  mediaError,
+  setCurrentTime,
+  finishedPlaying,
 };
 
 export default connect(
