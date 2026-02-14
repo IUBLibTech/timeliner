@@ -24,7 +24,7 @@
     "redux-saga-test-plan": "^3.7.0",
     "sass-embedded": "^1.77.8",
     "vite": "^5.4.21",
-    "vitest": "^2.0.5"
+    "vitest": "^2.1.9"
   },
   "dependencies": {
     "@material-ui/core": "^3.0.2",
