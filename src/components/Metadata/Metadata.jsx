@@ -109,14 +109,14 @@ const Metadata = props => {
                   key={marker.id}
                   highlight={false}
                   marker={marker}
-                  onDeleteMarker={() => { 
-                      props.deleteMarker(marker.id);
-                      props.updateProjectStatus(false);
-                    }
+                  onDeleteMarker={() => {
+                    props.deleteMarker(marker.id);
+                    props.updateProjectStatus(false);
+                  }
                   }
                   onSaveMarker={data => props.updateMarker(marker.id, data)}
                   onGoToMarker={() => props.setCurrentTime(marker.time)}
-		  runTime={props.runTime}
+                  runTime={props.runTime}
                 />
               );
             })}
@@ -133,10 +133,10 @@ const Metadata = props => {
             >
               Video Playback
             </Typography>
-              <Video />
+            <Video key={'video--' + props.url} />
           </div>
         </div>
-      )} 
+      )}
       <div className="metadata__project">
         <div className="metadata__project-content">
           <Typography
@@ -169,7 +169,7 @@ const Metadata = props => {
                 canErase={props.canErase}
                 undoAll={props.undoAll}
                 hasResource={props.hasResource}
-		isModalOpen={props.isModalOpen}
+                isModalOpen={props.isModalOpen}
               />
             )}
           </div>

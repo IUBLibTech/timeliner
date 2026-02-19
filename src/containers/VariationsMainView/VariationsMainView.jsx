@@ -114,7 +114,7 @@ class VariationsMainView extends React.Component {
   addRange = selected => () => {
     this.props.splitRangeAt(
       (selected[RANGE.END_TIME] - selected[RANGE.START_TIME]) / 2 +
-        selected[RANGE.START_TIME]
+      selected[RANGE.START_TIME]
     );
   };
 
@@ -233,10 +233,10 @@ class VariationsMainView extends React.Component {
             onRedo={this.props.onRedo}
             onUndo={this.props.onUndo}
             onSave={this.getOnSave()}
-            onTitleChange={() => {}}
+            onTitleChange={() => { }}
             hasResource={this.props.hasResource}
             noHeader={this.props.noHeader}
-	    isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
+            isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
           />
           <div className="variations-app__content">
             <AuthCookieService1
@@ -247,10 +247,14 @@ class VariationsMainView extends React.Component {
               }
             >
               <BubbleEditor
-	        key={'bubble--' + this.props.url}
-	        isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
-	      />
-              {this.props.url ? (
+                key={'bubble--' + this.props.url}
+                isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
+              />
+              {/*
+                Render Audio player ONLY when the content is not being played as video.
+                i.e., either the Manifest is not video, or video playback is opted out via 'noVideo' prop.
+              */}
+              {this.props.url && !(this.props.isVideo && !this.props.noVideo) ? (
                 <Audio key={'audio--' + this.props.url} />
               ) : null}
               <AudioTransportBar
@@ -270,14 +274,14 @@ class VariationsMainView extends React.Component {
                 }
                 onGroupBubble={
                   selectedRanges.length > 1 &&
-                  this.isGroupingPossible(selectedRanges)
+                    this.isGroupingPossible(selectedRanges)
                     ? this.props.groupSelectedRanges
                     : null
                 }
                 onDeleteBubble={
                   selectedRanges.length > 0 &&
-                  _points.length > 1 &&
-                  _points.length - selectedRanges.length > 0
+                    _points.length > 1 &&
+                    _points.length - selectedRanges.length > 0
                     ? this.deleteRanges(selectedRanges)
                     : null
                 }
@@ -286,7 +290,7 @@ class VariationsMainView extends React.Component {
                 zoomIn={this.props.zoomIn}
                 zoomOut={this.props.zoomOut}
                 resetZoom={this.props.resetZoom}
-	        isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
+                isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
               />
             </AuthCookieService1>
             <div className="variations-app__metadata-editor">
@@ -326,7 +330,7 @@ class VariationsMainView extends React.Component {
                 // Enable Video playback in the timeliner
                 isVideo={!noVideo && this.props.isVideo}
                 poster={this.props.poster}
-	        isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
+                isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
               />
               {!noFooter && <Footer />}
             </div>
