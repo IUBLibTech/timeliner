@@ -21,10 +21,48 @@ export default function useVolumeSlider(volume, onVolumeChanged, options = {}) {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const volumeValue = (x / rect.width) * 100 || 100;
-    if (onVolumeChanged) {
+    if (onVolumeChanged != undefined) {
       onVolumeChanged(parseInt(volumeValue, 10));
     }
   }, [onVolumeChanged]);
+
+  const onMuteToggle = useCallback((newVolume) => {
+    if (onVolumeChanged != undefined) {
+      onVolumeChanged(newVolume);
+    }
+  }, [onVolumeChanged]);
+
+  /**
+   * Handle keyboard events for volume slider. MUI v3 Slider fires 'onChange' with
+   * clientX=0 on keyboard events, causing the mouse-position calculation in the the
+   * 'onVolumeInputChange' to snap to 100. This handler intercepts the relevant
+   * key events and calls 'onVolumeChanged' with correct step increment/decrement for volume.
+   */
+  const onKeyDown = useCallback((e) => {
+    let newVolume = null;
+    switch (e.key) {
+      case 'ArrowUp':
+      case 'ArrowRight':
+        newVolume = Math.min(100, volume + 1);
+        break;
+      case 'ArrowDown':
+      case 'ArrowLeft':
+        newVolume = Math.max(0, volume - 1);
+        break;
+      case 'Home':
+        newVolume = 0;
+        break;
+      case 'End':
+        newVolume = 100;
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
+    if (onVolumeChanged != undefined) {
+      onVolumeChanged(newVolume);
+    }
+  }, [volume, onVolumeChanged]);
 
   const enhanceSliderAccessibility = useCallback(() => {
     // Fix Material-UI v3 accessibility issue: remove role="slider" from container div
@@ -66,5 +104,5 @@ export default function useVolumeSlider(volume, onVolumeChanged, options = {}) {
     enhanceSliderAccessibility();
   }, [enhanceSliderAccessibility]);
 
-  return { containerRef, onVolumeInputChange };
+  return { containerRef, onMuteToggle, onVolumeInputChange, onKeyDown };
 }

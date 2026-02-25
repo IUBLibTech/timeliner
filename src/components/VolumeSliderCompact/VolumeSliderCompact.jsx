@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import './VolumeSliderCompact.scss';
 import PropTypes from 'prop-types';
 import VolumeUp from '@material-ui/icons/VolumeUp';
@@ -15,22 +15,20 @@ const SPEAKER_ICON_SIZE = {
 function VolumeSliderCompact({ volume, onVolumeChanged, flipped, disabled }) {
   const [previousVolume, setPreviousVolume] = useState(null);
 
-  const { containerRef, onVolumeInputChange } = useVolumeSlider(
+  const { containerRef, onMuteToggle, onVolumeInputChange, onKeyDown } = useVolumeSlider(
     volume,
     onVolumeChanged,
     { muteButtonSelector: '.volume-slider-compact__muter' }
   );
 
-  const onToggle = () => {
-    if (onVolumeChanged) {
-      if (volume === 0) {
-        onVolumeChanged(previousVolume || 100);
-      } else {
-        setPreviousVolume(volume);
-        onVolumeChanged(0);
-      }
+  const onToggle = useCallback(() => {
+    if (volume > 0) {
+      setPreviousVolume(volume);
+      onMuteToggle(0);
+    } else {
+      onMuteToggle(previousVolume || 100);
     }
-  };
+  }, [volume, previousVolume, onMuteToggle]);
 
   return (
     <div
@@ -38,6 +36,7 @@ function VolumeSliderCompact({ volume, onVolumeChanged, flipped, disabled }) {
       className={flipped ? 'volume-slider-compact volume-slider-compact--flipped' : 'volume-slider-compact'}
       role="group"
       aria-label="Volume control"
+      onKeyDown={onKeyDown}
     >
       <Slider
         min={0}
