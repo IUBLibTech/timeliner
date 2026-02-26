@@ -51,7 +51,10 @@ class AudioTransportBar extends Component {
   keyboardListener = e => {
     if (
       e.target &&
-      ['INPUT', 'BUTTON', 'TEXTAREA'].indexOf(e.target.tagName) !== -1
+      (
+        ['INPUT', 'BUTTON', 'TEXTAREA', 'VIDEO'].indexOf(e.target.tagName) !== -1 ||
+        e.target.getAttribute('role') === 'slider'
+      )
     ) {
       return;
     }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import './VolumeSliderCompact.scss';
 import PropTypes from 'prop-types';
 import VolumeUp from '@material-ui/icons/VolumeUp';
@@ -15,30 +15,59 @@ const SPEAKER_ICON_SIZE = {
 function VolumeSliderCompact({ volume, onVolumeChanged, flipped, disabled }) {
   const [previousVolume, setPreviousVolume] = useState(null);
 
-  const { containerRef, onVolumeInputChange } = useVolumeSlider(
+  const { containerRef, onMuteToggle, onVolumeInputChange, onKeyDown } = useVolumeSlider(
     volume,
     onVolumeChanged,
     { muteButtonSelector: '.volume-slider-compact__muter' }
   );
 
-  const onToggle = () => {
-    if (onVolumeChanged) {
-      if (volume === 0) {
-        onVolumeChanged(previousVolume || 100);
-      } else {
-        setPreviousVolume(volume);
-        onVolumeChanged(0);
-      }
+  const onToggle = useCallback(() => {
+    if (volume > 0) {
+      setPreviousVolume(volume);
+      onMuteToggle(0);
+    } else {
+      onMuteToggle(previousVolume || 100);
     }
-  };
+  }, [volume, previousVolume, onMuteToggle]);
+
+  /**
+   * Build the mute/unmute button into the DOM and place it on either left/right of the
+   * slider based on the 'flipped' prop value respectively (true/false). This allows the tab
+   * order to be the same as the visual order of the slider and the button.
+   */
+  const muteButton = (
+    <button
+      className='volume-slider-compact__muter'
+      onClick={onToggle}
+      aria-label={volume === 0 ? "Unmute" : "Mute"}
+      disabled={disabled}
+      type="button"
+    >
+      {volume === 0 ? (
+        <VolumeOff
+          style={{ ...SPEAKER_ICON_SIZE, transform: 'translateX(1px)' }}
+        />
+      ) : volume <= 40 ? (
+        <VolumeDown
+          style={{ ...SPEAKER_ICON_SIZE, transform: 'translateX(-0.5px)' }}
+        />
+      ) : (
+        <VolumeUp
+          style={{ ...SPEAKER_ICON_SIZE, transform: 'translateX(1px)' }}
+        />
+      )}
+    </button>
+  );
 
   return (
     <div
       ref={containerRef}
-      className={flipped ? 'volume-slider-compact volume-slider-compact--flipped' : 'volume-slider-compact'}
+      className='volume-slider-compact'
       role="group"
       aria-label="Volume control"
+      onKeyDown={onKeyDown}
     >
+      {flipped && muteButton}
       <Slider
         min={0}
         max={100}
@@ -47,27 +76,7 @@ function VolumeSliderCompact({ volume, onVolumeChanged, flipped, disabled }) {
         aria-label="Volume"
         disabled={disabled}
       />
-      <button
-        className='volume-slider-compact__muter'
-        onClick={onToggle}
-        aria-label={volume === 0 ? "Unmute" : "Mute"}
-        disabled={disabled}
-        type="button"
-      >
-        {volume === 0 ? (
-          <VolumeOff
-            style={{ ...SPEAKER_ICON_SIZE, transform: 'translateX(1px)' }}
-          />
-        ) : volume <= 40 ? (
-          <VolumeDown
-            style={{ ...SPEAKER_ICON_SIZE, transform: 'translateX(-0.5px)' }}
-          />
-        ) : (
-          <VolumeUp
-            style={{ ...SPEAKER_ICON_SIZE, transform: 'translateX(1px)' }}
-          />
-        )}
-      </button>
+      {!flipped && muteButton}
     </div>
   );
 }
