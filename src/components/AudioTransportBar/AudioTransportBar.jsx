@@ -191,7 +191,7 @@ class AudioTransportBar extends Component {
                 isPlaying={isPlaying}
                 onPlay={onPlay}
                 onPause={onPause}
-	        disabled={this.props.isModalOpen}
+                disabled={this.props.isModalOpen}
               />
               <SkipAheadButton onClick={onScrubAhead} disabled={this.props.isModalOpen} />
               <NextButton onClick={onNextBubble} disabled={this.props.isModalOpen} />
@@ -203,7 +203,7 @@ class AudioTransportBar extends Component {
               onZoomIn={this.props.zoomIn}
               onZoomOut={zoom > 1 ? this.props.zoomOut : null}
               onResetView={zoom !== 1 ? this.props.resetZoom : null}
-	      disabled={this.props.isModalOpen}
+              disabled={this.props.isModalOpen}
             />
           </Grid>
 
@@ -212,7 +212,7 @@ class AudioTransportBar extends Component {
               flipped={true}
               volume={volume}
               onVolumeChanged={onVolumeChanged}
-	      disabled={this.props.isModalOpen}
+              disabled={this.props.isModalOpen}
             />
           </Grid>
         </Grid>

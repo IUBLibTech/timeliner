@@ -66,8 +66,14 @@ function Video({ url, volume, poster, ...props }) {
     }
   }, [volume]);
 
-  // Propagate play/pause and mute/unmute events from the picture-in-picture
-  // player window to the Redux state
+  /**
+   * Handle user interactions with the controls in the Picture-in-Picture window. 
+   * These event handlers propagate,
+   * - play/pause
+   * - mute/unmute or volume change
+   * events to the state by calling relevant Redux actions to update the controls in the
+   * controls bar in the main window accordingly.
+   */
   useEventListener(player, 'play', () => {
     props.play();
   }, [url]);
@@ -80,7 +86,12 @@ function Video({ url, volume, poster, ...props }) {
     } else {
       props.setVolume(lastVolume.current);
     }
-  }, [volume, url]);
+  }, [url]);
+
+  /**
+   * Initialize the Picture-in-Picture buttton when the video's metadata is loaded for browsers,
+   * that do not have native support for it.
+   */
   useEventListener(player, 'loadedmetadata', () => {
     initPIP();
   });

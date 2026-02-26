@@ -77,10 +77,15 @@ export default function useMediaPlayer(elementRef, {
     }
   }, [isPlaying, url]);
 
-  // Handle volume change.
+  // Handle volume change and mute/unmute.
   useLayoutEffect(() => {
     if (player.current) {
       player.current.setVolume(volume / 100);
+      if (volume == 0) {
+        player.current.muted = true;
+      } else {
+        player.current.muted = false;
+      }
     }
   }, [volume, url]);
 
