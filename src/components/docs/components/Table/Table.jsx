@@ -1,7 +1,7 @@
 import React from 'react';
 import './Table.scss';
 
-const Table = ({ children }) => <table className={$b}>{children}</table>;
+const Table = ({ children }) => <table className="table">{children}</table>;
 Table.Header = ({ children }) => (
   <thead className='table__header'>{children}</thead>
 );

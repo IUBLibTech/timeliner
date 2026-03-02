@@ -9,10 +9,12 @@
     "start": "vite",
     "build": "vite build",
     "test": "vitest --coverage",
-    "docz:dev": "docz dev",
+    "docz:dev": "DOCZ_BASE=/ docz dev",
     "docz:build": "docz build",
+    "preview": "VITE_DOCS=true yarn build && yarn docz:build && npx serve dist -p 5173",
     "watch": "vite build --watch",
     "snyk-protect": "snyk-protect",
+    "postinstall": "node scripts/patch-docz.js",
     "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
@@ -20,9 +22,13 @@
     "@snyk/protect": "^1.1044",
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-v8": "^2.0.5",
+    "css-loader": "^4.3.0",
     "js-yaml": "4.1.1",
     "redux-saga-test-plan": "^3.7.0",
+    "sass": "^1.32.0",
     "sass-embedded": "^1.77.8",
+    "sass-loader": "^10.2.0",
+    "style-loader": "^2.0.0",
     "vite": "^5.4.21",
     "vitest": "^2.0.5"
   },
