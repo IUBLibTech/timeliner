@@ -3,8 +3,9 @@ title: Colour swatch picker
 menu: Components
 ---
 
-import { Playground, Props } from 'docz';
+import { Props } from 'docz';
 import ColourSwatchPicker from './ColourSwatchPicker';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 # Colour swatch picker
 Allows you to select a colour from a configured swatch of colours.
@@ -12,16 +13,13 @@ Allows you to select a colour from a configured swatch of colours.
 <Props of={ColourSwatchPicker} />
 
 ## Colour Swatch Picker Demo
-<Playground>
-  <div style={{width: '100%', height: 500 }}>
-    <ColourSwatchPicker />
-  </div>
-</Playground>
+<DemoWrapper>
+  <ColourSwatchPicker />
+</DemoWrapper>
 
+## Colour Swatch Picker - Custom Palette Demo
 
-## Colour Swatch Picker Custom Palette Demo
-<Playground>
-  <div style={{width: '100%', height: 500 }}>
-    <ColourSwatchPicker swatch={[ '#ff0000','#00ff00','#0000ff' ]}/>
-  </div>
-</Playground>
+<DemoWrapper>
+  <ColourSwatchPicker swatch={['#ff0000', '#00ff00', '#0000ff']} />
+</DemoWrapper>
+

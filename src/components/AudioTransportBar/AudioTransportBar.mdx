@@ -3,37 +3,30 @@ name: Audio Transport Bar
 menu: Components
 ---
 
-import { Playground, Props } from 'docz';
-import Component from "@reach/component-component";
+import { Props } from 'docz';
 import AudioTransportBar from './AudioTransportBar';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 # Audio Transport Bar component
 <Props of={AudioTransportBar}/>
 
-<Playground>
-  <Component initialState={{ volume: 70, currentTime: 30000, runTime: 120000 }}>
-  {({ setState, state }) => (
-    <AudioTransportBar 
-      isPlaying={false}
-      onVolumeChanged={volume => {
-        setState({ volume });
-      }}
-      {...state}
-    />
-  )}
-  </Component>
-</Playground>
-
-<Playground>
-  <Component initialState={{ volume: 70, currentTime: 30000, runTime: 120000  }}>
-  {({ setState, state }) => (
-    <AudioTransportBar 
-      isPlaying={true}
-      onVolumeChanged={volume => {
-        setState({volume});
-      }}
-      {...state}
-    />
-  )}
-  </Component>
-</Playground>
+<DemoWrapper>
+  <AudioTransportBar
+    isPlaying={true}
+    currentTime={3000}
+    runTime={120000}
+    onPlay={() => {}}
+    onPause={() => {}}
+    onNextBubble={() => {}}
+    onPreviousBubble={() => {}}
+    onScrubAhead={() => {}}
+    onScrubBackwards={() => {}}
+    onAddBubble={() => {}}
+    onGroupBubble={() => {}}
+    onDeleteBubble={() => {}}
+    onAddBubble={() => {}}
+    onAddBubble={() => {}}
+    onVolumeChanged={() => {}}
+    isModalOpen={false}
+  />
+</DemoWrapper>

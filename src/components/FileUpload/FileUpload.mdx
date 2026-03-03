@@ -6,10 +6,13 @@ menu: Components
 # File Upload
 
 import FileUpload from './FileUpload';
-import { Playground, Props } from 'docz';
+import { Props } from 'docz';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 <Props of={FileUpload} />
 
-<Playground>
+## File Upload Demo
+<DemoWrapper>
   <FileUpload onChange={val => console.log(val)} />
-</Playground>
+</DemoWrapper>
+

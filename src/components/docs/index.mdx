@@ -8,12 +8,25 @@ order: 1
 ## Installation
 To install the development environment you will require `node@8.11.x` and `yarn` installed.
 
-To install run: `$ yarn`
+To install run: 
+```
+yarn install
+```
 
-To start the main application run: `$ yarn start`
+To start the main application with hot-reload for code changes, run: 
+```
+yarn start
+```
+and your server will be available at [http://localhost:5173/](http://localhost:5173/)
 
-and your server will be available at [http://localhost:5000/](http://localhost:5000/)
+To start this documentation application in development-mode, run: 
+```
+yarn docz:dev
+```
+and the documentation will be available at [http://localhost:3000/](http://localhost:3000/)
 
-To start this documentation application, run: `$ yarn docz:dev`
-
-and the documentation will be available at [http://localhost:5001/](http://localhost:5001/)
+To start the main application with documentation site for prodcuction, run: 
+```
+yarn preview
+```
+and the main site and documentation will be available at [http://localhost:5173/](http://localhost:5173/) and [http://localhost:5173/docs](http://localhost:5173/docs) respectively

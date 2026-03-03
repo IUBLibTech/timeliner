@@ -1,20 +1,15 @@
 ---
-title: App Bar 
+title: App Bar
 menu: Components
 ---
 
-import { Playground, Props } from 'docz';
-import Component from "@reach/component-component";
+import { Props } from 'docz';
 import VariationsAppBar from './VariationsAppBar';
-
+import { VariationsAppBarDemo } from './VariationsAppBar.demo';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 <Props of={VariationsAppBar} />
 
-
-<Playground>
-  <Component initialState={{ title: 'test title' }}>
-  {({ setState, state }) => (
-    <VariationsAppBar title={state.title} onTitleChange={title=>setState({title})}/>
-  )}
-  </Component>
-</Playground>
+<DemoWrapper>
+  <VariationsAppBarDemo />
+</DemoWrapper>

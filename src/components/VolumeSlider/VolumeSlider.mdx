@@ -3,9 +3,10 @@ name: Volume Slider
 menu: Components
 ---
 
-import { Playground, Props } from 'docz';
-import Component from "@reach/component-component";
+import { Props } from 'docz';
 import VolumeSlider from './VolumeSlider';
+import { VolumeSliderDemo } from './VolumeSlider.demo';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 # Volume Slider component
 <Props of={VolumeSlider}/>
@@ -13,15 +14,6 @@ import VolumeSlider from './VolumeSlider';
 # Volume Slider Demo
 
 VolumeSliderDemo component passes the volume to the child components and provides a callback to set the volume.
-<Playground>
-  <Component initialState={{ volume: 70 }}>
-  {({ setState, state }) => (
-    <VolumeSlider 
-      volume={state.volume} 
-      onVolumeChanged={(volume) => {
-        setState({ volume });
-      }}
-    />
-  )}
-  </Component>
-</Playground>
+<DemoWrapper>
+  <VolumeSliderDemo />
+</DemoWrapper>
