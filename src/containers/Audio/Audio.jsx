@@ -5,13 +5,9 @@ import { mediaLoading, mediaLoaded, mediaError } from '../../actions/canvas';
 import { setCurrentTime, finishedPlaying, seek } from '../../actions/viewState';
 import useMediaPlayer from '../../hooks/useMediaPlayer';
 
-function Audio({ url, ...props }) {
+function AudioPlayer({ url, ...props }) {
   const audio = useRef();
   useMediaPlayer(audio, { url, ...props });
-
-  if (!url) {
-    return null;
-  }
 
   return (
     <div>
@@ -20,6 +16,13 @@ function Audio({ url, ...props }) {
       </audio>
     </div>
   );
+}
+
+function Audio({ url, ...props }) {
+  if (!url) {
+    return null;
+  }
+  return <AudioPlayer url={url} {...props} />;
 }
 
 const mapStateProps = state => ({

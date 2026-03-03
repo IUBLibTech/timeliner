@@ -10,8 +10,8 @@ export const VerifyDialogDemo = () => {
         open={open}
         title="Delete test"
         description="Item will be permanently removed"
-        cancelText="Oh ,no"
-        aggreeText="Yes, please"
+        cancelText="Oh, no"
+        agreeText="Yes, please"
         onClose={() => setOpen(false)}
         onProceed={() => setOpen(false)}
       />

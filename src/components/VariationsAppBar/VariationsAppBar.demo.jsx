@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import VariationsAppBar from './VariationsAppBar';
 
+const noop = () => {};
+
 export const VariationsAppBarDemo = () => {
-  const [title, setTitle] = useState('test title');
   return (
-    <VariationsAppBar title={title} onTitleChange={setTitle} />
+    <VariationsAppBar
+      onImportButtonClicked={noop}
+      onUndo={noop}
+      onRedo={noop}
+      onSettingsButtonClicked={noop}
+      isModalOpen={false}
+    />
   );
 };

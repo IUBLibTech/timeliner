@@ -37,7 +37,7 @@ const POINTS = {
   },
 };
 
-const noop = () => {};
+const noop = () => { };
 
 const timePoints = Array.from(
   Object.values(POINTS).reduce((_timePoints, bubble) => {
@@ -75,6 +75,8 @@ export const TimelineScrubberWithBubblesDemo = () => {
         currentTime={currentTime}
         timePoints={timePoints}
         onUpdateTime={setCurrentTime}
+        isModalOpen={false}
+        width={editorWidth}
       />
     </div>
   );

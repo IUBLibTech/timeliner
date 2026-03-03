@@ -5,13 +5,19 @@ menu: Components
 
 import { Props } from 'docz';
 import TimePicker from './TimePicker';
-import { TimePickerDemo } from './TimePicker.demo';
+import { TimePickerDemo, TimePickerDemoWithRange } from './TimePicker.demo';
 import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 # Time Picker
 
 <Props of={TimePicker.Naked} />
 
+## Time Picker Demo
 <DemoWrapper>
   <TimePickerDemo />
+</DemoWrapper>
+
+## Time Picker Demo with Range (max = 1 hour, min = 2 minutes)
+<DemoWrapper>
+  <TimePickerDemoWithRange />
 </DemoWrapper>

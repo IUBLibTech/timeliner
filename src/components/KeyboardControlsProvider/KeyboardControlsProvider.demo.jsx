@@ -11,7 +11,7 @@ export const KeyboardControlsProviderDemo = () => {
           'alt+a': () => setLastKey('special alt a handler'),
         }}
       />
-      <p>Last key pressed:<b>{lastKey}</b></p>
+      <p>Last key pressed:<b> {lastKey}</b></p>
     </div>
   );
 };

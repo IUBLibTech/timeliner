@@ -61,7 +61,7 @@ class TimelineScrubber extends Component {
   };
 
   static defaultProps = {
-    onUpdateTime: () => {},
+    onUpdateTime: () => { },
     onUpdatePoint: null, // This changes behaviour depending if null.
     onUpdateTimePoint: null, // This changes behaviour depending if null.
     timePoints: [],
@@ -69,6 +69,10 @@ class TimelineScrubber extends Component {
     showTimes: false,
     isPlayheadUpdating: false,
     playheadX: 0,
+    markers: {},
+    x: 0,
+    width: 0,
+    dragStart: () => () => { },
   };
 
   state = { isHovering: false, hoverTime: 0 };
@@ -107,8 +111,8 @@ class TimelineScrubber extends Component {
       timePointIndex === 0
         ? 'translate(0)'
         : timePointIndex === timePoints.length - 1
-        ? 'translate(-100%)'
-        : 'translate(-50%)',
+          ? 'translate(-100%)'
+          : 'translate(-50%)',
   });
 
   handleAddPoint = ev => {

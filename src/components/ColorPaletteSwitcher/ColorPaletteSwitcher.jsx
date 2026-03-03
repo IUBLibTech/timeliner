@@ -46,7 +46,7 @@ const ColorPaletteSwitcher = ({ currentKey, onChange }) => {
         {Object.keys(colourPalettes).map(key => {
           const palette = colourPalettes[key];
           const isChecked = currentKey === key;
-          if (palette?.colours != undefined) {
+          if (palette && palette.colours != undefined) {
             return (
               <FormControlLabel
                 key={key}
