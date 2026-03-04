@@ -22,6 +22,7 @@ import Table from '../components/Table/Table';
         <Table.Cell>Selected (0, 1, n)</Table.Cell>
       </Table.Row>
   </Table.Header>
+  <Table.Body>
   <Table.Row>
     <Table.Cell>Bubble</Table.Cell>
     <Table.Cell>many</Table.Cell>
@@ -52,6 +53,7 @@ import Table from '../components/Table/Table';
     <Table.Cell>Canvas</Table.Cell>
     <Table.Cell>1</Table.Cell>
   </Table.Row>
+  </Table.Body>
 </Table>
 
 
@@ -80,6 +82,7 @@ The project represents a Manifest presentation v3 object.
       <Table.Cell>Details</Table.Cell>
     </Table.Row>
   </Table.Header>
+  <Table.Body>
   <Table.Row>
     <Table.Cell>bubblesStyle</Table.Cell>
     <Table.Cell>string</Table.Cell>
@@ -152,6 +155,7 @@ Maps to IIIF behaviour for the rounded or square bubbles setting
     <Table.Cell>yes</Table.Cell>
     <Table.Cell>Maps to metadata</Table.Cell>
   </Table.Row>
+  </Table.Body>
 </Table>
 
 
@@ -182,6 +186,7 @@ Maps to IIIF behaviour for the rounded or square bubbles setting
       <Table.Cell>Details</Table.Cell>
     </Table.Row>
   </Table.Header>
+  <Table.Body>
   <Table.Row>
     <Table.Cell>url</Table.Cell>
     <Table.Cell>string</Table.Cell>
@@ -210,6 +215,7 @@ Maps to IIIF behaviour for the rounded or square bubbles setting
     <Table.Cell>yes</Table.Cell>
     <Table.Cell>Audio file relative current time</Table.Cell>
   </Table.Row>
+  </Table.Body>
 </Table>
 
 
@@ -234,6 +240,7 @@ Maps to IIIF behaviour for the rounded or square bubbles setting
       <Table.Cell>Details</Table.Cell>
     </Table.Row>
   </Table.Header>
+  <Table.Body>
   <Table.Row>
     <Table.Cell>startTime</Table.Cell>
     <Table.Cell>number</Table.Cell>
@@ -276,6 +283,7 @@ Maps to IIIF behaviour for the rounded or square bubbles setting
     <Table.Cell>yes</Table.Cell>
     <Table.Cell>Is the bubble selected.</Table.Cell>
   </Table.Row>
+  </Table.Body>
 </Table>
 
 
@@ -300,6 +308,7 @@ The view state stores the editor UI's current state. The view state is not getti
       <Table.Cell>Details</Table.Cell>
     </Table.Row>
   </Table.Header>
+  <Table.Body>
   <Table.Row>
     <Table.Cell>isPlaying</Table.Cell>
     <Table.Cell>bool</Table.Cell>
@@ -350,6 +359,7 @@ The view state stores the editor UI's current state. The view state is not getti
     <Table.Cell>yes</Table.Cell>
     <Table.Cell>The volume is global and the value is between 0..100.</Table.Cell>
   </Table.Row>
+  </Table.Body>
 </Table>
 
 
@@ -367,8 +377,9 @@ Any behaviours that happen that are not mutations. These could be multiple value
       <Table.Cell>Affected entities</Table.Cell>
     </Table.Row>
   </Table.Header>
+  <Table.Body>
   <Table.Row>
-    <Table.Cell colspan="3">General behaviours</Table.Cell>
+    <Table.Cell colSpan="3">General behaviours</Table.Cell>
   </Table.Row>
   <Table.Row>
     <Table.Cell>Open Import Modal</Table.Cell>
@@ -396,7 +407,7 @@ Any behaviours that happen that are not mutations. These could be multiple value
     <Table.Cell>Viewport, Bubbles</Table.Cell>
   </Table.Row>
   <Table.Row>
-    <Table.Cell colspan="3">Playback related behaviours</Table.Cell>
+    <Table.Cell colSpan="3">Playback related behaviours</Table.Cell>
   </Table.Row>
   <Table.Row>
     <Table.Cell>Play/pause</Table.Cell>
@@ -434,7 +445,7 @@ Any behaviours that happen that are not mutations. These could be multiple value
     <Table.Cell>Viewport, Audio</Table.Cell>
   </Table.Row>
   <Table.Row>
-    <Table.Cell colspan="3" >Editing related behaviours</Table.Cell>
+    <Table.Cell colSpan="3" >Editing related behaviours</Table.Cell>
   </Table.Row>
   <Table.Row>
     <Table.Cell>Update Bubble constraints</Table.Cell>
@@ -466,6 +477,7 @@ Any behaviours that happen that are not mutations. These could be multiple value
     <Table.Cell>Removes all bubbles, stops the playback, moves the played to zero, resets the button states</Table.Cell>
     <Table.Cell>Project, Viewport, Bubble</Table.Cell>
   </Table.Row>
+  </Table.Body>
 </Table>
 
 
@@ -483,6 +495,7 @@ A value that is derived from the models, but is not stored in state. Will probab
       <Table.Cell>Affected entities</Table.Cell>
     </Table.Row>
   </Table.Header>
+  <Table.Body>
   <Table.Row>
     <Table.Cell>Formatted Current Time</Table.Cell>
     <Table.Cell>Formatted version of the current playhead position in `mm:ss` and `hh:mm:ss` formats.</Table.Cell>
@@ -523,6 +536,7 @@ A value that is derived from the models, but is not stored in state. Will probab
     <Table.Cell>With regards the current time, the 'current Bubbles', 'duration' and 'is playing' the transport bar buttons will be updated on the disabled/enabled state and the play/pause buttons icon.</Table.Cell>
     <Table.Cell>ViewState, Bubble</Table.Cell>
   </Table.Row>
+  </Table.Body>
 </Table>
 
 

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './VolumeSliderCompact.scss';
 import PropTypes from 'prop-types';
 import VolumeUp from '@material-ui/icons/VolumeUp';

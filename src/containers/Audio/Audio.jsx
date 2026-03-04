@@ -1,17 +1,14 @@
 import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { mediaLoading, mediaLoaded, mediaError } from '../../actions/canvas';
 import { setCurrentTime, finishedPlaying, seek } from '../../actions/viewState';
 import useMediaPlayer from '../../hooks/useMediaPlayer';
 
-function Audio({ url, ...props }) {
+function AudioPlayer({ url, ...props }) {
   const audio = useRef();
   useMediaPlayer(audio, { url, ...props });
-
-  if (!url) {
-    return null;
-  }
 
   return (
     <div>
@@ -20,6 +17,17 @@ function Audio({ url, ...props }) {
       </audio>
     </div>
   );
+}
+
+function Audio({ url, ...props }) {
+  if (!url) {
+    return null;
+  }
+  /**
+   * Extract the <audio> element into a separate component to avoid invoking the useMediaPlayer hook
+   * when the url is not available, which would cause errors.
+   */
+  return <AudioPlayer url={url} {...props} />;
 }
 
 const mapStateProps = state => ({
@@ -39,6 +47,22 @@ const mapDispatchToProps = {
   setCurrentTime,
   finishedPlaying,
   seek,
+};
+
+Audio.propTypes = {
+  url: PropTypes.string,
+  isSeeked: PropTypes.bool,
+  isPlaying: PropTypes.bool,
+  currentTime: PropTypes.number,
+  volume: PropTypes.number,
+  runTime: PropTypes.number,
+  startTime: PropTypes.number,
+  mediaLoading: PropTypes.func,
+  mediaLoaded: PropTypes.func,
+  mediaError: PropTypes.func,
+  setCurrentTime: PropTypes.func,
+  finishedPlaying: PropTypes.func,
+  seek: PropTypes.func,
 };
 
 export default connect(

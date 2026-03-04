@@ -1,29 +1,17 @@
 ---
-title: Verify Dialog 
+title: Verify Dialog
 menu: Components
 ---
 
-import { Playground, Props } from 'docz';
-import Component from "@reach/component-component";
+import { Props } from 'docz';
 import VerifyDialog from './VerifyDialog';
+import { VerifyDialogDemo } from './VerifyDialog.demo';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
-
+# Verify Dialog component
 <Props of={VerifyDialog} />
 
-
-<Playground>
-  <Component initialState={{ 
-      open: false,
-      title: "Delete test",
-      description: "Item will be permanently removed",
-      cancelText: "Oh ,no",
-      aggreeText: "Yes, please",
-   }}>
-  {({ setState, state }) => (
-    <div>
-      <button onClick={()=>setState({open: true})}>Delete Item</button>
-      <VerifyDialog {...state} onClose={()=>setState({open:false})} onProceed={()=>setState({open:false})}/>
-    </div>
-  )}
-  </Component>
-</Playground>
+## Verify Dialog Demo
+<DemoWrapper>
+  <VerifyDialogDemo />
+</DemoWrapper>

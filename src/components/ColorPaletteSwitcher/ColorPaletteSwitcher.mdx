@@ -3,9 +3,10 @@ title: Color palette switcher
 menu: Components
 ---
 
-import { Playground, Props } from 'docz';
+import { Props } from 'docz';
 import ColorPaletteSwitcher from './ColorPaletteSwitcher';
-import { PROJECT } from '../../constants/project';
+import { ColorPaletteSwitcherDemo } from './ColorPaletteSwitcher.demo';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 # Color palette switcher
 Creates a keyboard accessible radio button groups for listing and selecting a desired color palette for the bubbles
@@ -13,19 +14,6 @@ Creates a keyboard accessible radio button groups for listing and selecting a de
 <Props of={ColorPaletteSwitcher} />
 
 ## Color Palette Switcher Demo
-<Playground>
-  <div style={{width: '100%', height: 500 }}>
-    <ColorPaletteSwitcher />
-  </div>
-</Playground>
-
-
-## Color Palette Switcher Demo
-<Playground>
-  <div style={{width: '100%', height: 500 }}>
-    <ColorPaletteSwitcher 
-      currentKey={'default'} 
-      onChange={(key)=>{ this.setState({ [PROJECT.COLOUR_PALETTE]: key }) }} 
-    />
-  </div>
-</Playground>
+<DemoWrapper>
+  <ColorPaletteSwitcherDemo />
+</DemoWrapper>
