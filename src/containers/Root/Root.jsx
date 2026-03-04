@@ -36,6 +36,13 @@ const Root = ({
 
 Root.propTypes = {
   store: PropTypes.object.isRequired,
+  persistor: PropTypes.object.isRequired,
+  callback: PropTypes.func,
+  hasResource: PropTypes.bool,
+  noFooter: PropTypes.bool,
+  noHeader: PropTypes.bool,
+  noVideo: PropTypes.bool,
+  noSourceLink: PropTypes.bool,
 };
 
 export default Root;

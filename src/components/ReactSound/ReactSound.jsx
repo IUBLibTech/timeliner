@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Sound from 'react-sound';
+import formatDate from 'date-fns/format';
 
 const Scrubber = ({ duration, onScrub, position }) => {
   return (

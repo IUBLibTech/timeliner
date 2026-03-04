@@ -4,23 +4,22 @@ menu: Containers
 edit: false
 ---
 
-# Bubble Editor view 
-
-The bubble editor is a composite view. It glues together 
-the Timeline and Bubble displays with stores and actions required 
-to create the experience.
-
-
-import { Playground, Props } from 'docz';
+import { Props } from 'docz';
 import { Provider } from 'react-redux';
 import configureStore from '../../store/main';
-import rootReducer from '../../reducers/root';
-import BubbleEditor from './BubbleEditor';
+import BubbleEditor, { BubbleEditor as BubbleEditorClass } from './BubbleEditor';
+import DemoWrapper from '../../components/docs/components/DemoWrapper/DemoWrapper';
 
-<Props of={BubbleEditor.WrappedComponent} />
+# Bubble Editor view
 
-<Playground>
-  <Provider store={configureStore("https://incompetech.com/music/royalty-free/mp3-royaltyfree/Egmont%20Overture.mp3")}>
+The bubble editor is a composite view. It glues together
+the Timeline and Bubble displays with stores and actions required
+to create the experience.
+<Props of={BubbleEditorClass} />
+
+## Bubble Editor Demo
+<DemoWrapper>
+  <Provider store={configureStore("https://webaudioapi.com/samples/audio-tag/chrono.mp3").store}>
     <BubbleEditor />
   </Provider>
-</Playground>
+</DemoWrapper>

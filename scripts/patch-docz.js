@@ -47,3 +47,25 @@ if (content.includes("renamed('safeLoad'")) {
 } else {
   console.log('js-yaml already patched or unexpected format, skipping');
 }
+
+/**
+ * Patch 3: Replace the hardcoded "Built with docz" footer link in docz-theme-default.
+ */
+for (const themeFile of ['index.js', 'index.esm.js']) {
+  const themeDefaultPath = path.join(__dirname, `../node_modules/docz-theme-default/dist/${themeFile}`);
+  if (fs.existsSync(themeDefaultPath)) {
+    const themeContent = fs.readFileSync(themeDefaultPath, 'utf8');
+    if (themeContent.includes('href: "https://docz.site"')) {
+      const themePatched = themeContent.replace(
+        'href: "https://docz.site"',
+        'href: "https://github.com/doczjs/docz"'
+      );
+      fs.writeFileSync(themeDefaultPath, themePatched, 'utf8');
+      console.log(`docz-theme-default ${themeFile} patched: footer link updated`);
+    } else {
+      console.log(`docz-theme-default ${themeFile} footer link already patched`);
+    }
+  } else {
+    console.log(`docz-theme-default ${themeFile} not found, skipping footer patch`);
+  }
+}

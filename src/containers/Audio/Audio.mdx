@@ -3,21 +3,22 @@ title: Audio
 menu: Containers
 edit: false
 ---
-# Audio 
 
-Represents the audio playback component.
-
-import { Playground, Props } from 'docz';
+import { Props } from 'docz';
 import { Provider } from 'react-redux';
 import configureStore from '../../store/main';
-import AudioDemo from './Audio.Demo';
 import Audio from './Audio';
+import AudioDemo from './Audio.demo';
+import DemoWrapper from '../../components/docs/components/DemoWrapper/DemoWrapper';
 
+# Audio component
+Represents the audio playback component.
 <Props of={Audio.WrappedComponent} />
 
-<Playground>
-  <Provider store={configureStore("https://incompetech.com/music/royalty-free/mp3-royaltyfree/Egmont%20Overture.mp3")}>
+## Audio Demo
+<DemoWrapper>
+  <Provider store={configureStore("https://webaudioapi.com/samples/audio-tag/chrono.mp3", true).store}>
     <AudioDemo />
   </Provider>
-</Playground>
+</DemoWrapper>
 

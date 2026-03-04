@@ -31,7 +31,7 @@ import CurrentTimeIndicator from './CurrentTimeIndicator';
 <Playground>
     <CurrentTimeIndicator currentTime={10 * 1000} runtime={5 * 1000}/>
     <br />
-    <CurrentTimeIndicator currentTime="not a time stamp" runtime={5 * 1000}/>
+    <CurrentTimeIndicator currentTime={NaN} runtime={5 * 1000}/>
     <br />
-    <CurrentTimeIndicator currentTime={10 * 1000}  runtime="not a time stamp"/>
+    <CurrentTimeIndicator currentTime={10 * 1000}  runtime={NaN}/>
 </Playground>
