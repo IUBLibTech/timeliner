@@ -5,8 +5,6 @@ import useEventListener from './useEventListener';
 import useInterval from './useInterval';
 import { ERROR_CODES } from '../constants/canvas';
 
-const { MediaElement } = window;
-
 export default function useMediaPlayer(elementRef, {
   url, volume, currentTime, startTime, isPlaying, isSeeked, runTime,
   setCurrentTime, finishedPlaying, seek,
@@ -20,6 +18,7 @@ export default function useMediaPlayer(elementRef, {
 
   // Bootstrap MediaElement
   useLayoutEffect(() => {
+    const { MediaElement } = window;
     const element = new MediaElement(
       elementRef.current,
       { startVolume: volume / 100, currentTime: currentTime / 1000 },

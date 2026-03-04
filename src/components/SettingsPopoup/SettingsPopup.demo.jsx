@@ -7,7 +7,7 @@ export const SettingsPopupDemo = () => {
   const [settingsJSON, setSettingsJSON] = useState(null);
   return (
     <div>
-      <Button onClick={() => setIsSettingsOpen(true)} variant="primary">
+      <Button onClick={() => setIsSettingsOpen(true)} variant="contained" color="primary">
         Open Settings
       </Button>
       <SettingsPopup

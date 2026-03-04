@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { mediaLoading, mediaLoaded, mediaError } from '../../actions/canvas';
@@ -9,7 +10,7 @@ import PictureInPicture from '@material-ui/icons/PictureInPicture';
 import useEventListener from '../../hooks/useEventListener';
 import useMediaPlayer from '../../hooks/useMediaPlayer';
 
-function Video({ url, volume, poster, ...props }) {
+function VideoPlayer({ url, volume, poster, ...props }) {
   const video = useRef();
   const lastVolume = useRef();
   const [pipButtonText, setPipButtonText] = useState('Enter Picture-in-Picture mode');
@@ -124,6 +125,38 @@ function Video({ url, volume, poster, ...props }) {
     </div>
   );
 }
+
+function Video({ url, ...props }) {
+  if (!url) {
+    return null;
+  }
+  /**
+   * Extract the <video> element into a separate component, to guard the 'useMediaPlayer' hook against
+   * being called when there is no video url, which causes errors.
+   */
+  return <VideoPlayer url={url} {...props} />;
+}
+
+
+Video.propTypes = {
+  url: PropTypes.string,
+  poster: PropTypes.string,
+  isPlaying: PropTypes.bool,
+  isSeeked: PropTypes.bool,
+  currentTime: PropTypes.number,
+  volume: PropTypes.number,
+  runTime: PropTypes.number,
+  startTime: PropTypes.number,
+  mediaLoading: PropTypes.func,
+  mediaLoaded: PropTypes.func,
+  mediaError: PropTypes.func,
+  setCurrentTime: PropTypes.func,
+  finishedPlaying: PropTypes.func,
+  play: PropTypes.func,
+  pause: PropTypes.func,
+  seek: PropTypes.func,
+  setVolume: PropTypes.func,
+};
 
 const mapStateProps = state => ({
   url: state.canvas.url,

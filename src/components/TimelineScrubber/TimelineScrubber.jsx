@@ -135,7 +135,7 @@ class TimelineScrubber extends Component {
 
     const pos = getPalletXPosition(
       80,
-      e.clientX + this.props.x,
+      e.clientX - bounds.left,
       bounds.width,
       5
     );

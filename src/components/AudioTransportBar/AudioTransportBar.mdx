@@ -10,10 +10,32 @@ import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 # Audio Transport Bar component
 <Props of={AudioTransportBar}/>
 
-## Audio Transport Bar Demo
+## Audio Transport Bar Demo (Playing)
 <DemoWrapper>
   <AudioTransportBar
     isPlaying={true}
+    currentTime={3000}
+    runTime={120000}
+    onPlay={() => {}}
+    onPause={() => {}}
+    onNextBubble={() => {}}
+    onPreviousBubble={() => {}}
+    onScrubAhead={() => {}}
+    onScrubBackwards={() => {}}
+    onAddBubble={() => {}}
+    onGroupBubble={() => {}}
+    onDeleteBubble={() => {}}
+    onAddBubble={() => {}}
+    onAddBubble={() => {}}
+    onVolumeChanged={() => {}}
+    isModalOpen={false}
+  />
+</DemoWrapper>
+
+## Audio Transport Bar Demo (Paused)
+<DemoWrapper>
+  <AudioTransportBar
+    isPlaying={false}
     currentTime={3000}
     runTime={120000}
     onPlay={() => {}}

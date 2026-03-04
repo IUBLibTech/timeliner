@@ -4,14 +4,6 @@ import Video from './Video';
 import { play, pause } from '../../actions/viewState';
 
 class VideoDemo extends Component {
-  play = () => {
-    this.props.play();
-  };
-
-  pause = () => {
-    this.props.pause();
-  };
-
   render() {
     const { loadingPercent, currentTime, runTime, isPlaying } = this.props;
     return (
@@ -21,9 +13,9 @@ class VideoDemo extends Component {
         {loadingPercent !== 100 ? (
           ''
         ) : isPlaying ? (
-          <button onClick={this.pause}>Pause</button>
+          <button onClick={this.props.pause}>Pause</button>
         ) : (
-          <button onClick={this.play}>Play</button>
+          <button onClick={this.props.play}>Play</button>
         )}
         <br />
         Loaded {loadingPercent}% - {currentTime} / {runTime}

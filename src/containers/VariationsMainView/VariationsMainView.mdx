@@ -6,18 +6,17 @@ menu: Containers
 
 The main application view 
 
-import { Playground, Props } from 'docz';
-import VariationsMainView from './VariationsMainView';
+import { Props } from 'docz';
 import { Provider } from 'react-redux';
-import DEMO_POINTS from './Metadata.Demo';
 import configureStore from '../../store/main';
-import rootReducer from '../../reducers/root';
+import VariationsMainView from './VariationsMainView';
+import DemoWrapper from '../../components/docs/components/DemoWrapper/DemoWrapper';
 
 <Props of={VariationsMainView.WrappedComponent} />
 
-<Playground>
-  <Provider store={configureStore("https://incompetech.com/music/royalty-free/mp3-royaltyfree/Egmont%20Overture.mp3")}>
-    <VariationsMainView/>
+<DemoWrapper>
+  <Provider store={configureStore('https://webaudioapi.com/samples/audio-tag/chrono.mp3', true).store}>
+    <VariationsMainView hasResource={true} />
   </Provider>
-</Playground>
+</DemoWrapper>
 
