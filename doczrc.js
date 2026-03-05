@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 export default {
   title: 'Timeliner',
@@ -7,6 +8,7 @@ export default {
   base: process.env.DOCZ_BASE || '/docs',
   dest: './dist/docs',
   src: './src',
+  wrapper: 'src/components/docs/components/DocsWrapper/DocsWrapper',
   files: '**/*.{md,markdown,mdx}',
   menu: [
     'Getting started',
@@ -50,6 +52,13 @@ export default {
       .loader('css-loader')
       .options({ sourceMap: false })
       .end();
+
+    // Expose VITE_DOCS to the docz/webpack bundle for conditional rendering in DocsWrapper
+    config
+      .plugin('define')
+      .use(webpack.DefinePlugin, [{
+        'process.env.VITE_DOCS': JSON.stringify(process.env.VITE_DOCS)
+      }]);
 
     return config;
   },
