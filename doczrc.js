@@ -2,6 +2,7 @@ const path = require('path');
 
 export default {
   title: 'Timeliner',
+  repository: "https://github.com/IUBLibTech/timeliner",
   description: 'IIIF Timeliner Documentation',
   base: process.env.DOCZ_BASE || '/docs',
   dest: './dist/docs',
