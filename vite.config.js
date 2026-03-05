@@ -28,6 +28,8 @@ export default defineConfig({
   // Fix for JSS (used by MUI)
   define: {
     global: {},
+    // Expose VITE_DOCS to the Vite bundle for conditional rendering in Footer
+    'process.env.VITE_DOCS': JSON.stringify(process.env.VITE_DOCS),
   },
 
   // Vitest options
