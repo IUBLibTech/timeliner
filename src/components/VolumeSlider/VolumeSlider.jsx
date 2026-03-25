@@ -12,7 +12,7 @@ const SPEAKER_ICON_SIZE = {
 };
 
 function VolumeSlider({ volume, onVolumeChanged }) {
-  const { containerRef, onVolumeInputChange } = useVolumeSlider(volume, onVolumeChanged);
+  const { containerRef, onVolumeInputChange, onKeyDown } = useVolumeSlider(volume, onVolumeChanged);
 
   return (
     <div
@@ -20,6 +20,7 @@ function VolumeSlider({ volume, onVolumeChanged }) {
       className="volume-slider"
       role="group"
       aria-label="Volume control"
+      onKeyDown={onKeyDown}
     >
       <VolumeDown color="disabled" style={SPEAKER_ICON_SIZE} aria-hidden="true" />
       <Slider

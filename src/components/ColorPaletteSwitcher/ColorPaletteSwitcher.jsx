@@ -46,22 +46,24 @@ const ColorPaletteSwitcher = ({ currentKey, onChange }) => {
         {Object.keys(colourPalettes).map(key => {
           const palette = colourPalettes[key];
           const isChecked = currentKey === key;
-          return (
-            <FormControlLabel
-              key={key}
-              value={key}
-              checked={isChecked}
-              control={<Radio color="primary" disableRipple />}
-              label={
-                <PalettePreview
-                  name={palette.name}
-                  colors={palette.colours}
-                />
-              }
-              labelPlacement="end"
-              className={`color-palette-switcher__option ${isChecked ? 'is-selected' : ''}`}
-            />
-          );
+          if (palette && palette.colours != undefined) {
+            return (
+              <FormControlLabel
+                key={key}
+                value={key}
+                checked={isChecked}
+                control={<Radio color="primary" disableRipple />}
+                label={
+                  <PalettePreview
+                    name={palette.name}
+                    colors={palette.colours}
+                  />
+                }
+                labelPlacement="end"
+                className={`color-palette-switcher__option ${isChecked ? 'is-selected' : ''}`}
+              />
+            );
+          }
         })}
       </RadioGroup>
     </FormControl>

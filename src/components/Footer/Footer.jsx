@@ -21,6 +21,12 @@ const Footer = () => (
       }}
     >
       <Typography variant="body1">
+        {process.env.VITE_DOCS === 'true' && (
+          <>
+            <Link href="/docs" underline="always" color="textPrimary">View Documentation</Link>
+            {' · '}
+          </>
+        )}
         <Link href="https://github.com/IUBLibTech/timeliner" underline="always" color="textPrimary">Timeliner at GitHub</Link>
       </Typography>
     </Grid>

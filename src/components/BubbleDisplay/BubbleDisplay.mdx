@@ -1,57 +1,31 @@
 ---
 title: Bubble Display
 menu: Components
+edit: false
 ---
 # Bubble display
 Handles the rendering of many bubbles and the scrubber. You need to pass a render function to use.
 
 **Still some unknowns with how this will work, and its responsibilities**
 
-import { Playground, Props } from 'docz';
+import { Props } from 'docz';
 import BubbleDisplay from './BubbleDisplay';
-import DEMO_POINTS from './BubbleDisplay.DemoPoints';
-import SingleBubble from '../SingleBubble/SingleBubble';
+import { BubbleDisplayDemo, BubbleDisplayZoomedDemo, BubbleDisplayClickDemo } from './BubbleDisplay.demo';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
-
-
-<Props of={BubbleDisplay} /> 
+<Props of={BubbleDisplay} />
 
 ## Bubble Display Demo
-<Playground>
-  <BubbleDisplay 
-    points={DEMO_POINTS}
-    width={600}
-    height={200}
-    x={0}
-    zoom={1}
-  >
-    {points=>points.map(bubble => <SingleBubble {...bubble}/>)}
-  </BubbleDisplay>
-</Playground>
+<DemoWrapper>
+  <BubbleDisplayDemo />
+</DemoWrapper>
 
 ## Bubble Display Zoomed Demo
-<Playground>
-  <BubbleDisplay 
-    points={DEMO_POINTS}
-    width={600}
-    height={200}
-    x={400}
-    zoom={2.0}
-  >
-    {points=>points.map(bubble => <SingleBubble {...bubble}/>)}
-  </BubbleDisplay>
-</Playground>
+<DemoWrapper>
+  <BubbleDisplayZoomedDemo />
+</DemoWrapper>
 
 ## Bubble Display Click Event Demo
-<Playground>
-  <BubbleDisplay 
-    points={DEMO_POINTS}
-    width={600}
-    height={200}
-    x={0}
-    zoom={1}
-  >
-    {points=>points.map(bubble => <SingleBubble {...bubble} onClick={(point, ev) => {alert(JSON.stringify(point));}}/>)}
-  </BubbleDisplay>
-</Playground>
-
+<DemoWrapper>
+  <BubbleDisplayClickDemo />
+</DemoWrapper>

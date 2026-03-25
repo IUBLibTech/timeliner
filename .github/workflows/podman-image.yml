@@ -43,7 +43,7 @@ jobs:
             ${{ runner.os }}-18-pnpm-store-
 
       - run: pnpm i --frozen-lockfile
-      - run: pnpm run build
+      - run: VITE_DOCS=true pnpm run build:all
       - run: pnpm run test
 
       # Unchanged from the original.

@@ -1,11 +1,13 @@
 ---
 title: Loading indicator
 menu: Components
+edit: false
 ---
 
-import { Playground, Props } from 'docz';
-import Component from "@reach/component-component";
+import { Props } from 'docz';
 import LoadingIndicator from './LoadingIndicator';
+import { LoadingIndicatorProgressDemo } from './LoadingIndicator.demo';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 # Loading indicator
 Displays loading progress.
@@ -14,25 +16,12 @@ Displays loading progress.
 
 ## Loading Indicator Indefinite Demo
 
-<Playground>
+<DemoWrapper>
   <LoadingIndicator />
-</Playground>
-
+</DemoWrapper>
 
 ## Loading Indicator with Current Progress Value
 
-<Playground>
-  <Component initialState={{ progress: 0 }}>
-  {({ setState, state }) => {
-    setTimeout(()=> {
-        setState({ progress: (state.progress + 1) % 100 });
-    }, 500);
-    return (
-      <div>
-        <LoadingIndicator loadingPercent={state.progress}/> 
-        {state.progress}
-      </div>
-    );
-  }}
-  </Component>
-</Playground>
+<DemoWrapper>
+  <LoadingIndicatorProgressDemo />
+</DemoWrapper>

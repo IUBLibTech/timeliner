@@ -1,29 +1,24 @@
 ---
-title: Time Picker 
+title: Time Picker
 menu: Components
+edit: false
 ---
 
-import { Playground, Props } from 'docz';
-import Component from "@reach/component-component";
-import TimePicker  from './TimePicker';
+import { Props } from 'docz';
+import TimePicker from './TimePicker';
+import { TimePickerDemo, TimePickerDemoWithRange } from './TimePicker.demo';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
 # Time Picker
 
 <Props of={TimePicker.Naked} />
 
+## Time Picker Demo
+<DemoWrapper>
+  <TimePickerDemo />
+</DemoWrapper>
 
-<Playground>
-  <Component initialState={{ currentTime: 2*60*1000 }}>
-  {({ setState, state }) => (
-    <div>
-      <TimePicker 
-        value={state.currentTime} 
-        onChange={ev=>setState({currentTime: ev.target.value})}
-        min={2*60*1000}
-        max={4.5*60*1000}
-      />
-      {state.currentTime}
-    </div>
-  )}
-  </Component>
-</Playground>
+## Time Picker Demo with Range (max = 1 hour, min = 2 minutes)
+<DemoWrapper>
+  <TimePickerDemoWithRange />
+</DemoWrapper>

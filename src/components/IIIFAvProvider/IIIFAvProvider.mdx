@@ -1,11 +1,15 @@
 ---
 title: IIIF AV Provider
 menu: Proof of concepts
+edit: false
 ---
 
 # IIIF AV Provider
 This proof of concept reads in a Presentation 3 manifest and lets you play back the audio content of it.
 
 import IIIFAvProvider from './IIIFAvProvider';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
-<IIIFAvProvider url="https://digirati-co-uk.github.io/iiif-av-bl/data/bl/01_gapless_audio.json"/>
+<DemoWrapper>
+  <IIIFAvProvider url="https://digirati-co-uk.github.io/iiif-av-bl/data/bl/01_gapless_audio.json" />
+</DemoWrapper>

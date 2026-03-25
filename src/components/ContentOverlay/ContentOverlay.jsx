@@ -18,7 +18,7 @@ const ContentOverlay = props => {
   return (
     <div className="content-overlay">
       {props.error.code ? (
-        <Dialog open={true} aria-labelledby="form-dialog-title">
+        <Dialog open={true} aria-labelledby="form-dialog-title" {...(props.DialogProps || {})}>
           <DialogTitle>We are unable to play this content</DialogTitle>
           <DialogContent>
             <DialogContentText style={{ color: 'red', marginBottom: 20 }}>

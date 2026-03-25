@@ -1,37 +1,27 @@
 ---
 title: Content Overlay
 menu: Components
+edit: false
 ---
 
-import { Playground, Props } from 'docz';
-import Component from "@reach/component-component";
+import { Props } from 'docz';
 import ContentOverlay from './ContentOverlay';
-import { ERROR_CODES } from '../../constants/canvas';
+import { ContentOverlayErrorDemo, ContentOverlayLoadingDemo } from './ContentOverlay.demo';
+import DemoWrapper from '../docs/components/DemoWrapper/DemoWrapper';
 
-# Content Overlay 
+# Content Overlay
 Error messages and loading indicators displayed using this view
 
 <Props of={ContentOverlay} />
 
 ## Content Overlay displaying Audio Error message
-<Playground>
-  <div style={{width: '100%', height: 500, position: 'relative' }}>
-    <ContentOverlay error={{ code: 1, description: ERROR_CODES.MEDIA_ERR_SRC_NOT_SUPPORTED }} audioUrl={'http://exaple.com/mp.free'} isLoaded={true} />
-  </div>
-</Playground>
+
+<DemoWrapper>
+  <ContentOverlayErrorDemo />
+</DemoWrapper>
 
 ## Content overlay displaying loading indicator
-<Playground>
-  <div style={{width: '100%', height: 500, position: 'relative' }}>
-    <Component initialState={{ progress: 0 }}>
-      {({ setState, state }) => {
-        setTimeout(()=> {
-            setState({ progress: (state.progress + 1) % 100 });
-        }, 200);
-        return (
-            <ContentOverlay error={{code:0, description: null}} isLoaded={false} loadingPercent={state.progress}/>
-        );
-      }}
-    </Component>
-  </div>
-</Playground>
+
+<DemoWrapper>
+  <ContentOverlayLoadingDemo />
+</DemoWrapper>

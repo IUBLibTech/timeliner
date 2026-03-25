@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import { connect } from 'react-redux';
 import compose from 'lodash.flow';
@@ -32,7 +33,11 @@ import { colourPalettes } from '../../config';
 
 const isOSX = navigator.userAgent.indexOf('Mac OS X') !== -1;
 
-class BubbleEditor extends React.Component {
+/**
+ * Export the BubbleEditor class directly before HOC wrapping, to allow the <Props>
+ * component in docz to access the unwrapped component and display the correct PropTypes.
+ */
+export class BubbleEditor extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -219,7 +224,7 @@ class BubbleEditor extends React.Component {
                   isPlayheadUpdating={playhead.isUpdating}
                   playheadX={playhead.x}
                   markers={this.props.markers}
-		  isModalOpen={this.props.isModalOpen}
+                  isModalOpen={this.props.isModalOpen}
                 />
               </div>
             )}
@@ -231,6 +236,7 @@ class BubbleEditor extends React.Component {
 }
 
 const mapStateProps = state => ({
+  isModalOpen: state.viewState[VIEWSTATE.IS_IMPORT_OPEN] || state.viewState[VIEWSTATE.IS_SETTINGS_OPEN],
   currentTime: state.viewState[VIEWSTATE.CURRENT_TIME],
   runTime: state.viewState[VIEWSTATE.RUNTIME],
   markers: state.markers.visible ? state.markers.list : {},
@@ -260,6 +266,49 @@ const mapDispatchToProps = {
   updateMarker,
   selectMarker,
   updateViewerWidth,
+};
+
+BubbleEditor.propTypes = {
+  // From Redux state
+  isModalOpen: PropTypes.bool,
+  currentTime: PropTypes.number,
+  runTime: PropTypes.number,
+  markers: PropTypes.object,
+  points: PropTypes.object,
+  selectedPoints: PropTypes.arrayOf(PropTypes.string),
+  zoom: PropTypes.number,
+  x: PropTypes.number,
+  viewerWidth: PropTypes.number,
+  bubbleHeight: PropTypes.number,
+  bubbleStyle: PropTypes.string,
+  showTimes: PropTypes.bool,
+  blackAndWhiteMode: PropTypes.bool,
+  backgroundColour: PropTypes.string,
+  colourPalette: PropTypes.object,
+  // From Redux dispatch
+  onUpdateTime: PropTypes.func,
+  splitRange: PropTypes.func,
+  selectRange: PropTypes.func,
+  deselectRange: PropTypes.func,
+  updateViewerWidth: PropTypes.func,
+  // From pan HOC
+  onPanStart: PropTypes.func,
+  viewport: PropTypes.shape({
+    startX: PropTypes.number,
+    x: PropTypes.number,
+  }),
+  // From dragBubbleMarker HOC
+  bubbleMarkerMovement: PropTypes.object,
+  dragStartBubbleMarker: PropTypes.func,
+  // From dragPlayhead HOC
+  playhead: PropTypes.shape({
+    isUpdating: PropTypes.bool,
+    x: PropTypes.number,
+  }),
+  dragStartPlayhead: PropTypes.func,
+  // From dragMarker HOC
+  markerMovement: PropTypes.object,
+  dragStartMarker: PropTypes.func,
 };
 
 export default compose(
