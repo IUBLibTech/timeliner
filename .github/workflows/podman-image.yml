@@ -14,19 +14,19 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Node 18 build
+    name: Node 26 build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 26
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v6
         name: Install pnpm
         with:
-          version: 9
+          version: latest
           run_install: false
 
       - name: Get pnpm store directory
@@ -34,13 +34,13 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v6
         name: Setup pnpm cache
         with:
           path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-18-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-26-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-18-pnpm-store-
+            ${{ runner.os }}-26-pnpm-store-
 
       - run: pnpm i --frozen-lockfile
       - run: VITE_DOCS=true pnpm run build:all
