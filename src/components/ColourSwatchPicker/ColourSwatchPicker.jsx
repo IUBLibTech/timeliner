@@ -99,7 +99,7 @@ class ColourSwatchPicker extends Component {
       displayColourPicker: false,
     };
     // Ref for focus management
-    this.buttonRef = React.createRef;
+    this.buttonRef = React.createRef();
   }
 
   handleClick = () => {
@@ -218,6 +218,7 @@ class ColourSwatchPicker extends Component {
           color="primary"
           onClick={this.handleClick}
           buttonRef={this.buttonRef}
+          aria-label={'Choose colour'}
         >
           <div
             className="colour-swatch-picker__option"

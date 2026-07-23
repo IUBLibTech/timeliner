@@ -153,6 +153,7 @@ class MetadataEditor extends Component {
               </InputLabel>
               <TimePicker
                 value={startTime}
+                label="Start time"
                 onChange={this.handleTimePickerChange('startTime')}
               />
             </FormControl>
@@ -164,6 +165,7 @@ class MetadataEditor extends Component {
               </InputLabel>
               <TimePicker
                 value={endTime}
+                label="End time"
                 onChange={this.handleTimePickerChange('endTime')}
               />
             </FormControl>

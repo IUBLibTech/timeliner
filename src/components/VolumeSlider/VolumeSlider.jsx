@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Slider from '@material-ui/lab/Slider';
 import VolumeDown from '@material-ui/icons/VolumeDown';
 import VolumeUp from '@material-ui/icons/VolumeUp';
-import useVolumeSlider from '../../hooks/useVolumeSlider';
+import useSliderA11y from '../../hooks/useSliderA11y';
 import './VolumeSlider.scss';
 
 const SPEAKER_ICON_SIZE = {
@@ -12,7 +12,20 @@ const SPEAKER_ICON_SIZE = {
 };
 
 function VolumeSlider({ volume, onVolumeChanged }) {
-  const { containerRef, onVolumeInputChange, onKeyDown } = useVolumeSlider(volume, onVolumeChanged);
+  const { containerRef } = useSliderA11y(volume, 'Volume', 0, 100, v => `${v} percent`);
+
+  const onVolumeInputChange = (ev, value) => {
+    if (!ev.key) {
+      // Calculate the volume based on mouse X position
+      const rect = ev.currentTarget.getBoundingClientRect();
+      const x = ev.clientX - rect.left;
+      value = (x / rect.width) * 100 || 100;
+    }
+
+    if (onVolumeChanged != undefined) {
+      onVolumeChanged(parseInt(value, 10));
+    }
+  };
 
   return (
     <div
@@ -20,7 +33,6 @@ function VolumeSlider({ volume, onVolumeChanged }) {
       className="volume-slider"
       role="group"
       aria-label="Volume control"
-      onKeyDown={onKeyDown}
     >
       <VolumeDown color="disabled" style={SPEAKER_ICON_SIZE} aria-hidden="true" />
       <Slider

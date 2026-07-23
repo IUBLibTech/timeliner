@@ -4,6 +4,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import VariationsAppBar from '../../components/VariationsAppBar/VariationsAppBar';
+import Inert from '../../components/Inert/Inert';
 import AudioTransportBar from '../../components/AudioTransportBar/AudioTransportBar';
 import ProjectMetadata from '../../components/Metadata/Metadata';
 import AudioImporter from '../../components/AudioImporter/AudioImporter';
@@ -88,6 +89,11 @@ class VariationsMainView extends React.Component {
           main: '#C797F0',
           dark: '#8b69a8',
           contrastText: '#000',
+        },
+        /* Default MUI disabled text (rgba(0,0,0,0.26)) fails WCAG's min contrast
+         against white backgroun, fix it to meet intended contrast ratio of 4.5:1. */
+        action: {
+          disabled: 'rgba(0, 0, 0, 0.6)',
         },
       },
       status: {
@@ -221,126 +227,132 @@ class VariationsMainView extends React.Component {
       noSourceLink,
       zoom,
     } = this.props;
+    const isModalOpen = this.props.isImportOpen || this.props.isSettingsOpen;
     return (
       <div className="variations-app">
         <MuiThemeProvider theme={this.theme}>
-          <VariationsAppBar
-            title={manifestLabel}
-            onImportButtonClicked={this.props.showImportModal}
-            onSettingsButtonClicked={this.props.showSettingsModal}
-            canUndo={this.props.canUndo}
-            canRedo={this.props.canRedo}
-            onRedo={this.props.onRedo}
-            onUndo={this.props.onUndo}
-            onSave={this.getOnSave()}
-            onTitleChange={() => { }}
-            hasResource={this.props.hasResource}
-            noHeader={this.props.noHeader}
-            isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
-          />
-          <div className="variations-app__content">
-            <AuthCookieService1
-              key={this.props.url}
-              resource={this.props.url}
-              service={
-                this.props.authService ? this.props.authService[0] : null
-              }
-            >
-              <BubbleEditor
-                key={'bubble--' + this.props.url}
-                isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
-              />
-              {/*
-                Render Audio player ONLY when the content is not being played as video.
-                i.e., either the Manifest is not video, or video playback is opted out via 'noVideo' prop.
-              */}
-              {this.props.url && !(this.props.isVideo && !this.props.noVideo) ? (
-                <Audio key={'audio--' + this.props.url} />
-              ) : null}
-              <AudioTransportBar
-                isPlaying={isPlaying}
-                volume={volume}
-                currentTime={currentTime}
-                runTime={runTime}
-                onVolumeChanged={this.props.setVolume}
-                onPlay={this.props.play}
-                onPause={this.props.pause}
-                onNextBubble={this.props.nextBubble}
-                onPreviousBubble={this.props.previousBubble}
-                onScrubAhead={this.props.fastForward}
-                onScrubBackwards={this.props.fastReward}
-                onAddBubble={
-                  this.isSplittingPossible() ? this.splitRange : null
+          {/* Wrap the entire subtree with <Inert> component to remove its interactive children
+            elements from the page's tab-order without having to prop-drill 'isModalOpen' to each
+            and every interactive element in the subtree. */}
+          <Inert active={isModalOpen}>
+            <VariationsAppBar
+              title={manifestLabel}
+              onImportButtonClicked={this.props.showImportModal}
+              onSettingsButtonClicked={this.props.showSettingsModal}
+              canUndo={this.props.canUndo}
+              canRedo={this.props.canRedo}
+              onRedo={this.props.onRedo}
+              onUndo={this.props.onUndo}
+              onSave={this.getOnSave()}
+              onTitleChange={() => { }}
+              hasResource={this.props.hasResource}
+              noHeader={this.props.noHeader}
+              isModalOpen={isModalOpen}
+            />
+            <div className="variations-app__content">
+              <AuthCookieService1
+                key={this.props.url}
+                resource={this.props.url}
+                service={
+                  this.props.authService ? this.props.authService[0] : null
                 }
-                onGroupBubble={
-                  selectedRanges.length > 1 &&
-                    this.isGroupingPossible(selectedRanges)
-                    ? this.props.groupSelectedRanges
-                    : null
-                }
-                onDeleteBubble={
-                  selectedRanges.length > 0 &&
-                    _points.length > 1 &&
-                    _points.length - selectedRanges.length > 0
-                    ? this.deleteRanges(selectedRanges)
-                    : null
-                }
-                onAddMarker={this.addMarker}
-                zoom={zoom}
-                zoomIn={this.props.zoomIn}
-                zoomOut={this.props.zoomOut}
-                resetZoom={this.props.resetZoom}
-                isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
-              />
-            </AuthCookieService1>
-            <div className="variations-app__metadata-editor">
-              <ProjectMetadata
-                colourPalette={colourPalette}
-                currentTime={currentTime}
-                runTime={runTime}
-                manifestLabel={manifestLabel}
-                manifestSummary={manifestSummary}
-                homepage={homepage}
-                homepageLabel={homepageLabel}
-                noSourceLink={noSourceLink}
-                ranges={_points}
-                onEdit={this.props.editMetadata}
-                rangeToEdit={rangeToEdit}
-                onUpdateRange={this.props.updateRange}
-                blackAndWhiteMode={this.props.settings[PROJECT.BLACK_N_WHITE]}
-                projectMetadataEditorOpen={this.props.showMetadataEditor}
-                onEditProjectMetadata={this.props.editProjectMetadata}
-                onSaveProjectMetadata={this.props.saveProjectMetadata}
-                onEraseButtonClicked={this.props.resetDocument}
-                canSave={!this.props.callback}
-                canErase={!this.props.callback}
-                hasResource={this.props.hasResource}
-                onSaveButtonClicked={this.props.exportDocument}
-                onCancelEditingProjectMetadata={
-                  this.props.cancelProjectMetadataEdits
-                }
-                url={this.props.url}
-                markers={this.props.markers}
-                updateMarker={this.props.updateMarker}
-                deleteMarker={this.props.deleteMarker}
-                updateProjectStatus={this.props.setProjectChanged}
-                setCurrentTime={this.props.setCurrentTime}
-                undoAll={this.props.canUndo ? this.props.undoAll : null}
-                swatch={this.props.colourPalette.colours}
-                // Enable Video playback in the timeliner
-                isVideo={!noVideo && this.props.isVideo}
-                poster={this.props.poster}
-                isModalOpen={this.props.isImportOpen || this.props.isSettingsOpen}
-              />
-              {!noFooter && <Footer />}
+              >
+                <BubbleEditor
+                  key={'bubble--' + this.props.url}
+                  isModalOpen={isModalOpen}
+                />
+                {/*
+                  Render Audio player ONLY when the content is not being played as video.
+                  i.e., either the Manifest is not video, or video playback is opted out via 'noVideo' prop.
+                */}
+                {this.props.url && !(this.props.isVideo && !this.props.noVideo) ? (
+                  <Audio key={'audio--' + this.props.url} />
+                ) : null}
+                <AudioTransportBar
+                  isPlaying={isPlaying}
+                  volume={volume}
+                  currentTime={currentTime}
+                  runTime={runTime}
+                  onVolumeChanged={this.props.setVolume}
+                  onPlay={this.props.play}
+                  onPause={this.props.pause}
+                  onNextBubble={this.props.nextBubble}
+                  onPreviousBubble={this.props.previousBubble}
+                  onScrubAhead={this.props.fastForward}
+                  onScrubBackwards={this.props.fastReward}
+                  onAddBubble={
+                    this.isSplittingPossible() ? this.splitRange : null
+                  }
+                  onGroupBubble={
+                    selectedRanges.length > 1 &&
+                      this.isGroupingPossible(selectedRanges)
+                      ? this.props.groupSelectedRanges
+                      : null
+                  }
+                  onDeleteBubble={
+                    selectedRanges.length > 0 &&
+                      _points.length > 1 &&
+                      _points.length - selectedRanges.length > 0
+                      ? this.deleteRanges(selectedRanges)
+                      : null
+                  }
+                  onAddMarker={this.addMarker}
+                  zoom={zoom}
+                  zoomIn={this.props.zoomIn}
+                  zoomOut={this.props.zoomOut}
+                  resetZoom={this.props.resetZoom}
+                  isModalOpen={isModalOpen}
+                />
+              </AuthCookieService1>
+              <div className="variations-app__metadata-editor">
+                <ProjectMetadata
+                  colourPalette={colourPalette}
+                  currentTime={currentTime}
+                  runTime={runTime}
+                  manifestLabel={manifestLabel}
+                  manifestSummary={manifestSummary}
+                  homepage={homepage}
+                  homepageLabel={homepageLabel}
+                  noSourceLink={noSourceLink}
+                  ranges={_points}
+                  onEdit={this.props.editMetadata}
+                  rangeToEdit={rangeToEdit}
+                  onUpdateRange={this.props.updateRange}
+                  blackAndWhiteMode={this.props.settings[PROJECT.BLACK_N_WHITE]}
+                  projectMetadataEditorOpen={this.props.showMetadataEditor}
+                  onEditProjectMetadata={this.props.editProjectMetadata}
+                  onSaveProjectMetadata={this.props.saveProjectMetadata}
+                  onEraseButtonClicked={this.props.resetDocument}
+                  canSave={!this.props.callback}
+                  canErase={!this.props.callback}
+                  hasResource={this.props.hasResource}
+                  onSaveButtonClicked={this.props.exportDocument}
+                  onCancelEditingProjectMetadata={
+                    this.props.cancelProjectMetadataEdits
+                  }
+                  url={this.props.url}
+                  markers={this.props.markers}
+                  updateMarker={this.props.updateMarker}
+                  deleteMarker={this.props.deleteMarker}
+                  updateProjectStatus={this.props.setProjectChanged}
+                  setCurrentTime={this.props.setCurrentTime}
+                  undoAll={this.props.canUndo ? this.props.undoAll : null}
+                  swatch={this.props.colourPalette.colours}
+                  // Enable Video playback in the timeliner
+                  isVideo={!noVideo && this.props.isVideo}
+                  poster={this.props.poster}
+                  isModalOpen={isModalOpen}
+                />
+                {!noFooter && <Footer />}
+              </div>
+              {(mediaError.code || !isLoaded) && (
+                <ContentOverlay
+                  {...{ loadingPercent, isLoaded, audioUrl }}
+                  error={mediaError}
+                />
+              )}
             </div>
-            {(mediaError.code || !isLoaded) && (
-              <ContentOverlay
-                {...{ loadingPercent, isLoaded, audioUrl }}
-                error={mediaError}
-              />
-            )}
-          </div>
+          </Inert>
           {(!hasResource || isLoaded) && (
             <AudioImporter
               open={isImportOpen}
