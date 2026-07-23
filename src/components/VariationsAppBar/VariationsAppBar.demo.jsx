@@ -10,7 +10,6 @@ export const VariationsAppBarDemo = () => {
       onUndo={noop}
       onRedo={noop}
       onSettingsButtonClicked={noop}
-      isModalOpen={false}
     />
   );
 };

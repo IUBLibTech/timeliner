@@ -47,7 +47,6 @@ export function MetadataDemo() {
       manifestSummary="An example audio recording."
       colourPalette={colourPalettes.default}
       markers={{}}
-      isModalOpen={false}
       onEdit={noop}
       onUpdateRange={noop}
       onDeleteRange={noop}

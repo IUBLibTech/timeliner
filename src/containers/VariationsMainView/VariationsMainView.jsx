@@ -247,7 +247,6 @@ class VariationsMainView extends React.Component {
               onTitleChange={() => { }}
               hasResource={this.props.hasResource}
               noHeader={this.props.noHeader}
-              isModalOpen={isModalOpen}
             />
             <div className="variations-app__content">
               <AuthCookieService1
@@ -259,7 +258,6 @@ class VariationsMainView extends React.Component {
               >
                 <BubbleEditor
                   key={'bubble--' + this.props.url}
-                  isModalOpen={isModalOpen}
                 />
                 {/*
                   Render Audio player ONLY when the content is not being played as video.
@@ -301,7 +299,6 @@ class VariationsMainView extends React.Component {
                   zoomIn={this.props.zoomIn}
                   zoomOut={this.props.zoomOut}
                   resetZoom={this.props.resetZoom}
-                  isModalOpen={isModalOpen}
                 />
               </AuthCookieService1>
               <div className="variations-app__metadata-editor">
@@ -341,7 +338,6 @@ class VariationsMainView extends React.Component {
                   // Enable Video playback in the timeliner
                   isVideo={!noVideo && this.props.isVideo}
                   poster={this.props.poster}
-                  isModalOpen={isModalOpen}
                 />
                 {!noFooter && <Footer />}
               </div>
