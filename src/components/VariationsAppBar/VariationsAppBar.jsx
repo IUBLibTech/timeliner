@@ -29,6 +29,7 @@ const VariationsAppBar = props => (
         {props.noHeader ? null : (
           <Typography
             variant="h6"
+            component="h1"
             color="inherit"
             style={{
               fontWeight: 'normal',

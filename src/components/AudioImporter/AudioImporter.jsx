@@ -132,7 +132,9 @@ class AudioImporter extends Component {
 
     return (
       <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-        <DialogTitle>Open media file</DialogTitle>
+        <DialogTitle disableTypography>
+          <Typography variant="h6" component="h1">Open media file</Typography>
+        </DialogTitle>
         <div style={{ padding: '0 20px' }}>
           <Tabs
             variant="fullWidth"
