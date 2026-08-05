@@ -248,7 +248,7 @@ class VariationsMainView extends React.Component {
               hasResource={this.props.hasResource}
               noHeader={this.props.noHeader}
             />
-            <div className="variations-app__content">
+            <div className="variations-app__content" id="main-content">
               <AuthCookieService1
                 key={this.props.url}
                 resource={this.props.url}
