@@ -25,7 +25,7 @@
     "@vitest/coverage-v8": "^2.1.9",
     "css-loader": "^4.3.0",
     "docz": "1.2.0",
-    "js-yaml": "^4.3.0",
+    "js-yaml": "^4.3.1",
     "redux-saga-test-plan": "^3.7.0",
     "sass": "^1.32.0",
     "sass-embedded": "^1.77.8",
