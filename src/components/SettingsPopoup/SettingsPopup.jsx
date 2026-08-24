@@ -25,6 +25,10 @@ import ColourSwatchPicker from '../ColourSwatchPicker/ColourSwatchPicker';
 import ColorPaletteSwitcher from '../ColorPaletteSwitcher/ColorPaletteSwitcher';
 
 import { handleFocusTrap } from '../../utils/keyboardFocusTrap';
+import { patchSliderA11y } from '../../hooks/useSliderA11y';
+
+const BUBBLE_HEIGHT_MIN = 48;
+const BUBBLE_HEIGHT_MAX = 80;
 
 export default class SettingsPopup extends React.Component {
   static propTypes = {
@@ -52,7 +56,25 @@ export default class SettingsPopup extends React.Component {
 
     // Ref for focus management
     this.previousFocusRef = null;
+    /* Container node for the bubble-height slider. This is used to patch MUI v3's
+    slider component's a11y markup using 'patchSliderA11y()' from
+    'useSliderA11y' hook. */
+    this.bubbleHeightSliderNode = null;
   }
+
+  /**
+   * Patch MUI v3's Slider element's a11y markup used for bubble height adjustment
+   * @param {Object} node slider element's React ref
+   */
+  patchBubbleHeightSliderA11y = (node) => {
+    this.bubbleHeightSliderNode = node;
+    patchSliderA11y(this.bubbleHeightSliderNode, {
+      label: 'Bubble height',
+      value: this.state.bubbleHeight,
+      min: BUBBLE_HEIGHT_MIN,
+      max: BUBBLE_HEIGHT_MAX,
+    });
+  };
 
   handleChange = (name, type) => event => {
     this.setState({
@@ -67,9 +89,20 @@ export default class SettingsPopup extends React.Component {
   };
 
   handleSliderChange = (event, value) => {
-    this.setState({
-      bubbleHeight: value,
-    });
+    /* Fix broken onChange event handler in MUI v3 Slider for mouse/touch interactions.
+    For these events, the 'value' arg passed by MUI's callback is unreliable. Therefore,
+    branch the handler based on the event type to recompute the 'value' arg from the pointer
+    position instead of using the native arg value for mouse/touch events. */
+    if (!(event.nativeEvent instanceof KeyboardEvent)) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const ratio = x / rect.width;
+      const bubbleHeight = Math.round(
+        BUBBLE_HEIGHT_MIN + ratio * (BUBBLE_HEIGHT_MAX - BUBBLE_HEIGHT_MIN)
+      );
+      value = Math.max(BUBBLE_HEIGHT_MIN, Math.min(BUBBLE_HEIGHT_MAX, bubbleHeight));
+    }
+    this.setState({ bubbleHeight: value });
   };
 
   onSaveClicked = () => {
@@ -278,16 +311,19 @@ export default class SettingsPopup extends React.Component {
                     <FormControl component="fieldset">
                       <FormLabel component="legend">Bubble Height</FormLabel>
                       <FormGroup>
-                        <Slider
-                          onChange={this.handleSliderChange}
-                          value={this.state.bubbleHeight}
-                          min={48}
-                          max={80}
-                          step={1}
-                          style={{
-                            marginTop: 14,
-                          }}
-                        />
+                        <div ref={this.patchBubbleHeightSliderA11y}>
+                          <Slider
+                            onChange={this.handleSliderChange}
+                            value={this.state.bubbleHeight}
+                            min={BUBBLE_HEIGHT_MIN}
+                            max={BUBBLE_HEIGHT_MAX}
+                            step={1}
+                            aria-label="Bubble height"
+                            style={{
+                              marginTop: 14, height: 5
+                            }}
+                          />
+                        </div>
                         <FormControlLabel
                           control={
                             <Checkbox
@@ -356,7 +392,7 @@ export default class SettingsPopup extends React.Component {
             Apply
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog >
     );
   }
 }

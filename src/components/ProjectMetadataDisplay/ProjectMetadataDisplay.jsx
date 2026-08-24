@@ -67,7 +67,6 @@ const ProjectMetadataDisplay = props => (
             variant="text"
             color="primary"
             onClick={props.onSaveButtonClicked}
-	    disabled={props.isModalOpen}
             title="Download timeline"
           >
             <CloudDownload nativeColor="#FF4081" style={{ marginRight: 20 }} />
@@ -81,7 +80,6 @@ const ProjectMetadataDisplay = props => (
             variant="text"
             color="primary"
             onClick={props.onEraseButtonClicked}
-	    disabled={props.isModalOpen}
             title="Start timeline over"
           >
             <RestorePage nativeColor="#303F9F" style={{ marginRight: 20 }} />
@@ -94,7 +92,7 @@ const ProjectMetadataDisplay = props => (
             variant="text"
             color="primary"
             onClick={props.undoAll}
-            disabled={!props.undoAll || props.isModalOpen}
+            disabled={!props.undoAll}
             title="Revert changes"
           >
             <RestorePage
@@ -122,7 +120,6 @@ ProjectMetadataDisplay.propTypes = {
   canErase: PropTypes.bool,
   canSave: PropTypes.bool,
   hasResource: PropTypes.bool,
-  isModalOpen: PropTypes.bool.isRequired,
 };
 
 export default ProjectMetadataDisplay;

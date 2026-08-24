@@ -44,8 +44,6 @@ class AudioTransportBar extends Component {
     onGroupBubble: PropTypes.func,
     /** Deletes the selected bubble */
     onDeleteBubble: PropTypes.func,
-    /** Boolean value used for disabling components when modal is open */
-    isModalOpen: PropTypes.bool.isRequired,
   };
 
   keyboardListener = e => {
@@ -113,7 +111,7 @@ class AudioTransportBar extends Component {
           <Grid item xs={4} className="audio-transport-bar__actions">
             <CurrentTimeIndicator currentTime={currentTime} runtime={runTime} />
             <PrimaryButton
-              disabled={!onAddBubble || this.props.isModalOpen}
+              disabled={!onAddBubble}
               onClick={onAddBubble}
               style={{ padding: 4 }}
               size="small"
@@ -131,7 +129,7 @@ class AudioTransportBar extends Component {
               </Tooltip>
             </PrimaryButton>
             <PrimaryButton
-              disabled={!onAddMarker || this.props.isModalOpen}
+              disabled={!onAddMarker}
               onClick={onAddMarker}
               style={{ marginLeft: 16, padding: 4 }}
               size="small"
@@ -150,7 +148,7 @@ class AudioTransportBar extends Component {
             </PrimaryButton>
 
             <PrimaryButton
-              disabled={!onGroupBubble || this.props.isModalOpen}
+              disabled={!onGroupBubble}
               onClick={onGroupBubble}
               style={{ marginLeft: 16, padding: 4 }}
               size="small"
@@ -168,7 +166,7 @@ class AudioTransportBar extends Component {
               </Tooltip>
             </PrimaryButton>
             <PrimaryButton
-              disabled={!onDeleteBubble || this.props.isModalOpen}
+              disabled={!onDeleteBubble}
               onClick={onDeleteBubble}
               style={{ marginLeft: 16, padding: 4 }}
               size="small"
@@ -188,16 +186,15 @@ class AudioTransportBar extends Component {
           </Grid>
           <Grid item xs={4}>
             <div className="audio-transport-bar__buttons">
-              <PreviousButton onClick={onPreviousBubble} disabled={this.props.isModalOpen} />
-              <SkipBackwardsButton onClick={onScrubBackwards} disabled={this.props.isModalOpen} />
+              <PreviousButton onClick={onPreviousBubble} />
+              <SkipBackwardsButton onClick={onScrubBackwards} />
               <PlayPauseButton
                 isPlaying={isPlaying}
                 onPlay={onPlay}
                 onPause={onPause}
-                disabled={this.props.isModalOpen}
               />
-              <SkipAheadButton onClick={onScrubAhead} disabled={this.props.isModalOpen} />
-              <NextButton onClick={onNextBubble} disabled={this.props.isModalOpen} />
+              <SkipAheadButton onClick={onScrubAhead} />
+              <NextButton onClick={onNextBubble} />
             </div>
           </Grid>
 
@@ -206,7 +203,6 @@ class AudioTransportBar extends Component {
               onZoomIn={this.props.zoomIn}
               onZoomOut={zoom > 1 ? this.props.zoomOut : null}
               onResetView={zoom !== 1 ? this.props.resetZoom : null}
-              disabled={this.props.isModalOpen}
             />
           </Grid>
 
@@ -215,7 +211,6 @@ class AudioTransportBar extends Component {
               flipped={true}
               volume={volume}
               onVolumeChanged={onVolumeChanged}
-              disabled={this.props.isModalOpen}
             />
           </Grid>
         </Grid>

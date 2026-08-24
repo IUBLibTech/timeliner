@@ -35,12 +35,15 @@ class TimePicker extends React.Component {
     max: PropTypes.number,
     value: PropTypes.number,
     onChange: PropTypes.func,
+    /** Accessible label describing current time picker, e.g. "Start time" */
+    label: PropTypes.string,
   };
 
   static defaultProps = {
     min: 0,
     max: TWENTY_FOUR_HOUR - 1,
     value: 0,
+    label: 'Time',
   };
 
   onChange = value =>
@@ -110,6 +113,7 @@ class TimePicker extends React.Component {
 
   render() {
     const timeParts = this.getParts();
+    const { label } = this.props;
     return (
       <span className="time-picker">
         <input
@@ -120,6 +124,7 @@ class TimePicker extends React.Component {
           onChange={this.internalFieldChange}
           value={('' + timeParts.second).padStart(2, '0')}
           onKeyDown={this.increaseDecrease}
+          aria-label={`${label} seconds`}
         />
         :
         <input
@@ -130,6 +135,7 @@ class TimePicker extends React.Component {
           onChange={this.internalFieldChange}
           value={('' + timeParts.minute).padStart(2, '0')}
           onKeyDown={this.increaseDecrease}
+          aria-label={`${label} minutes`}
         />
         :
         <input
@@ -140,6 +146,7 @@ class TimePicker extends React.Component {
           onChange={this.internalFieldChange}
           value={('' + timeParts.hour).padStart(2, '0')}
           onKeyDown={this.increaseDecrease}
+          aria-label={`${label} hours`}
         />
       </span>
     );

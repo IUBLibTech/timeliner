@@ -56,8 +56,6 @@ class TimelineScrubber extends Component {
     }),
     /** When a point is clicked */
     onClickPoint: PropTypes.func,
-    /** Boolean value used for disabling components when modal is open */
-    isModalOpen: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -161,7 +159,7 @@ class TimelineScrubber extends Component {
         ref={ref => (this.container = ref)}
         className='timeline-scrubber'
         onDoubleClick={this.handleAddPoint}
-        tabIndex={this.props.isModalOpen ? -1 : 0}
+        tabIndex={0}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onMouseMove={this.onMouseMove}

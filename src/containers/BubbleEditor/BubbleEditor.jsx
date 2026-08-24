@@ -153,7 +153,6 @@ export class BubbleEditor extends React.Component {
       selectedPoints,
       colourPalette,
       startTime,
-      isModalOpen,
     } = this.props;
 
     const timePoints = this.getTimePoints();
@@ -224,7 +223,6 @@ export class BubbleEditor extends React.Component {
                   isPlayheadUpdating={playhead.isUpdating}
                   playheadX={playhead.x}
                   markers={this.props.markers}
-                  isModalOpen={this.props.isModalOpen}
                 />
               </div>
             )}
@@ -236,7 +234,6 @@ export class BubbleEditor extends React.Component {
 }
 
 const mapStateProps = state => ({
-  isModalOpen: state.viewState[VIEWSTATE.IS_IMPORT_OPEN] || state.viewState[VIEWSTATE.IS_SETTINGS_OPEN],
   currentTime: state.viewState[VIEWSTATE.CURRENT_TIME],
   runTime: state.viewState[VIEWSTATE.RUNTIME],
   markers: state.markers.visible ? state.markers.list : {},
@@ -270,7 +267,6 @@ const mapDispatchToProps = {
 
 BubbleEditor.propTypes = {
   // From Redux state
-  isModalOpen: PropTypes.bool,
   currentTime: PropTypes.number,
   runTime: PropTypes.number,
   markers: PropTypes.object,

@@ -14,7 +14,7 @@ const FOCUSABLE_SELECTORS = [
    * @param {Boolean} isOpen modal status
    */
 export const handleFocusTrap = (event, isOpen) => {
-  if (event.key !== 'Tab' || !open) return;
+  if (event.key !== 'Tab' || !isOpen) return;
 
   // Do nothing if the DOM element does not exist
   const dialog = document.querySelector('[role="dialog"]');

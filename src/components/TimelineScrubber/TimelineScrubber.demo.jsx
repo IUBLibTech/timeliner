@@ -75,7 +75,6 @@ export const TimelineScrubberWithBubblesDemo = () => {
         currentTime={currentTime}
         timePoints={timePoints}
         onUpdateTime={setCurrentTime}
-        isModalOpen={false}
         width={editorWidth}
       />
     </div>
